@@ -1,0 +1,39 @@
+# Xcode and Swift Package Manager
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+
+# Build products and archives
+build/
+*.ipa
+*.dSYM/
+*.dSYM.zip
+*.xcarchive/
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.cer
+*.mobileprovision
+*.key
+*.pem
+secrets.*
+
+# Operating systems and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local scratch space and generated deliverables
+work/
+outputs/
