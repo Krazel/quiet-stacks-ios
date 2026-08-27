@@ -10,6 +10,14 @@ final class PersistenceTests: XCTestCase {
         let snapshot = WorldSnapshot(
             revision: 9,
             books: books,
+            stacks: [StackState(
+                id: StackID(rawValue: "leaf"),
+                pose: WorldPose(point: WorldPoint(x: 320, y: 180), rotation: 0.1),
+                labelToken: "leaf"
+            )],
+            cart: CartState(
+                pose: WorldPose(point: WorldPoint(x: 500, y: 210), rotation: -0.05)
+            ),
             camera: CameraAnchor(
                 center: WorldPoint(x: 850, y: 410),
                 zoom: 2.25,

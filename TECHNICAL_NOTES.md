@@ -27,10 +27,12 @@ modules. Moving a book changes only its semantic location. Progress, occupancy,
 validation, and before/after states are computed from data, so they do not
 require alternate background images or enumerated scene variants.
 
-The versioned snapshot persists book identity and location plus the camera
-anchor needed for spatial continuity. It can be encoded after every committed
-move. The file adapter writes atomically; the app shell must decide when to
-schedule writes and must surface recovery failure rather than silently reset.
+The versioned snapshot persists book identity and semantic location, floor
+rotation, stack anchors, cart pose, and the camera anchor needed for spatial
+continuity. It can be encoded after every committed move. The current file
+adapter writes atomically; verified backup, journal replay, and recovery-tray
+migration remain acceptance work for the tactile prototype and must surface
+failure rather than silently reset.
 
 ## Interaction contract for the one-room tactile prototype
 
@@ -47,9 +49,10 @@ schedule writes and must surface recovery failure rather than silently reset.
   stack without changing book identity.
 - Every committed move returns a transaction containing all changed books; undo
   restores it exactly.
-- Shelf validation reports section, series, and volume errors separately. A
-  future renderer must communicate results with symbol/shape, motion, sound, and
-  haptics as well as color.
+- Shelf validation allows complete series blocks in any relative order, while
+  rejecting split series and invalid volume order. A future renderer must
+  communicate results with symbol/shape, motion, sound, and haptics as well as
+  color.
 
 The minimum tactile test is one provisional room with 60 generated books, three
 rows, a five-slot cart, and temporary stacks. It validates pan, pinch, drag,

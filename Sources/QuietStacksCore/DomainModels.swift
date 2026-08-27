@@ -86,6 +86,16 @@ public struct WorldPoint: Codable, Hashable, Sendable {
     }
 }
 
+public struct WorldPose: Codable, Hashable, Sendable {
+    public var point: WorldPoint
+    public var rotation: Double
+
+    public init(point: WorldPoint, rotation: Double = 0) {
+        self.point = point
+        self.rotation = rotation
+    }
+}
+
 public struct ShelfSlotID: Codable, Hashable, Sendable {
     public let row: ShelfRowID
     public let index: Int
@@ -107,7 +117,7 @@ public struct StackPlacement: Codable, Hashable, Sendable {
 }
 
 public enum BookLocation: Codable, Hashable, Sendable {
-    case world(point: WorldPoint, layer: Int)
+    case world(pose: WorldPose, layer: Int)
     case stack(StackPlacement)
     case cart(slot: Int)
     case shelf(ShelfSlotID)
@@ -119,6 +129,26 @@ public enum BookLocation: Codable, Hashable, Sendable {
         case .stack, .cart, .shelf:
             return true
         }
+    }
+}
+
+public struct StackState: Codable, Hashable, Sendable {
+    public let id: StackID
+    public var pose: WorldPose
+    public var labelToken: String?
+
+    public init(id: StackID, pose: WorldPose, labelToken: String? = nil) {
+        self.id = id
+        self.pose = pose
+        self.labelToken = labelToken
+    }
+}
+
+public struct CartState: Codable, Hashable, Sendable {
+    public var pose: WorldPose
+
+    public init(pose: WorldPose) {
+        self.pose = pose
     }
 }
 
@@ -202,17 +232,23 @@ public struct WorldSnapshot: Codable, Hashable, Sendable {
     public let schemaVersion: Int
     public let revision: Int
     public let books: [BookRecord]
+    public let stacks: [StackState]
+    public let cart: CartState
     public let camera: CameraAnchor
 
     public init(
         schemaVersion: Int = SnapshotSchema.currentVersion,
         revision: Int,
         books: [BookRecord],
+        stacks: [StackState] = [],
+        cart: CartState = CartState(pose: WorldPose(point: WorldPoint(x: 0, y: 0))),
         camera: CameraAnchor
     ) {
         self.schemaVersion = schemaVersion
         self.revision = revision
         self.books = books.sorted { $0.descriptor.id < $1.descriptor.id }
+        self.stacks = stacks.sorted { $0.id < $1.id }
+        self.cart = cart
         self.camera = camera
     }
 }

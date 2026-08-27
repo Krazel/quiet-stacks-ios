@@ -25,6 +25,8 @@ public struct SnapshotCodec: Sendable {
             schemaVersion: snapshot.schemaVersion,
             revision: snapshot.revision,
             books: snapshot.books,
+            stacks: snapshot.stacks,
+            cart: snapshot.cart,
             camera: snapshot.camera
         )
     }

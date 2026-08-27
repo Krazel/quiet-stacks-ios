@@ -40,6 +40,8 @@ public struct MoveTransaction: Codable, Hashable, Sendable {
 public struct WorldState: Sendable {
     public private(set) var revision: Int
     public private(set) var camera: CameraAnchor
+    public private(set) var stacks: [StackState]
+    public private(set) var cart: CartState
     private var recordsByID: [BookID: BookRecord]
 
     public init(snapshot: WorldSnapshot) throws {
@@ -62,6 +64,8 @@ public struct WorldState: Sendable {
 
         self.revision = snapshot.revision
         self.camera = snapshot.camera
+        self.stacks = snapshot.stacks
+        self.cart = snapshot.cart
         self.recordsByID = recordsByID
     }
 
@@ -74,7 +78,13 @@ public struct WorldState: Sendable {
     }
 
     public func snapshot() -> WorldSnapshot {
-        WorldSnapshot(revision: revision, books: books, camera: camera)
+        WorldSnapshot(
+            revision: revision,
+            books: books,
+            stacks: stacks,
+            cart: cart,
+            camera: camera
+        )
     }
 
     public mutating func updateCamera(_ anchor: CameraAnchor) {

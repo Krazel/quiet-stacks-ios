@@ -3,18 +3,18 @@ import Foundation
 public struct ShelfRule: Codable, Hashable, Sendable {
     public let row: ShelfRowID
     public let expectedSection: SectionID
-    public let seriesOrder: [SeriesID]
+    public let allowedSeries: [SeriesID]
     public let requiresConsecutiveVolumes: Bool
 
     public init(
         row: ShelfRowID,
         expectedSection: SectionID,
-        seriesOrder: [SeriesID],
+        allowedSeries: [SeriesID],
         requiresConsecutiveVolumes: Bool = true
     ) {
         self.row = row
         self.expectedSection = expectedSection
-        self.seriesOrder = seriesOrder
+        self.allowedSeries = allowedSeries
         self.requiresConsecutiveVolumes = requiresConsecutiveVolumes
     }
 }
@@ -22,7 +22,7 @@ public struct ShelfRule: Codable, Hashable, Sendable {
 public enum ShelfValidationIssue: Codable, Hashable, Sendable {
     case wrongSection(book: BookID, expected: SectionID, actual: SectionID)
     case unknownSeries(book: BookID, series: SeriesID)
-    case seriesOutOfOrder(previous: BookID, current: BookID)
+    case splitSeries(series: SeriesID, book: BookID)
     case volumeOutOfOrder(previous: BookID, current: BookID)
     case duplicateVolume(series: SeriesID, volume: Int)
     case missingVolume(series: SeriesID, expected: Int, actual: Int)
@@ -58,9 +58,7 @@ public enum ShelfValidator {
             return lhs.1.descriptor.id < rhs.1.descriptor.id
         }
 
-        let seriesRanks = Dictionary(
-            uniqueKeysWithValues: rule.seriesOrder.enumerated().map { ($0.element, $0.offset) }
-        )
+        let allowedSeries = Set(rule.allowedSeries)
         var issues: [ShelfValidationIssue] = []
         var seenVolumes: [SeriesID: Set<Int>] = [:]
 
@@ -73,7 +71,7 @@ public enum ShelfValidator {
                     actual: book.section
                 ))
             }
-            if seriesRanks[book.series] == nil {
+            if !allowedSeries.contains(book.series) {
                 issues.append(.unknownSeries(book: book.id, series: book.series))
             }
             if seenVolumes[book.series, default: []].contains(book.volume) {
@@ -82,29 +80,29 @@ public enum ShelfValidator {
             seenVolumes[book.series, default: []].insert(book.volume)
         }
 
-        for pair in zip(placements, placements.dropFirst()) {
-            let previous = pair.0.1.descriptor
-            let current = pair.1.1.descriptor
-            guard let previousRank = seriesRanks[previous.series],
-                  let currentRank = seriesRanks[current.series] else {
-                continue
+        var closedSeries: Set<SeriesID> = []
+        var previous: BookDescriptor?
+        for (_, record) in placements {
+            let current = record.descriptor
+            if let previous, previous.series != current.series {
+                closedSeries.insert(previous.series)
+                if closedSeries.contains(current.series) {
+                    issues.append(.splitSeries(series: current.series, book: current.id))
+                }
             }
 
-            if currentRank < previousRank {
-                issues.append(.seriesOutOfOrder(previous: previous.id, current: current.id))
-                continue
+            if let previous, previous.series == current.series {
+                if current.volume <= previous.volume {
+                    issues.append(.volumeOutOfOrder(previous: previous.id, current: current.id))
+                } else if rule.requiresConsecutiveVolumes && current.volume != previous.volume + 1 {
+                    issues.append(.missingVolume(
+                        series: current.series,
+                        expected: previous.volume + 1,
+                        actual: current.volume
+                    ))
+                }
             }
-
-            guard previous.series == current.series else { continue }
-            if current.volume <= previous.volume {
-                issues.append(.volumeOutOfOrder(previous: previous.id, current: current.id))
-            } else if rule.requiresConsecutiveVolumes && current.volume != previous.volume + 1 {
-                issues.append(.missingVolume(
-                    series: current.series,
-                    expected: previous.volume + 1,
-                    actual: current.volume
-                ))
-            }
+            previous = current
         }
 
         return ShelfValidationReport(

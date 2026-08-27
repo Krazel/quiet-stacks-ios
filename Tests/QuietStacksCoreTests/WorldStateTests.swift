@@ -6,7 +6,10 @@ final class WorldStateTests: XCTestCase {
         let book = makeBook(
             "book-1",
             volume: 1,
-            location: .world(point: WorldPoint(x: 20, y: 30), layer: 0)
+            location: .world(
+                pose: WorldPose(point: WorldPoint(x: 20, y: 30), rotation: 0.2),
+                layer: 0
+            )
         )
         var session = WorldSession(state: try WorldState(snapshot: makeSnapshot(books: [book])))
         let target = BookLocation.cart(slot: 2)

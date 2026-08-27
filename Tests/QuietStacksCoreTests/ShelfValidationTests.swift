@@ -13,7 +13,7 @@ final class ShelfValidationTests: XCTestCase {
         let rule = ShelfRule(
             row: row,
             expectedSection: SectionID(rawValue: "literature"),
-            seriesOrder: [SeriesID(rawValue: "oak"), SeriesID(rawValue: "river")]
+            allowedSeries: [SeriesID(rawValue: "oak"), SeriesID(rawValue: "river")]
         )
 
         let report = ShelfValidator.validate(rule: rule, books: books)
@@ -37,7 +37,7 @@ final class ShelfValidationTests: XCTestCase {
         let rule = ShelfRule(
             row: row,
             expectedSection: SectionID(rawValue: "literature"),
-            seriesOrder: [SeriesID(rawValue: "oak")]
+            allowedSeries: [SeriesID(rawValue: "oak")]
         )
 
         let report = ShelfValidator.validate(rule: rule, books: books)
@@ -59,27 +59,44 @@ final class ShelfValidationTests: XCTestCase {
         )))
     }
 
-    func testReportsSeriesAndVolumeOrderIndependently() {
+    func testAllowsSeriesBlocksInEitherOrderAndReportsSplitSeriesAndVolumeOrder() {
         let books = [
             makeBook("river", series: "river", volume: 1, location: .shelf(.init(row: row, index: 0))),
             makeBook("oak2", series: "oak", volume: 2, location: .shelf(.init(row: row, index: 1))),
-            makeBook("oak1", series: "oak", volume: 1, location: .shelf(.init(row: row, index: 2)))
+            makeBook("river2", series: "river", volume: 2, location: .shelf(.init(row: row, index: 2))),
+            makeBook("oak1", series: "oak", volume: 1, location: .shelf(.init(row: row, index: 3)))
         ]
         let rule = ShelfRule(
             row: row,
             expectedSection: SectionID(rawValue: "literature"),
-            seriesOrder: [SeriesID(rawValue: "oak"), SeriesID(rawValue: "river")]
+            allowedSeries: [SeriesID(rawValue: "oak"), SeriesID(rawValue: "river")]
         )
 
         let report = ShelfValidator.validate(rule: rule, books: books)
 
-        XCTAssertTrue(report.issues.contains(.seriesOutOfOrder(
-            previous: BookID(rawValue: "river"),
-            current: BookID(rawValue: "oak2")
+        XCTAssertTrue(report.issues.contains(.splitSeries(
+            series: SeriesID(rawValue: "river"),
+            book: BookID(rawValue: "river2")
         )))
         XCTAssertTrue(report.issues.contains(.volumeOutOfOrder(
             previous: BookID(rawValue: "oak2"),
             current: BookID(rawValue: "oak1")
         )))
+    }
+
+    func testAcceptsCompleteSeriesBlocksInFreeRelativeOrder() {
+        let books = [
+            makeBook("river1", series: "river", volume: 1, location: .shelf(.init(row: row, index: 0))),
+            makeBook("river2", series: "river", volume: 2, location: .shelf(.init(row: row, index: 1))),
+            makeBook("oak1", series: "oak", volume: 1, location: .shelf(.init(row: row, index: 2))),
+            makeBook("oak2", series: "oak", volume: 2, location: .shelf(.init(row: row, index: 3)))
+        ]
+        let rule = ShelfRule(
+            row: row,
+            expectedSection: SectionID(rawValue: "literature"),
+            allowedSeries: [SeriesID(rawValue: "oak"), SeriesID(rawValue: "river")]
+        )
+
+        XCTAssertTrue(ShelfValidator.validate(rule: rule, books: books).isValid)
     }
 }
