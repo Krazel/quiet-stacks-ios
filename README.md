@@ -1,5 +1,12 @@
 # Quiet Stacks
 
+Current playable version: [web demo 0.16.0 and iOS sideload wrapper](web-demo/README.md).
+The manual **Quiet Stacks sideload IPA** workflow builds the offline device package.
+
+## Historical Swift prototype
+
+The description below documents the original prototype; the current game lives in `web-demo/`.
+
 Quiet Stacks is a new 2D iPhone game about restoring one monumental, persistent
 library by sorting every misplaced book. The player explores a world larger
 than the viewport, creates temporary stacks, uses a cart, and chooses their own

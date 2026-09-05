@@ -1,0 +1,8 @@
+node_modules/
+dist/
+local-data/
+artifacts/*.log
+*.tmp
+ios/web/
+artifacts/ios/
+

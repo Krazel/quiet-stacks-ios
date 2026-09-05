@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#17120e"><meta name="description" content="A little playable corner of a warm, wonderfully untidy library."><title>Quiet Stacks · The Grand Gallery</title><link rel="icon" href="icon.svg"><link rel="stylesheet" href="gallery.css"></head>
+<body><main id="gallery" aria-label="Interactive library">
+<canvas id="scene" tabindex="0" aria-label="Library. Drag empty space to move; pinch or scroll to zoom. Drag a book to move it. Tap a book to read its details."></canvas>
+<header class="panel brand"><span class="seal" aria-hidden="true">✧</span><div><h1>Quiet Stacks</h1><p>The Grand Gallery <span class="demo">DEMO</span></p></div></header>
+<aside class="panel map-panel" aria-label="View controls"><div class="zoom-row"><button id="minus" aria-label="Zoom out">−</button><button id="home" title="Show the whole room">100%</button><button id="plus" aria-label="Zoom in">+</button></div></aside>
+<aside class="demo-controls" aria-label="Demo controls"><button id="demo-toggle" aria-expanded="false" aria-controls="demo-actions">Demo ▾</button><div id="demo-actions" class="panel" hidden><button id="demo-sort">Sort all</button><button id="demo-scatter">Scatter all</button></div></aside>
+<p id="notice" class="quiet" role="status" aria-live="polite"></p>
+<footer><section id="selection" class="panel selection" hidden><canvas id="cover" class="cover" width="100" height="140" aria-hidden="true"></canvas><div class="selection-copy"><strong id="selected-title">Astral Charts</strong><span id="selected-detail"></span><div id="cart-section" hidden><span id="cart-label"></span><div id="cart-items" aria-label="Books on the trolley"></div></div></div></section></footer>
+<div id="loading" class="loading"><div class="panel"><span class="loading-star">✦</span><h2>Opening the gallery…</h2><p>A quiet moment among the books.</p><button id="retry" hidden>Try again</button></div></div>
+</main>
+<aside id="inspection" class="panel inspection" aria-label="Selected book" hidden>
+<button id="inspect-close" class="inspect-close" aria-label="Close book details">×</button>
+<p id="inspect-type" class="eyebrow"></p><canvas id="inspection-cover" width="220" height="260" aria-label="Book front cover"></canvas>
+<h2 id="inspect-title"></h2><p id="inspect-author"></p>
+<dl><dt>Bookcase</dt><dd id="inspect-category"></dd><dt>Collection</dt><dd id="inspect-collection"></dd><dt>Volume</dt><dd id="inspect-volume"></dd></dl><p id="inspect-edition" class="subtle"></p>
+<button id="inspect-pickup">Pick up & place</button></aside>
+<noscript>This library needs JavaScript to play.</noscript><script src="js/gallery-model.js"></script><script src="js/gallery-room.js"></script><script src="js/gallery-textures.js"></script><script src="js/gallery-volumes.js"></script><script src="js/gallery.js"></script></body></html>
