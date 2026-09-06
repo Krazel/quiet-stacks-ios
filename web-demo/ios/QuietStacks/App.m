@@ -32,7 +32,7 @@
 @property(nonatomic, strong) UIView *loadingPanel;
 @property(nonatomic, strong) UILabel *loadingLabel;
 @property(nonatomic, strong) UIButton *retryButton;
-@property(nonatomic, strong) UIButton *copyButton;
+@property(nonatomic, strong) UIButton *diagnosticCopyButton;
 @property(nonatomic, strong) UITextView *diagnosticView;
 @property(nonatomic, strong) NSMutableArray *diagnosticEvents;
 @property(nonatomic, strong) NSDictionary *firstFailure;
@@ -83,10 +83,10 @@
     self.loadingPanel=[UIView new];self.loadingPanel.backgroundColor=self.view.backgroundColor;self.loadingPanel.translatesAutoresizingMaskIntoConstraints=NO;
     self.loadingLabel=[UILabel new];self.loadingLabel.textColor=[UIColor colorWithRed:0.88 green:0.75 blue:0.51 alpha:1];self.loadingLabel.font=[UIFont systemFontOfSize:20 weight:UIFontWeightMedium];self.loadingLabel.numberOfLines=0;self.loadingLabel.textAlignment=NSTextAlignmentCenter;
     self.retryButton=[UIButton buttonWithType:UIButtonTypeSystem];[self.retryButton setTitle:@"Reload gallery" forState:UIControlStateNormal];self.retryButton.tintColor=self.loadingLabel.textColor;[self.retryButton addTarget:self action:@selector(loadGallery) forControlEvents:UIControlEventTouchUpInside];
-    self.copyButton=[UIButton buttonWithType:UIButtonTypeSystem];[self.copyButton setTitle:@"Copy diagnostic" forState:UIControlStateNormal];self.copyButton.tintColor=self.loadingLabel.textColor;[self.copyButton addTarget:self action:@selector(copyDiagnostic) forControlEvents:UIControlEventTouchUpInside];
+    self.diagnosticCopyButton=[UIButton buttonWithType:UIButtonTypeSystem];[self.diagnosticCopyButton setTitle:@"Copy diagnostic" forState:UIControlStateNormal];self.diagnosticCopyButton.tintColor=self.loadingLabel.textColor;[self.diagnosticCopyButton addTarget:self action:@selector(exportDiagnosticToClipboard) forControlEvents:UIControlEventTouchUpInside];
     self.diagnosticView=[UITextView new];self.diagnosticView.editable=NO;self.diagnosticView.selectable=YES;self.diagnosticView.backgroundColor=[UIColor colorWithWhite:0.08 alpha:1];self.diagnosticView.textColor=[UIColor colorWithWhite:0.9 alpha:1];self.diagnosticView.font=[UIFont monospacedSystemFontOfSize:12 weight:UIFontWeightRegular];
     [self.diagnosticView.heightAnchor constraintEqualToConstant:116].active=YES;
-    UIStackView *actions=[[UIStackView alloc] initWithArrangedSubviews:@[self.copyButton,self.retryButton]];actions.axis=UILayoutConstraintAxisHorizontal;actions.spacing=24;actions.distribution=UIStackViewDistributionFillEqually;
+    UIStackView *actions=[[UIStackView alloc] initWithArrangedSubviews:@[self.diagnosticCopyButton,self.retryButton]];actions.axis=UILayoutConstraintAxisHorizontal;actions.spacing=24;actions.distribution=UIStackViewDistributionFillEqually;
     [actions.heightAnchor constraintGreaterThanOrEqualToConstant:44].active=YES;
     UIStackView *stack=[[UIStackView alloc] initWithArrangedSubviews:@[self.loadingLabel,self.diagnosticView,actions]];stack.axis=UILayoutConstraintAxisVertical;stack.spacing=12;stack.translatesAutoresizingMaskIntoConstraints=NO;
     [self.view addSubview:self.loadingPanel];[self.loadingPanel addSubview:stack];
@@ -95,8 +95,8 @@
 }
 - (void)loadGallery {
     self.galleryReady=NO;self.firstFailure=nil;self.diagnosticEvents=[NSMutableArray new];self.launchTime=NSProcessInfo.processInfo.systemUptime;self.memoryWarnings=0;self.processTerminations=0;
-    self.loadingPanel.hidden=NO;self.loadingLabel.text=@"Opening the gallery…";self.retryButton.hidden=YES;self.copyButton.hidden=YES;self.diagnosticView.hidden=YES;
-    [self.copyButton setTitle:@"Copy diagnostic" forState:UIControlStateNormal];
+    self.loadingPanel.hidden=NO;self.loadingLabel.text=@"Opening the gallery…";self.retryButton.hidden=YES;self.diagnosticCopyButton.hidden=YES;self.diagnosticView.hidden=YES;
+    [self.diagnosticCopyButton setTitle:@"Copy diagnostic" forState:UIControlStateNormal];
     NSInteger generation=++self.launchGeneration;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"quietstacks://localhost/index.html"]]];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,45*NSEC_PER_SEC),dispatch_get_main_queue(),^{if(generation==self.launchGeneration&&!self.galleryReady&&!self.firstFailure)[self failWithKind:@"startup-timeout" details:@{@"message":@"No rendered frame after 45 seconds"}];});
@@ -111,17 +111,17 @@
     NSDictionary *report=@{@"app":@"Quiet Stacks",@"version":[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @"unknown",@"build":[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"] ?: @"unknown",@"iOS":UIDevice.currentDevice.systemVersion,@"hardware":[NSString stringWithUTF8String:hardware.machine],@"firstFailure":self.firstFailure,@"memoryWarnings":@(self.memoryWarnings),@"processTerminations":@(self.processTerminations),@"events":[self.diagnosticEvents copy]};
     NSData *json=[NSJSONSerialization dataWithJSONObject:report options:NSJSONWritingPrettyPrinted error:nil];self.diagnosticReport=[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
     NSString *directory=NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject;[json writeToFile:[directory stringByAppendingPathComponent:@"gallery-last-diagnostic.json"] atomically:YES];
-    self.galleryReady=NO;self.loadingPanel.hidden=NO;self.loadingLabel.text=[NSString stringWithFormat:@"The gallery could not stay open.\n%@",self.firstFailure[@"kind"]];self.retryButton.hidden=NO;self.copyButton.hidden=NO;self.diagnosticView.hidden=NO;self.diagnosticView.text=self.diagnosticReport;
+    self.galleryReady=NO;self.loadingPanel.hidden=NO;self.loadingLabel.text=[NSString stringWithFormat:@"The gallery could not stay open.\n%@",self.firstFailure[@"kind"]];self.retryButton.hidden=NO;self.diagnosticCopyButton.hidden=NO;self.diagnosticView.hidden=NO;self.diagnosticView.text=self.diagnosticReport;
 #if TARGET_OS_SIMULATOR
     if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-diagnostic-smoke"]&&[self.firstFailure[@"message"] isEqual:@"QUIET_STACKS_DIAGNOSTIC_PROBE"]){
-        [self.copyButton sendActionsForControlEvents:UIControlEventTouchUpInside];
-        NSDictionary *probe=@{@"report":report,@"copyVerified":@([UIPasteboard.generalPasteboard.string isEqualToString:self.diagnosticReport]),@"overlayVisible":@(!self.loadingPanel.hidden&&!self.copyButton.hidden&&!self.diagnosticView.hidden)};
+        [self.diagnosticCopyButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        NSDictionary *probe=@{@"report":report,@"copyVerified":@([UIPasteboard.generalPasteboard.string isEqualToString:self.diagnosticReport]),@"overlayVisible":@(!self.loadingPanel.hidden&&!self.diagnosticCopyButton.hidden&&!self.diagnosticView.hidden)};
         NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;[[NSJSONSerialization dataWithJSONObject:probe options:NSJSONWritingPrettyPrinted error:nil] writeToFile:[documents stringByAppendingPathComponent:@"gallery-diagnostic-probe.json"] atomically:YES];
     }
 #endif
 }
-- (void)copyDiagnostic {
-    if(self.diagnosticReport.length){UIPasteboard.generalPasteboard.string=self.diagnosticReport;[self.copyButton setTitle:@"Diagnostic copied" forState:UIControlStateNormal];}
+- (void)exportDiagnosticToClipboard {
+    if(self.diagnosticReport.length){UIPasteboard.generalPasteboard.string=self.diagnosticReport;[self.diagnosticCopyButton setTitle:@"Diagnostic copied" forState:UIControlStateNormal];}
 }
 - (void)userContentController:(WKUserContentController *)controller didReceiveScriptMessage:(WKScriptMessage *)message {
     if(!message.frameInfo.isMainFrame)return;
