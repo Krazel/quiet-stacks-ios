@@ -10,6 +10,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:23/255.0 green:18/255.0 blue:14/255.0 alpha:1];
     WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
+#if TARGET_OS_SIMULATOR
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-smoke"]) {
+        NSString *diagnostics = @"window.__galleryErrors=[];const originalError=console.error;console.error=(...a)=>{window.__galleryErrors.push(a.map(String).join(' '));originalError.apply(console,a);};window.addEventListener('error',e=>window.__galleryErrors.push(e.message));";
+        [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:diagnostics injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
+        [self performSelector:@selector(pollSmoke) withObject:nil afterDelay:1];
+    }
+#endif
     configuration.websiteDataStore = WKWebsiteDataStore.defaultDataStore;
     self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     self.webView.navigationDelegate = self;
@@ -31,6 +38,16 @@
     NSURL *root = [NSBundle.mainBundle.resourceURL URLByAppendingPathComponent:@"web" isDirectory:YES];
     [self.webView loadFileURL:[root URLByAppendingPathComponent:@"index.html"] allowingReadAccessToURL:root];
 }
+#if TARGET_OS_SIMULATOR
+- (void)pollSmoke {
+    NSString *script = @"JSON.stringify({ready:document.getElementById('loading')?.hidden===true,title:document.querySelector('#loading h2')?.textContent,errors:window.__galleryErrors||[],url:location.href,canvas:[document.getElementById('scene')?.width,document.getElementById('scene')?.height]})";
+    [self.webView evaluateJavaScript:script completionHandler:^(id value, NSError *error) {
+        NSString *directory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+        if ([value isKindOfClass:NSString.class]) [value writeToFile:[directory stringByAppendingPathComponent:@"gallery-smoke.json"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+        [self performSelector:@selector(pollSmoke) withObject:nil afterDelay:1];
+    }];
+}
+#endif
 - (BOOL)prefersStatusBarHidden { return YES; }
 - (BOOL)prefersHomeIndicatorAutoHidden { return YES; }
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)action decisionHandler:(void (^)(WKNavigationActionPolicy))handler {
