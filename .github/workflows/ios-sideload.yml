@@ -21,7 +21,7 @@ jobs:
         run: bash scripts/build-ios.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: QuietStacks-0.16.0-build1-${{ github.sha }}-Local-QA
+          name: QuietStacks-0.16.1-build1-${{ github.sha }}-Local-QA
           path: web-demo/artifacts/ios/
           if-no-files-found: error
           retention-days: 14

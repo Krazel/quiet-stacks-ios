@@ -31,7 +31,7 @@ import json, os, sys
 out, ipa, version, build, commit = sys.argv[1:]
 data = dict(app='Quiet Stacks', version=version, build=build, commit=commit,
     purpose='Local-QA', signing='Unsigned; re-sign with sideload installer',
-    bundleId='com.krazel.quietstacks.webdemo', minimumIOS='16.0', artifact=ipa,
+    bundleId='com.krazel.quietstacks', minimumIOS='16.0', artifact=ipa,
     deviceTested=False, ciRun=os.environ.get('GITHUB_RUN_ID'))
 with open(os.path.join(out, 'manifest.json'), 'w') as f: json.dump(data, f, indent=2)
 PY

@@ -22,6 +22,17 @@ function clearMatte(data,width,height,blackMatte=false){
   }
   return data;
 }
-function importAtlas(image,blackMatte=false){const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;const context=c.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0);const pixels=context.getImageData(0,0,c.width,c.height);clearMatte(pixels.data,c.width,c.height,blackMatte);context.putImageData(pixels,0,0);return c;}
+function importAtlas(image,blackMatte=false){
+  const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;
+  try {
+    const context=c.getContext('2d',{willReadFrequently:true});
+    if(!context)throw new Error('Texture canvas memory is unavailable');
+    context.drawImage(image,0,0);const pixels=context.getImageData(0,0,c.width,c.height);
+    clearMatte(pixels.data,c.width,c.height,blackMatte);context.putImageData(pixels,0,0);
+    // Keep the original resolution without retaining a canvas for every atlas.
+    if(typeof root.createImageBitmap==='function')return root.createImageBitmap(c).finally(()=>{c.width=0;c.height=0;});
+    return c;
+  }catch(error){c.width=0;c.height=0;throw error;}
+}
 const api={clearMatte,importAtlas};if(typeof module!=='undefined')module.exports=api;root.GalleryTextures=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

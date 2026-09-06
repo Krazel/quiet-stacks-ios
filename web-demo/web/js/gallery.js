@@ -87,7 +87,54 @@
   }
   const imageLoaded=()=>{loadedImages++;if(loadedImages<11+collectionImages.length+volumeImages.length)return;room=GalleryRoom.compose(background,repairImage);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();};
   const imageError=(error)=>{console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
-  function loadAssets(){ready=false;loadedImages=0;background.onload=imageLoaded;atlasImage.onload=()=>{try{atlas=GalleryTextures.importAtlas(atlasImage);imageLoaded();}catch(error){imageError(error);}};floorImage.onload=()=>{try{floorAtlas=GalleryTextures.importAtlas(floorImage);imageLoaded();}catch(error){imageError(error);}};directionsImage.onload=()=>{try{directionsAtlas=GalleryTextures.importAtlas(directionsImage);imageLoaded();}catch(error){imageError(error);}};background.onerror=imageError;atlasImage.onerror=imageError;floorImage.onerror=imageError;directionsImage.onerror=imageError;turnImage.onload=()=>{try{turnAtlas=GalleryTextures.importAtlas(turnImage);imageLoaded();}catch(error){imageError(error);}};turnImage.onerror=imageError;bindingImages.forEach((img,i)=>{img.onload=()=>{try{bindingAtlases[i]=GalleryTextures.importAtlas(img);imageLoaded();}catch(error){imageError(error);}};img.onerror=imageError;});openImage.onload=()=>{try{openAtlas=GalleryTextures.importAtlas(openImage);imageLoaded();}catch(error){imageError(error);}};openImage.onerror=imageError;repairImage.onload=imageLoaded;repairImage.onerror=imageError;collectionImages.forEach((img,i)=>{img.onload=()=>{try{collectionAtlases[i]=GalleryTextures.importAtlas(img,true);imageLoaded();}catch(error){imageError(error);}};img.onerror=imageError;});nameplateImage.onload=imageLoaded;nameplateImage.onerror=imageError;volumeImages.forEach((img,i)=>{img.onload=()=>{try{volumeAtlases[i]=GalleryTextures.importAtlas(img,true);imageLoaded();}catch(error){imageError(error);}};img.onerror=imageError;});const suffix='?v=16';volumeImages.forEach((img,i)=>{img.src=GalleryVolumes.atlases[i].file+suffix;});nameplateImage.src='assets/nameplates-v14.png'+suffix;repairImage.src='assets/gallery-repair-v13.png'+suffix;collectionImages.forEach((img,i)=>{img.src=GalleryModel.COLLECTION_ATLASES[i].file+suffix;});openImage.src='assets/books-open-v12.png'+suffix;background.src='assets/gallery-empty.png'+suffix;atlasImage.src='assets/books-varied-v9.png'+suffix;floorImage.src='assets/books-floor-v6.png'+suffix;directionsImage.src='assets/books-directions-v7.png'+suffix;turnImage.src='assets/books-turn-v8.png'+suffix;bindingImages.forEach((img,i)=>{img.src='assets/bindings-'+['b','c','d'][i]+'-v9.png'+suffix;});}
+  let loadGeneration=0,textureBusy=false;
+  const textureQueue=[];
+  function nextTexture(){
+    if(textureBusy||!textureQueue.length)return;
+    const job=textureQueue.shift();textureBusy=true;
+    const finish=(resource)=>{
+      if(job.generation!==loadGeneration){resource?.close?.();return;}
+      job.assign(resource);
+      // ImageBitmap owns the pixels now; release the source image decoder too.
+      if(resource!==job.image&&typeof resource.close==='function'){
+        job.image.onload=null;job.image.onerror=null;job.image.src='';
+      }
+      imageLoaded();
+    };
+    const failed=error=>{if(job.generation===loadGeneration)imageError(error);};
+    const done=()=>{textureBusy=false;nextTexture();};
+    try{
+      const result=GalleryTextures.importAtlas(job.image,job.black);
+      if(result&&typeof result.then==='function')result.then(finish).catch(failed).finally(done);
+      else{finish(result);done();}
+    }catch(error){failed(error);done();}
+  }
+  function loadAssets(){
+    ready=false;loadedImages=0;const generation=++loadGeneration;textureQueue.length=0;
+    $('retry').hidden=true;$('loading').hidden=false;
+    $('loading').querySelector('h2').textContent='Opening the gallery…';
+    $('loading').querySelector('p').textContent='A quiet moment among the books.';
+    for(const resource of [atlas,floorAtlas,directionsAtlas,turnAtlas,openAtlas,...bindingAtlases,...collectionAtlases,...volumeAtlases])resource?.close?.();
+    const watch=(img,file,assign,black=false)=>{
+      img.onerror=error=>{if(generation===loadGeneration)imageError(error);};
+      img.onload=()=>{
+        if(generation!==loadGeneration)return;
+        if(assign){textureQueue.push({image:img,assign,black,generation});nextTexture();}
+        else imageLoaded();
+      };
+      img.crossOrigin='anonymous';img.src=file+'?v=161';
+    };
+    volumeImages.forEach((img,i)=>watch(img,GalleryVolumes.atlases[i].file,value=>volumeAtlases[i]=value,true));
+    watch(nameplateImage,'assets/nameplates-v14.png');watch(repairImage,'assets/gallery-repair-v13.png');
+    collectionImages.forEach((img,i)=>watch(img,GalleryModel.COLLECTION_ATLASES[i].file,value=>collectionAtlases[i]=value,true));
+    watch(openImage,'assets/books-open-v12.png',value=>openAtlas=value);
+    watch(background,'assets/gallery-empty.png');
+    watch(atlasImage,'assets/books-varied-v9.png',value=>atlas=value);
+    watch(floorImage,'assets/books-floor-v6.png',value=>floorAtlas=value);
+    watch(directionsImage,'assets/books-directions-v7.png',value=>directionsAtlas=value);
+    watch(turnImage,'assets/books-turn-v8.png',value=>turnAtlas=value);
+    bindingImages.forEach((img,i)=>watch(img,'assets/bindings-'+['b','c','d'][i]+'-v9.png',value=>bindingAtlases[i]=value));
+  }
   $('retry').onclick=loadAssets;loadAssets();
   window.addEventListener('resize',resize);window.addEventListener('pagehide',()=>{try{localStorage.setItem(KEY,JSON.stringify(model.state));}catch{}});resize();update();requestAnimationFrame(frame);
 })();

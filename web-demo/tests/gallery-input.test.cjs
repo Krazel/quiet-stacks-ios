@@ -1,11 +1,11 @@
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
-function harness(width=1440,height=810,initial){
+function harness(width=1440,height=810,initial,importAtlas=image=>image){
   const elements=new Map(),events=new Map(),timers=new Map(),data=new Map(initial),registered=new Map();let frame,live,clock=0;const signDraws=[],draws=[],rotations=[],texts=[],strokes=[];
   const ctx=new Proxy({strokeRect(...args){strokes.push(args);},fillText(text){texts.push(String(text));},rotate(angle){rotations.push(angle);},drawImage(...args){(args[0]?._src?.includes('nameplates')?signDraws:draws).push(args); }},{get:(o,k)=>o[k]??((...args)=>{for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n),'Non-finite canvas '+k);})});
   class Element{constructor(){this.listeners={};this.children=[];this.value='';this.textContent='';this.style={};this.classList={add(){},remove(){}};this.dataset={};this.tagName='CANVAS';this.clientWidth=width;this.clientHeight=height;this.sub=new Map();}getBoundingClientRect(){return {left:0,top:0,width,height};}getContext(){return ctx;}setPointerCapture(){}addEventListener(k,f){this.listeners[k]=f;}setAttribute(k,v){this[k]=v;}replaceChildren(){this.children=[];this.value='';}append(x){this.children.push(x);if(!this.value)this.value=x.value;}querySelector(k){if(!this.sub.has(k))this.sub.set(k,new Element());return this.sub.get(k);}click(){this.onclick?.();}showModal(){this.open=true;}close(){this.open=false;}}
   const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
   const sandbox={console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
-  sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas:image=>image};sandbox.window=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
+  sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};sandbox.window=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
   const Base=sandbox.GalleryModel.Gallery;sandbox.GalleryModel.Gallery=class extends Base{constructor(){super();live=this;}};
   get('demo-actions').hidden=true;vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery.js'),'utf8'),sandbox);
   const state=()=>JSON.parse(JSON.stringify(live.state)),screen=([x,y])=>{const c=live.state.camera,s=Math.min(width/1672,height/941)*c.zoom;return [(x-c.x)*s+width/2,(y-c.y)*s+height/2];};
@@ -118,4 +118,31 @@ test('dragging to the highest shelf still targets its visible slot',()=>{
  const t=harness(),b=t.state().books.at(-1),slot=t.slots.find(s=>s.y===48),p=t.screen([slot.x,slot.y-16]);
  t.pointer('pointerdown',t.screen([b.x,b.y-14]));t.pointer('pointermove',p);t.pointer('pointerup',p);
  assert.equal(t.state().books[b.id].slot,slot.id);
+});
+
+
+test('asynchronous texture imports run one at a time and only unlock after all atlases',async()=>{
+ let active=0,peak=0,loaded=0,closed=0;
+ const t=harness(844,390,undefined,image=>{
+   active++;peak=Math.max(peak,active);const src=image._src;
+   return Promise.resolve().then(()=>{active--;loaded++;return {_src:src,close(){closed++;}};});
+ });
+ assert.equal(t.get('loading').hidden,false);
+ for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
+ assert.equal(t.get('loading').hidden,true);assert.equal(peak,1);assert.equal(loaded,41);
+ t.advance();assert.ok(t.draws.length>=525);
+ t.get('retry').click();assert.equal(closed,41);
+ for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
+ assert.equal(t.get('loading').hidden,true);assert.equal(loaded,82);assert.equal(peak,1);
+});
+
+test('retry ignores an obsolete in-flight bitmap and starts a complete new gallery',async()=>{
+ let first=true,release,obsoleteClosed=0;
+ const t=harness(844,390,undefined,image=>{
+   if(first){first=false;return new Promise(resolve=>{release=()=>resolve({close(){obsoleteClosed++;}});});}
+   return Promise.resolve({_src:image._src,close(){}});
+ });
+ t.get('retry').click();release();
+ for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
+ assert.equal(obsoleteClosed,1);assert.equal(t.get('loading').hidden,true);t.advance();assert.ok(t.draws.length>=525);
 });

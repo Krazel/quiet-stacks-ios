@@ -3,5 +3,5 @@ const files=["index.html","gallery.css","icon.svg","js/gallery-textures.js","js/
 await mkdir(new URL('./dist/js/',import.meta.url),{recursive:true});
 await mkdir(new URL('./dist/assets/',import.meta.url),{recursive:true});
 for(const name of files)await copyFile(new URL('./web/'+name,import.meta.url),new URL('./dist/'+name,import.meta.url));
-await writeFile(new URL('./artifacts/web-build.json',import.meta.url),JSON.stringify({version:'0.16.0',files,engine:'HTML + Canvas 2D + JavaScript',dependencies:0},null,2));
+await writeFile(new URL('./artifacts/web-build.json',import.meta.url),JSON.stringify({version:'0.16.1',files,engine:'HTML + Canvas 2D + JavaScript',dependencies:0},null,2));
 console.log('Built dist/ — manual gallery, '+files.length+' files, no runtime dependencies.');

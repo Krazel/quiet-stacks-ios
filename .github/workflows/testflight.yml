@@ -1,0 +1,61 @@
+name: Quiet Stacks TestFlight
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quiet-stacks-testflight
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.actor == github.repository_owner && github.ref == 'refs/heads/main'
+    runs-on: macos-15
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web-demo
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm test
+      - run: node scripts/simulator-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QuietStacks-0.16.1-native-QA
+          path: web-demo/artifacts/native-qa/
+          retention-days: 7
+  testflight:
+    needs: verify
+    runs-on: macos-26
+    environment: app-store-production
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: web-demo
+    env:
+      QUIET_STACKS_DISTRIBUTION: testflight
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_PRIVATE_KEY_BASE64: ${{ secrets.ASC_PRIVATE_KEY_BASE64 }}
+      IOS_DISTRIBUTION_P12_BASE64: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
+      IOS_DISTRIBUTION_P12_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_P12_PASSWORD }}
+      IOS_APP_STORE_PROFILE_BASE64: ${{ secrets.IOS_APP_STORE_PROFILE_BASE64 }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Sign, validate and upload authorized TestFlight build
+        run: node scripts/build-testflight.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QuietStacks-0.16.1-build1-TestFlight
+          path: web-demo/artifacts/testflight/
+          if-no-files-found: ignore
+          retention-days: 7

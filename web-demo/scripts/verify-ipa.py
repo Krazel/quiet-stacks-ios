@@ -7,7 +7,7 @@ with zipfile.ZipFile(sys.argv[1]) as archive:
     info = plistlib.loads(archive.read(prefix + 'Info.plist'))
     assert info['CFBundleSupportedPlatforms'] == ['iPhoneOS'], 'Not a device build'
     assert info['CFBundleShortVersionString'] == manifest['version'], 'Wrong version'
-    assert info['CFBundleIdentifier'] == 'com.krazel.quietstacks.webdemo'
+    assert info['CFBundleIdentifier'] == 'com.krazel.quietstacks'
     binary = archive.read(prefix + info['CFBundleExecutable'])
     magic, cpu = struct.unpack_from('<II', binary)
     assert magic == 0xfeedfacf and cpu == 0x100000c, 'Expected arm64 Mach-O executable'
