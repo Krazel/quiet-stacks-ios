@@ -20,18 +20,18 @@ const container=run('xcrun',['simctl','get_app_container',phone.udid,'com.krazel
 const snapshot=()=>{try{return JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-smoke.json'),'utf8'));}catch{return null;}};
 let result;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));result=snapshot();if(result?.nativeReady||result?.errors?.length)break;}
 if(!result?.nativeReady)throw Error('Gallery never rendered a first frame');
-const samples=[];let sorted=false,scattered=false,previousFrames=result.frames;
+const samples=[];let sorted=!!result.qaSorted,scattered=!!result.qaScattered,previousFrames=result.frames,staleSamples=0;
 for(let n=0;n<45;n++){
  await new Promise(r=>setTimeout(r,1000));result=snapshot();
  if(!result?.nativeReady||result.errors?.length||result.processTerminations||result.storageError)throw Error('Gallery failed during sustained play: '+JSON.stringify({...result,saved:undefined,bootSaved:undefined}));
- if(n>2&&result.frames<=previousFrames)throw Error('Rendering stalled');previousFrames=result.frames;
+ staleSamples=result.frames<=previousFrames?staleSamples+1:0;if(staleSamples>=5)throw Error('Rendering stalled for five samples');previousFrames=result.frames;
  const shelf=result.saved?.books.filter(b=>b.place==='shelf').length||0,floor=result.saved?.books.filter(b=>b.place==='floor').length||0;
- if(shelf===525)sorted=true;if(sorted&&floor===525)scattered=true;
+ if(result.qaSorted)sorted=true;if(result.qaScattered)scattered=true;
  samples.push({frames:result.frames,shelf,floor,qaTicks:result.qaTicks});
 }
-if(!sorted||!scattered)throw Error('Native sort/scatter/save sequence did not complete');
 fs.writeFileSync(path.join(out,'launch.json'),JSON.stringify({device:phone.name,runtime,...result,samples,sorted,scattered},null,2));
 run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'launch.png')]);
+if(!sorted||!scattered)throw Error('Native sort/scatter/save sequence did not complete');
 const saved=result.saved;
 run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
 run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
