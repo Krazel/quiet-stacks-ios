@@ -6,6 +6,8 @@
   let width=1,height=1,dpr=1,base=1,selected=null,series=0,ready=false,restored=false,noticeTimer,saveTimer,storageWarning=false;
   let gesture=null,pinch=null,suppressTap=false,dragPoint=null,lastFrame=0;
   const pointers=new Map();
+  const packed=window.GalleryPacked,packedImages=packed?packed.pages.map(()=>new Image()):[];
+  let expectedImages=11+GalleryModel.COLLECTION_ATLASES.length+GalleryVolumes.atlases.length;
   const volumeImages=GalleryVolumes.atlases.map(()=>new Image()),volumeAtlases=[...volumeImages];
   const nameplateImage=new Image(),repairImage=new Image();let room;const collectionImages=GalleryModel.COLLECTION_ATLASES.map(()=>new Image()),collectionAtlases=[...collectionImages];
   const background=new Image(),atlasImage=new Image(),floorImage=new Image(),directionsImage=new Image();const openImage=new Image();let openAtlas=openImage;const turnImage=new Image(),bindingImages=[new Image(),new Image(),new Image()];let turnAtlas=turnImage,bindingAtlases=[...bindingImages],directionsAtlas=directionsImage,floorAtlas=floorImage,atlas=atlasImage,loadedImages=0;
@@ -17,7 +19,12 @@
   const SYMBOLS=['☾','❧','◇','♜','✿','✧'];
   const floorVariant=b=>SERIES[b.series].art<6?(b.id%19===0?3:(Math.imul(b.id+1,2654435761)>>>0)%3):(Math.imul(b.id+1,2654435761)>>>0)%2;
   const floorSprite=b=>bookVisual(b,0).source;
-  function bookVisual(b,view){if(view===1){const v=GalleryVolumes.bindings[SERIES[b.series].art][b.volume-1];return {image:volumeAtlases[v.atlas],source:v.source};}const art=SERIES[b.series].art,v=floorVariant(b);if(view===0&&v===3)return {image:openAtlas,source:OPEN_SPRITES[art]};if(art>=24){const group=Math.floor((art-24)/6),sheet=GalleryModel.COLLECTION_ATLASES[group],col=(art-24)%6,row=view===0?v:view===1?2:3;return {image:collectionAtlases[group],source:sheet.sprites[row*sheet.columns+col]};}if(art>=6){const group=Math.floor(art/6)-1,col=art%6,row=view===0?v:view===1?2:3;return {image:bindingAtlases[group],source:BINDING_SPRITES[group][row*6+col]};}if(view!==0)return {image:atlas,source:SPRITES[(view-1)*6+art]};return v===2?{image:turnAtlas,source:TURN_SPRITES[art]}:v?{image:directionsAtlas,source:DIRECTION_SPRITES[art*3+v-1]}:{image:floorAtlas,source:FLOOR_SPRITES[art]};}
+  function originalBookVisual(b,view){if(view===1){const v=GalleryVolumes.bindings[SERIES[b.series].art][b.volume-1];return {image:volumeAtlases[v.atlas],source:v.source};}const art=SERIES[b.series].art,v=floorVariant(b);if(view===0&&v===3)return {image:openAtlas,source:OPEN_SPRITES[art]};if(art>=24){const group=Math.floor((art-24)/6),sheet=GalleryModel.COLLECTION_ATLASES[group],col=(art-24)%6,row=view===0?v:view===1?2:3;return {image:collectionAtlases[group],source:sheet.sprites[row*sheet.columns+col]};}if(art>=6){const group=Math.floor(art/6)-1,col=art%6,row=view===0?v:view===1?2:3;return {image:bindingAtlases[group],source:BINDING_SPRITES[group][row*6+col]};}if(view!==0)return {image:atlas,source:SPRITES[(view-1)*6+art]};return v===2?{image:turnAtlas,source:TURN_SPRITES[art]}:v?{image:directionsAtlas,source:DIRECTION_SPRITES[art*3+v-1]}:{image:floorAtlas,source:FLOOR_SPRITES[art]};}
+  function bookVisual(b,view){const visual=originalBookVisual(b,view);if(!packed)return visual;
+    const crop=packed.sprites[visual.image.assetFile+'|'+visual.source.join(',')];
+    if(!crop)throw new Error('Missing packed book artwork');
+    return {image:packedImages[crop.page],source:crop.source};
+  }
   const SPRITES=[[106,327,75,237],[346,329,77,235],[576,329,87,233],[813,329,87,233],[1046,327,63,235],[1250,327,75,233],[60,788,159,225],[296,788,163,225],[530,782,179,235],[777,782,169,233],[1016,794,123,223],[1216,782,171,233]];
   for(const key of [KEY,KEY+'.backup','quiet-stacks.gallery.v3','quiet-stacks.gallery.v3.backup','quiet-stacks.gallery.v2','quiet-stacks.gallery.v2.backup']){try{if(model.restore(JSON.parse(localStorage.getItem(key)))){restored=true;break;}}catch{}}
   const camera=()=>model.state.camera;
@@ -84,9 +91,11 @@
     for(const b of orderedBooks()){if(b.id!==selected)bookArt(b,pointFor(b));}
     if(held)bookArt(held,dragPoint||pointFor(held),!!dragPoint);
     $('home').textContent=Math.round(c.zoom*100)+'%';
+    window.__galleryRenderedFrames=(window.__galleryRenderedFrames||0)+1;
+    if(window.__galleryRenderedFrames===1)window.webkit?.messageHandlers?.galleryStatus?.postMessage('ready');
   }
-  const imageLoaded=()=>{loadedImages++;if(loadedImages<11+collectionImages.length+volumeImages.length)return;room=GalleryRoom.compose(background,repairImage);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();};
-  const imageError=(error)=>{console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
+  const imageLoaded=()=>{loadedImages++;if(loadedImages<expectedImages)return;room=GalleryRoom.compose(background,repairImage);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();};
+  const imageError=(error)=>{window.webkit?.messageHandlers?.galleryStatus?.postMessage('error');console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
   let loadGeneration=0,textureBusy=false;
   const textureQueue=[];
   function nextTexture(){
@@ -110,19 +119,24 @@
     }catch(error){failed(error);done();}
   }
   function loadAssets(){
-    ready=false;loadedImages=0;const generation=++loadGeneration;textureQueue.length=0;
+    ready=false;loadedImages=0;window.__galleryRenderedFrames=0;const generation=++loadGeneration;textureQueue.length=0;
+    expectedImages=packed?packed.pages.length+3:11+collectionImages.length+volumeImages.length;
+    const pending=[];
     $('retry').hidden=true;$('loading').hidden=false;
     $('loading').querySelector('h2').textContent='Opening the gallery…';
     $('loading').querySelector('p').textContent='A quiet moment among the books.';
     for(const resource of [atlas,floorAtlas,directionsAtlas,turnAtlas,openAtlas,...bindingAtlases,...collectionAtlases,...volumeAtlases])resource?.close?.();
     const watch=(img,file,assign,black=false)=>{
+      img.assetFile=file;
+      if(packed&&assign)return;
+      if(packed){pending.push({img,file});return;}
       img.onerror=error=>{if(generation===loadGeneration)imageError(error);};
       img.onload=()=>{
         if(generation!==loadGeneration)return;
         if(assign){textureQueue.push({image:img,assign,black,generation});nextTexture();}
         else imageLoaded();
       };
-      img.crossOrigin='anonymous';img.src=file+'?v=161';
+      img.crossOrigin='anonymous';img.src=file+'?v=162';
     };
     volumeImages.forEach((img,i)=>watch(img,GalleryVolumes.atlases[i].file,value=>volumeAtlases[i]=value,true));
     watch(nameplateImage,'assets/nameplates-v14.png');watch(repairImage,'assets/gallery-repair-v13.png');
@@ -134,6 +148,13 @@
     watch(directionsImage,'assets/books-directions-v7.png',value=>directionsAtlas=value);
     watch(turnImage,'assets/books-turn-v8.png',value=>turnAtlas=value);
     bindingImages.forEach((img,i)=>watch(img,'assets/bindings-'+['b','c','d'][i]+'-v9.png',value=>bindingAtlases[i]=value));
+    if(packed){
+      packedImages.forEach((img,i)=>pending.push({img,file:packed.pages[i].file}));
+      // Decode one final PNG at a time. No canvas readback or atlas conversion on device.
+      const next=()=>{if(generation!==loadGeneration||!pending.length)return;const {img,file}=pending.shift();
+        img.onload=()=>{if(generation!==loadGeneration)return;imageLoaded();next();};
+        img.onerror=imageError;img.crossOrigin='anonymous';img.src=file+'?v=162';};next();
+    }
   }
   $('retry').onclick=loadAssets;loadAssets();
   window.addEventListener('resize',resize);window.addEventListener('pagehide',()=>{try{localStorage.setItem(KEY,JSON.stringify(model.state));}catch{}});resize();update();requestAnimationFrame(frame);

@@ -14,7 +14,25 @@ run('xcrun',['simctl','boot',phone.udid]);run('xcrun',['simctl','bootstatus',pho
 run('xcrun',['simctl','install',phone.udid,path.join(derived,'Build/Products/Release-iphonesimulator/QuietStacks.app')]);
 run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
 const container=run('xcrun',['simctl','get_app_container',phone.udid,'com.krazel.quietstacks','data']);
-let result;for(let n=0;n<40;n++){await new Promise(r=>setTimeout(r,1000));try{result=JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-smoke.json'),'utf8'));if(result.ready||result.errors?.length)break;}catch{}}
-fs.writeFileSync(path.join(out,'launch.json'),JSON.stringify({device:phone.name,runtime,...result},null,2));
+const snapshot=()=>{try{return JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-smoke.json'),'utf8'));}catch{return null;}};
+let result;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));result=snapshot();if(result?.nativeReady||result?.errors?.length)break;}
+if(!result?.nativeReady)throw Error('Gallery never rendered a first frame');
+const samples=[];let sorted=false,scattered=false,previousFrames=result.frames;
+for(let n=0;n<45;n++){
+ await new Promise(r=>setTimeout(r,1000));result=snapshot();
+ if(!result?.nativeReady||result.errors?.length||result.processTerminations||result.storageError)throw Error('Gallery failed during sustained play: '+JSON.stringify({...result,saved:undefined,bootSaved:undefined}));
+ if(n>2&&result.frames<=previousFrames)throw Error('Rendering stalled');previousFrames=result.frames;
+ const shelf=result.saved?.books.filter(b=>b.place==='shelf').length||0,floor=result.saved?.books.filter(b=>b.place==='floor').length||0;
+ if(shelf===525)sorted=true;if(sorted&&floor===525)scattered=true;
+ samples.push({frames:result.frames,shelf,floor,qaTicks:result.qaTicks});
+}
+if(!sorted||!scattered)throw Error('Native sort/scatter/save sequence did not complete');
+fs.writeFileSync(path.join(out,'launch.json'),JSON.stringify({device:phone.name,runtime,...result,samples,sorted,scattered},null,2));
 run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'launch.png')]);
-console.log(JSON.stringify(result));if(!result?.ready||result.errors?.length)throw Error('iOS gallery failed to open; see native-qa artifacts');
+const saved=result.saved;
+run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
+run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
+let restored=false;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));result=snapshot();if(result?.nativeReady&&result.bootSaved){if(JSON.stringify(JSON.parse(result.bootSaved))!==JSON.stringify(saved))throw Error('Saved layout did not survive relaunch');restored=true;break;}}
+if(!restored)throw Error('App did not restore after relaunch');
+fs.writeFileSync(path.join(out,'relaunch.json'),JSON.stringify({restored,frames:result.frames,nativeReady:result.nativeReady,errors:result.errors,processTerminations:result.processTerminations},null,2));
+console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,frames:previousFrames}));

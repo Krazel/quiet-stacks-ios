@@ -1,6 +1,6 @@
 {
   "name": "quiet-stacks-web",
-  "version": "0.16.1",
+  "version": "0.16.2",
   "private": true,
   "description": "A local, calm 2D book-sorting game. Plain HTML, Canvas and JavaScript.",
   "scripts": {

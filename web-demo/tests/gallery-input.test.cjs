@@ -1,11 +1,11 @@
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
-function harness(width=1440,height=810,initial,importAtlas=image=>image){
+function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacked=false){
   const elements=new Map(),events=new Map(),timers=new Map(),data=new Map(initial),registered=new Map();let frame,live,clock=0;const signDraws=[],draws=[],rotations=[],texts=[],strokes=[];
   const ctx=new Proxy({strokeRect(...args){strokes.push(args);},fillText(text){texts.push(String(text));},rotate(angle){rotations.push(angle);},drawImage(...args){(args[0]?._src?.includes('nameplates')?signDraws:draws).push(args); }},{get:(o,k)=>o[k]??((...args)=>{for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n),'Non-finite canvas '+k);})});
   class Element{constructor(){this.listeners={};this.children=[];this.value='';this.textContent='';this.style={};this.classList={add(){},remove(){}};this.dataset={};this.tagName='CANVAS';this.clientWidth=width;this.clientHeight=height;this.sub=new Map();}getBoundingClientRect(){return {left:0,top:0,width,height};}getContext(){return ctx;}setPointerCapture(){}addEventListener(k,f){this.listeners[k]=f;}setAttribute(k,v){this[k]=v;}replaceChildren(){this.children=[];this.value='';}append(x){this.children.push(x);if(!this.value)this.value=x.value;}querySelector(k){if(!this.sub.has(k))this.sub.set(k,new Element());return this.sub.get(k);}click(){this.onclick?.();}showModal(){this.open=true;}close(){this.open=false;}}
   const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
   const sandbox={console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
-  sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};sandbox.window=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
+  sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};if(usePacked)sandbox.GalleryPacked=require('../web/js/gallery-packed.js');sandbox.window=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
   const Base=sandbox.GalleryModel.Gallery;sandbox.GalleryModel.Gallery=class extends Base{constructor(){super();live=this;}};
   get('demo-actions').hidden=true;vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery.js'),'utf8'),sandbox);
   const state=()=>JSON.parse(JSON.stringify(live.state)),screen=([x,y])=>{const c=live.state.camera,s=Math.min(width/1672,height/941)*c.zoom;return [(x-c.x)*s+width/2,(y-c.y)*s+height/2];};
@@ -145,4 +145,13 @@ test('retry ignores an obsolete in-flight bitmap and starts a complete new galle
  t.get('retry').click();release();
  for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
  assert.equal(obsoleteClosed,1);assert.equal(t.get('loading').hidden,true);t.advance();assert.ok(t.draws.length>=525);
+});
+
+
+test('packed runtime renders every numbered volume without runtime atlas processing',()=>{
+ const packed=require('../web/js/gallery-packed.js'),volumes=require('../web/js/gallery-volumes.js'),{SERIES}=require('../web/js/gallery-model.js');
+ const t=harness(844,390,undefined,()=>{throw Error('Runtime texture processing must not run');},true);t.advance();assert.equal(t.get('loading').hidden,true);
+ t.live.demoArrange('sort');t.draws.length=0;t.advance();const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
+ for(const b of t.state().books){const slot=t.slots[b.slot],v=volumes.bindings[SERIES[b.series].art][b.volume-1],crop=packed.sprites[volumes.atlases[v.atlas].file+'|'+v.source.join(',')],d=rendered.find(d=>Math.abs(d[5]+d[7]/2-slot.x)<1e-8&&Math.abs(d[6]+d[8]-slot.y)<1e-8);assert.ok(d);assert.ok(d[0]._src.startsWith(packed.pages[crop.page].file));assert.deepEqual(d.slice(1,5),crop.source);}
+ t.get('demo-scatter').click();t.advance();assert.equal(t.state().books.filter(b=>b.place==='floor').length,525);
 });
