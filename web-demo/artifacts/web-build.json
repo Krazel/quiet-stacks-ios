@@ -1,5 +1,5 @@
 {
-  "version": "0.16.2",
+  "version": "0.16.3",
   "files": [
     "index.html",
     "gallery.css",
@@ -12,6 +12,7 @@
     "assets/gallery-repair-v13.png",
     "assets/nameplates-v14.png",
     "js/gallery-volumes.js",
+    "js/gallery-diagnostics.js",
     "js/gallery-packed.js",
     "assets/packed-00-v162.png",
     "assets/packed-01-v162.png",

@@ -39,4 +39,19 @@ run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-sm
 let restored=false;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));result=snapshot();if(result?.nativeReady&&result.bootSaved){fs.writeFileSync(path.join(out,'restored-state.json'),JSON.stringify({expected:saved,actual:JSON.parse(result.bootSaved)},null,2));assert.deepStrictEqual(JSON.parse(result.bootSaved),saved,'Saved layout did not survive relaunch');restored=true;break;}}
 if(!restored)throw Error('App did not restore after relaunch');
 fs.writeFileSync(path.join(out,'relaunch.json'),JSON.stringify({restored,frames:result.frames,nativeReady:result.nativeReady,errors:result.errors,processTerminations:result.processTerminations},null,2));
-console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,frames:previousFrames}));
+run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
+run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-diagnostic-smoke']);
+let diagnostic;for(let n=0;n<60;n++){
+ await new Promise(r=>setTimeout(r,1000));
+ try{diagnostic=JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-diagnostic-probe.json'),'utf8'));break;}catch{}
+}
+assert.ok(diagnostic,'Diagnostic probe did not reach the native error panel');
+assert.equal(diagnostic.report.firstFailure.kind,'javascript-error');
+assert.equal(diagnostic.report.firstFailure.message,'QUIET_STACKS_DIAGNOSTIC_PROBE');
+assert.equal(diagnostic.copyVerified,true,'Copy diagnostic did not put the report on the clipboard');
+assert.equal(diagnostic.overlayVisible,true);
+assert.ok(diagnostic.report.firstFailure.line>0);
+assert.equal(diagnostic.report.saved,undefined);assert.equal(diagnostic.report.books,undefined);
+fs.writeFileSync(path.join(out,'diagnostic-probe.json'),JSON.stringify(diagnostic,null,2));
+run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'diagnostic.png')]);
+console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames}));

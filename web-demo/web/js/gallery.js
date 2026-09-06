@@ -92,10 +92,10 @@
     if(held)bookArt(held,dragPoint||pointFor(held),!!dragPoint);
     $('home').textContent=Math.round(c.zoom*100)+'%';
     window.__galleryRenderedFrames=(window.__galleryRenderedFrames||0)+1;
-    if(window.__galleryRenderedFrames===1)window.webkit?.messageHandlers?.galleryStatus?.postMessage('ready');
+    if(window.__galleryRenderedFrames===1){if(window.GalleryDiagnostics)GalleryDiagnostics.ready();else window.webkit?.messageHandlers?.galleryStatus?.postMessage('ready');}
   }
   const imageLoaded=()=>{loadedImages++;if(loadedImages<expectedImages)return;room=GalleryRoom.compose(background,repairImage);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();};
-  const imageError=(error)=>{window.webkit?.messageHandlers?.galleryStatus?.postMessage('error');console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
+  const imageError=(error)=>{window.GalleryDiagnostics?.report('asset-error',{message:error?.message||error?.name||'Image did not load',asset:error?.target?.assetFile||error?.target?.src});console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
   let loadGeneration=0,textureBusy=false;
   const textureQueue=[];
   function nextTexture(){
@@ -152,8 +152,8 @@
       packedImages.forEach((img,i)=>pending.push({img,file:packed.pages[i].file}));
       // Decode one final PNG at a time. No canvas readback or atlas conversion on device.
       const next=()=>{if(generation!==loadGeneration||!pending.length)return;const {img,file}=pending.shift();
-        img.onload=()=>{if(generation!==loadGeneration)return;imageLoaded();next();};
-        img.onerror=imageError;img.crossOrigin='anonymous';img.src=file+'?v=162';};next();
+        img.onload=()=>{if(generation!==loadGeneration)return;window.GalleryDiagnostics?.report('asset-loaded',{asset:file,loaded:loadedImages+1,total:expectedImages});imageLoaded();next();};
+        img.onerror=imageError;img.assetFile=file;window.GalleryDiagnostics?.report('asset-request',{asset:file,loaded:loadedImages,total:expectedImages});img.crossOrigin='anonymous';img.src=file+'?v=163';};next();
     }
   }
   $('retry').onclick=loadAssets;loadAssets();
