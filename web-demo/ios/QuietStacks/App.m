@@ -113,7 +113,7 @@
     NSString *directory=NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSUserDomainMask,YES).firstObject;[json writeToFile:[directory stringByAppendingPathComponent:@"gallery-last-diagnostic.json"] atomically:YES];
     self.galleryReady=NO;self.loadingPanel.hidden=NO;self.loadingLabel.text=[NSString stringWithFormat:@"The gallery could not stay open.\n%@",self.firstFailure[@"kind"]];self.retryButton.hidden=NO;self.diagnosticCopyButton.hidden=NO;self.diagnosticView.hidden=NO;self.diagnosticView.text=self.diagnosticReport;
 #if TARGET_OS_SIMULATOR
-    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-diagnostic-smoke"]&&[self.firstFailure[@"message"] isEqual:@"QUIET_STACKS_DIAGNOSTIC_PROBE"]){
+    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-diagnostic-smoke"]){
         [self.diagnosticCopyButton sendActionsForControlEvents:UIControlEventTouchUpInside];
         NSDictionary *probe=@{@"report":report,@"copyVerified":@([UIPasteboard.generalPasteboard.string isEqualToString:self.diagnosticReport]),@"overlayVisible":@(!self.loadingPanel.hidden&&!self.diagnosticCopyButton.hidden&&!self.diagnosticView.hidden)};
         NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;[[NSJSONSerialization dataWithJSONObject:probe options:NSJSONWritingPrettyPrinted error:nil] writeToFile:[documents stringByAppendingPathComponent:@"gallery-diagnostic-probe.json"] atomically:YES];

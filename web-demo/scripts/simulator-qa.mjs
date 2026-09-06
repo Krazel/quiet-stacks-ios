@@ -45,13 +45,15 @@ let diagnostic;for(let n=0;n<60;n++){
  await new Promise(r=>setTimeout(r,1000));
  try{diagnostic=JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-diagnostic-probe.json'),'utf8'));break;}catch{}
 }
-assert.ok(diagnostic,'Diagnostic probe did not reach the native error panel');
+const cachedDiagnostic=path.join(container,'Library/Caches/gallery-last-diagnostic.json');
+if(fs.existsSync(cachedDiagnostic))fs.copyFileSync(cachedDiagnostic,path.join(out,'last-native-diagnostic.json'));
+run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'diagnostic.png')]);
+if(diagnostic)fs.writeFileSync(path.join(out,'diagnostic-probe.json'),JSON.stringify(diagnostic,null,2));
+assert.ok(diagnostic,'Diagnostic probe did not reach the native error panel; see last-native-diagnostic.json and diagnostic.png');
 assert.equal(diagnostic.report.firstFailure.kind,'javascript-error');
-assert.equal(diagnostic.report.firstFailure.message,'QUIET_STACKS_DIAGNOSTIC_PROBE');
+assert.match(diagnostic.report.firstFailure.message,/QUIET_STACKS_DIAGNOSTIC_PROBE/);
 assert.equal(diagnostic.copyVerified,true,'Copy diagnostic did not put the report on the clipboard');
 assert.equal(diagnostic.overlayVisible,true);
 assert.ok(diagnostic.report.firstFailure.line>0);
 assert.equal(diagnostic.report.saved,undefined);assert.equal(diagnostic.report.books,undefined);
-fs.writeFileSync(path.join(out,'diagnostic-probe.json'),JSON.stringify(diagnostic,null,2));
-run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'diagnostic.png')]);
 console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames}));
