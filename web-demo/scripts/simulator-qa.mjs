@@ -53,7 +53,8 @@ assert.ok(diagnostic,'Diagnostic probe did not reach the native error panel; see
 assert.equal(diagnostic.report.firstFailure.kind,'javascript-error');
 assert.match(diagnostic.report.firstFailure.message,/QUIET_STACKS_DIAGNOSTIC_PROBE/);
 assert.equal(diagnostic.copyVerified,true,'Copy diagnostic did not put the report on the clipboard');
-assert.equal(diagnostic.overlayVisible,true);
+// Objective-C boxes a logical expression as NSNumber(int) on some targets.
+assert.ok(diagnostic.overlayVisible===true||diagnostic.overlayVisible===1,'Native diagnostic overlay was not visible');
 assert.ok(diagnostic.report.firstFailure.line>0);
 assert.equal(diagnostic.report.saved,undefined);assert.equal(diagnostic.report.books,undefined);
 console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames}));
