@@ -1,7 +1,7 @@
 # Quiet Stacks 0.16.5 (1) — optimización
 
 El usuario autorizó implementar las correcciones y subirlas a TestFlight el
-2026-09-07. Candidata preparada; distribución pendiente de verificación de CI y Apple.
+2026-09-07. **0.16.5 (1) procesada como VALID y activa en TestFlight interno.**
 
 ## Cambios
 
@@ -59,6 +59,30 @@ movimiento con nuevos fotogramas, además de 45 segundos de sesión, ordenar,
 desordenar, guardar, reabrir y copiar el diagnóstico de un fallo provocado.
 El código de prueba está limitado a `TARGET_OS_SIMULATOR`.
 
-Pendiente: resultado de la ejecución de CI, firma/subida, procesamiento de Apple
-y activación en el grupo interno existente. La fluidez sostenida y memoria real
-en iPhone X/iOS 16.7.16 deberán contrastarse con el dispositivo tras instalar.
+QA nativa correcta en iPhone 16 Pro/iOS 18.5 simulado: 25 comprobaciones de rutas,
+carga local, ordenar/desordenar, guardar/reabrir, diagnóstico copiado, cero errores
+y cero terminaciones. Reposo estable en 45 muestras. El recorrido de cámara produjo
+38 fotogramas en 3.044 ms: **12,48 FPS en ese simulador remoto**. Este resultado
+acredita respuesta al movimiento, pero queda muy por debajo del objetivo de 60 FPS.
+No hay una medición A/B de WebKit sobre ese mismo runner ni una medición del iPhone
+real: no extrapolar la mejora de Chrome ni declarar resuelta la fluidez sostenida.
+Evidencia compacta: `artifacts/ios-0165-native-qa.json`.
+
+CI: https://github.com/Krazel/quiet-stacks-ios/actions/runs/34110274487.
+Commit: `1aca51aba48419d3a7e9a38b3429f2fa363c028f`.
+Firma, validación, subida y descarga verificadas. Los 21 recursos de la IPA
+coinciden byte a byte con el commit; ejecutable arm64 iPhoneOS, mínimo iOS 16.0,
+sin la sonda de fallo del simulador. SHA256 de la IPA:
+`903133820af279e96fa13c885636b3eaf0309f7fae51938509380e3cdd26ff7e`.
+
+Apple: build `629c09f0-e338-4a21-abb7-4d900f7d2bc6`, VALID / IN_BETA_TESTING;
+grupo interno existente `2de05410-3476-48a4-b3b9-b8d3a56d6cfb`.
+Notas, pertenencia y estado releídos por API. Evidencias:
+`artifacts/ios-testflight-0165-upload.json` y
+`artifacts/testflight-0165-verification.json`.
+Sin beta externa ni publicación pública en App Store.
+
+La fluidez sostenida y memoria real en iPhone X/iOS 16.7.16 deberán contrastarse
+con el dispositivo tras instalar; esta entrega no acredita 60 FPS. Si continúa
+lenta, el siguiente perfil debe medir WebKit y el escalado de atlas en el mismo
+dispositivo, sin extrapolar Chrome ni reducir la resolución por defecto.
