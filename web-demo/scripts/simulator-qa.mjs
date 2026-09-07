@@ -41,7 +41,7 @@ assert.ok(idleSamples>=5,'Insufficient idle observation');assert.ok(result.qaMot
 fs.writeFileSync(path.join(out,'performance.json'),JSON.stringify({device:phone.name,runtime,simulatorOnly:true,idleSamples,idleFrames,motion:result.qaMotion,renderFPS:result.qaMotion.frames*1000/result.qaMotion.durationMs},null,2));
 const saved=result.saved;
 run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
-if(typeof container!=='undefined')fs.rmSync(path.join(container,'Documents/gallery-smoke.json'),{force:true});run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
+if(typeof container!=='undefined')fs.rmSync(path.join(container,'Documents/gallery-smoke.json'),{force:true});run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-restore-smoke']);
 let restored=false;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));result=snapshot();if(result?.nativeReady&&result.bootSaved){fs.writeFileSync(path.join(out,'restored-state.json'),JSON.stringify({expected:saved,actual:JSON.parse(result.bootSaved)},null,2));assert.deepStrictEqual(JSON.parse(result.bootSaved),saved,'Saved layout did not survive relaunch');restored=true;break;}}
 if(!restored)throw Error('App did not restore after relaunch');
 fs.writeFileSync(path.join(out,'relaunch.json'),JSON.stringify({restored,frames:result.frames,nativeReady:result.nativeReady,errors:result.errors,processTerminations:result.processTerminations},null,2));
@@ -77,7 +77,7 @@ assert.ok(performanceProbe.report.nativeStart.hardware);assert.equal(performance
 assert.ok(shareProbe.shareSheetPresented);assert.ok(shareProbe.jsonFileMatchesReport);assert.match(shareProbe.filename,/\.json$/);
 fs.writeFileSync(path.join(out,'performance-report.json'),JSON.stringify(performanceProbe,null,2));fs.writeFileSync(path.join(out,'performance-share.json'),JSON.stringify(shareProbe,null,2));
 run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'performance-share.png')]);
-run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);if(typeof container!=='undefined')fs.rmSync(path.join(container,'Documents/gallery-smoke.json'),{force:true});run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
+run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);if(typeof container!=='undefined')fs.rmSync(path.join(container,'Documents/gallery-smoke.json'),{force:true});run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-restore-smoke']);
 let performanceSavePreserved=false;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));const after=snapshot();if(after?.nativeReady&&after.bootSaved){assert.deepStrictEqual(JSON.parse(after.bootSaved),saved,'Performance test changed the saved game');performanceSavePreserved=true;break;}}
 assert.ok(performanceSavePreserved);fs.writeFileSync(path.join(out,'performance-save.json'),JSON.stringify({preserved:true}));
 // Same simulator, same saved game and automated path. Only renderer changes.
