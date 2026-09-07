@@ -1,13 +1,16 @@
 # Quiet Stacks · TestFlight
 
-**Versión actual: 0.16.7 (1), válida y activa en TestFlight interno.**
-[Optimización basada en el informe del iPhone](PERFORMANCE_0167.md).
-Renderizado WebGL 2D por lotes y texturas reutilizadas, con el arte, resolución
-y partida conservados. En el mismo simulador iOS: cámara 20,09 → 59,95 FPS;
-zoom 8,54 → 59,18 FPS. 78 pruebas Node y QA nativa correctas.
-Build `a2fd3e6a-8ab2-467e-97b4-89087d46dd42`, VALID / IN_BETA_TESTING.
-Siguiente paso: probar 0.16.7 en el iPhone y compartir un nuevo informe.
+**Versión actual: 0.16.8 (1), válida y activa en TestFlight interno.**
+[Interfaz móvil y evidencias](MOBILE_UI_0168.md).
+Eliminados título y controles de zoom de las esquinas; resumen compacto en iPhone, ficha completa legible y sin selección de texto al jugar. Pinch y arrastre conservados; iPad mantiene su tarjeta lateral.
+78 pruebas Node, cuatro tamaños web, copia/compartición del informe y QA nativa iPhone/iPad correctas. Build 811e4a7b-f15c-4189-8308-3bbeef9d2d41, VALID / IN_BETA_TESTING.
+[Compilación, validación y subida](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34141375963).
+Siguiente paso: instalar 0.16.8 y valorar la interfaz en iPhone/iPad.
 Sin TestFlight externo ni publicación pública en App Store.
+
+## Historial: iOS 0.16.7
+
+El usuario confirma buen rendimiento en su dispositivo. [Optimización basada en el informe del iPhone](PERFORMANCE_0167.md). Renderizado WebGL 2D por lotes con arte y partida conservados. Build a2fd3e6a-8ab2-467e-97b4-89087d46dd42.
 
 ## Historial: iOS 0.16.6
 

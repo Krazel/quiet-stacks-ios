@@ -16,3 +16,9 @@ The owner confirms 0.16.7 now performs well on their device. This release addres
 Evidence: scripts/verify-mobile-ui.cjs and artifacts/mobile-ui-0168/. Screenshots are browser evidence unless explicitly labelled native. Native CI additionally opens the book card and captures its summary/details on both iPhone and iPad simulators, alongside the existing load/save/report and renderer checks.
 
 Language remains English. No new assets, server, analytics, ads, purchases or public App Store release. Native delivery and device feedback must be recorded separately from local UI checks.
+
+## Native delivery
+
+0.16.8 (1) is VALID / IN_BETA_TESTING in the existing internal group. Build ID: 811e4a7b-f15c-4189-8308-3bbeef9d2d41. [Successful validation and delivery](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34141375963), commit d87a246f73706c220ba864f35bfe7a4946f9f24c. Native iPhone card/summary and iPad summary screenshots, plus card/summary geometry for both devices, are saved under artifacts/mobile-ui-0168/native-*. The iPad details screenshot was delayed until after the test closed the card; that duplicate is excluded from the visual record. Its open-card geometry passed; visual detail coverage uses the full browser iPad capture. Both validate the WebKit selection/callout policy. Browser checks additionally exercise double-click and long-press/drag text selection; the report copy/share integration still passes. The signed arm64 IPA contains all 23 runtime resources, byte-for-byte matched to that commit; simulator probes are absent.
+
+The first attempt (34139378671) passed game and iPhone checks but hit the overall timeout during iPad startup. The successful run shuts down iPhone before starting iPad and allows 25 minutes for native verification. The user has confirmed 0.16.7 performance; physical-device acceptance of this UI remains pending. No external beta or public App Store submission.
