@@ -45,7 +45,7 @@ por segundo a cero. **Son datos de escritorio, no del iPhone.** No se acredita
 aproximadamente 91 a 4 ms, excluyendo descarga, parseo y decodificación de imágenes.
 
 Los cuatro destinos difíciles se repiten 15 veces: en la candidata ninguno
-supera 3 ms en esta ejecución; el anterior alcanza unos 250 ms en la esquina.
+supera 7,4 ms en esta ejecución; el anterior alcanza unos 250 ms en la esquina.
 El guardado y los libros restaurados se verifican en navegador real.
 
 Evidencias: `artifacts/performance-0165/verification.json`, capturas de esa
