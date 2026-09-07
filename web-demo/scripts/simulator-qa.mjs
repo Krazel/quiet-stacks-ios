@@ -91,4 +91,14 @@ const comparison=['pan-wide','zoom','drag','shelves'].map(name=>{const a=baselin
 fs.writeFileSync(path.join(out,'renderer-comparison.json'),JSON.stringify({simulatorOnly:true,device:phone.name,runtime,comparison},null,2));fs.writeFileSync(path.join(out,'canvas-baseline-report.json'),JSON.stringify(baseline,null,2));
 assert.ok(comparison.every(s=>s.webglFPS>=20),'GPU renderer did not sustain 20 submitted FPS in every motion stage');
 assert.ok(comparison.filter(s=>['pan-wide','zoom'].includes(s.name)).every(s=>s.ratio>=1.5||s.canvasFPS>=40),'GPU path did not improve the slow camera stages');
-console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames}));
+async function checkBookUI(device,label,boot=false){
+ if(boot){run('xcrun',['simctl','boot',device.udid]);run('xcrun',['simctl','bootstatus',device.udid,'-b']);run('xcrun',['simctl','install',device.udid,path.join(derived,'Build/Products/Release-iphonesimulator/QuietStacks.app')]);}
+ else run('xcrun',['simctl','terminate',device.udid,'com.krazel.quietstacks']);
+ run('xcrun',['simctl','launch',device.udid,'com.krazel.quietstacks','--gallery-ui-smoke']);const folder=run('xcrun',['simctl','get_app_container',device.udid,'com.krazel.quietstacks','data']);
+ for(const view of ['details','summary']){let info;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,500));try{info=JSON.parse(fs.readFileSync(path.join(folder,'Documents','gallery-ui-'+view+'.json')));break;}catch{}}
+  assert.ok(info?.removed);assert.ok(info.title);if(view==='details'){assert.ok(info.inspection.height>=250);assert.ok(info.inspection.bottom<=info.height);assert.ok(info.close.height>=44);assert.ok(info.action.bottom<=info.height);assert.ok(info.summaryHidden);}else{assert.ok(!info.summaryHidden);assert.ok(info.summary.bottom<=info.height);if(label==='iphone')assert.ok(info.summary.height<=78);}
+  fs.writeFileSync(path.join(out,label+'-'+view+'.json'),JSON.stringify(info,null,2));run('xcrun',['simctl','io',device.udid,'screenshot',path.join(out,label+'-'+view+'.png')]);
+ }
+}
+await checkBookUI(phone,'iphone');const tablet=available[runtime].find(d=>d.name.includes('iPad'));assert.ok(tablet,'iPad simulator unavailable');await checkBookUI(tablet,'ipad',true);
+console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames,mobileUI:true}));

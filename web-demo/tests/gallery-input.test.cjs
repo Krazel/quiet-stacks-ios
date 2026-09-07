@@ -22,21 +22,21 @@ test('manual gallery loads the full catalogue and paints visible books at deskto
 test('idle has no canvas work, while zoom, demo and pageshow each invalidate the scene',()=>{
   const t=harness(812,375,undefined,undefined,true);t.tick();t.draws.length=0;
   for(let i=0;i<120;i++)t.tick();assert.equal(t.draws.length,0);
-  for(const action of [()=>t.get('plus').click(),()=>t.get('demo-sort').click(),()=>t.get('demo-scatter').click(),()=>t.events.get('pageshow')()]){
+  for(const action of [()=>t.events.get('keydown')({key:'+',target:{tagName:'CANVAS'},preventDefault(){}}),()=>t.get('demo-sort').click(),()=>t.get('demo-scatter').click(),()=>t.events.get('pageshow')()]){
     action();t.tick();assert.ok(t.draws.length>0);t.draws.length=0;t.tick();assert.equal(t.draws.length,0);
   }
 });
 
 test('zoom culls offscreen books and returning home restores the complete visible shelf catalogue',()=>{
-  const t=harness(1440,810,undefined,undefined,true);t.get('demo-sort').click();t.get('home').click();t.tick();
+  const t=harness(1440,810,undefined,undefined,true);t.get('demo-sort').click();t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();
   assert.equal(t.draws.filter(d=>d.length===9).length,525);t.draws.length=0;
-  for(let i=0;i<5;i++)t.get('plus').click();t.tick();const visible=t.draws.filter(d=>d.length===9).length;
-  assert.ok(visible>0&&visible<250);t.draws.length=0;t.get('home').click();t.tick();assert.equal(t.draws.filter(d=>d.length===9).length,525);
+  for(let i=0;i<5;i++)t.events.get('keydown')({key:'+',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();const visible=t.draws.filter(d=>d.length===9).length;
+  assert.ok(visible>0&&visible<250);t.draws.length=0;t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();assert.equal(t.draws.filter(d=>d.length===9).length,525);
 });
 
 test('every shelf book renders its own numbered artwork after changing bays',()=>{
  const {SERIES}=require('../web/js/gallery-model.js'),{atlases,bindings}=require('../web/js/gallery-volumes.js'),t=harness();t.live.demoArrange('sort');
- t.live.move(524,'floor',-1,{x:860,y:250});t.live.move(0,'shelf',524);t.live.move(524,'shelf',0);t.get('home').click();t.draws.length=0;t.advance();
+ t.live.move(524,'floor',-1,{x:860,y:250});t.live.move(0,'shelf',524);t.live.move(524,'shelf',0);t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.draws.length=0;t.advance();
  const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
  for(const b of t.state().books){const s=t.slots[b.slot],v=bindings[SERIES[b.series].art][b.volume-1],d=rendered.find(d=>Math.abs(d[5]+d[7]/2-s.x)<1e-8&&Math.abs(d[6]+d[8]-s.y)<1e-8);assert.ok(d);assert.ok(d[0]._src.startsWith(atlases[v.atlas].file));assert.deepEqual(d.slice(1,5),v.source);}
  assert.deepEqual(t.texts,[]);assert.equal(t.strokes.length,0);t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
@@ -64,7 +64,7 @@ test('no horizontal shelf assets are rendered and floor art keeps proportions',(
 test('all 525 shelf books share one size and every collection still fits its bay',()=>{
   const {SERIES}=require('../web/js/gallery-model.js'),t=harness();
   for(const b of t.state().books)assert.ok(t.live.move(b.id,'shelf',b.id));
-  t.get('home').click();t.advance();const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
+  t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
   assert.equal(rendered.length,525);for(const d of rendered)assert.deepEqual(d.slice(7),[11,32]);
   for(const collection of SERIES){
     const slots=t.slots.slice(collection.start,collection.start+collection.count);
