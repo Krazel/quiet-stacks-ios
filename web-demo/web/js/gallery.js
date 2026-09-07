@@ -1,7 +1,9 @@
 (() => {
   'use strict';
   const {Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,floorAllowed,details,BINDINGS}=GalleryModel, model=new Gallery();
-  const $=id=>document.getElementById(id), canvas=$('scene'), ctx=canvas.getContext('2d');
+  const $=id=>document.getElementById(id);let canvas=$('scene'),gpu;
+  try{gpu=window.GalleryGpu?.create(canvas,requestDraw);}catch(error){const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;console.warn('Using Canvas fallback:',error.message);}
+  const ctx=gpu?null:canvas.getContext('2d');
   const W=1672,H=941,KEY='quiet-stacks.gallery.v4',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   let width=1,height=1,dpr=1,base=1,selected=null,series=0,ready=false,restored=false,noticeTimer,saveTimer,storageWarning=false;
   let gesture=null,pinch=null,suppressTap=false,dragPoint=null,framePending=false;
@@ -94,13 +96,15 @@
   let visibleBounds;
   function bookArt(b,p,held=false){const r=bookRect(b,p,held);
     if(r.x+r.w<visibleBounds.left||r.x>visibleBounds.right||r.y+r.h<visibleBounds.top||r.y>visibleBounds.bottom)return;
-    if(perfMeasuring)perfBookCount++;const visual=bookVisual(b,r.view),source=visual.source;/* Preserve the painted ground plane and native aspect ratio. */ctx.drawImage(visual.image,...source,r.x,r.y,r.w,r.h);
+    if(perfMeasuring)perfBookCount++;const visual=bookVisual(b,r.view),source=visual.source;/* Preserve the painted ground plane and native aspect ratio. */if(gpu)gpu.draw(visual.image,source,r);else ctx.drawImage(visual.image,...source,r.x,r.y,r.w,r.h);
   }
   function frame(time){framePending=false;if(!ready)return;perfMeasuring=!!profiler?.active;perfBookCount=0;const perfStart=perfMeasuring?performance.now():0;const s=scale(),c=camera(),held=model.book(selected);
-    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#17120e';ctx.fillRect(0,0,width,height);ctx.translate(width/2-c.x*s,height/2-c.y*s);ctx.scale(s,s);ctx.imageSmoothingEnabled=false;ctx.drawImage(room,0,0,W,H);GalleryRoom.drawNameplates(ctx,nameplateImage);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';const perfRoomEnd=perfMeasuring?performance.now():0;
+    if(gpu){if(!gpu.begin(width,height,dpr,s,c))return;gpu.draw(room,[0,0,W,H],{x:0,y:0,w:W,h:H},true);for(const plate of GalleryRoom.NAMEPLATES){const [cx,cy]=plate.center,w=plate.width,h=w*plate.source[3]/plate.source[2];gpu.draw(nameplateImage,plate.source,{x:cx-w/2,y:cy-h/2,w,h},false,2.6);}}
+    else{ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#17120e';ctx.fillRect(0,0,width,height);ctx.translate(width/2-c.x*s,height/2-c.y*s);ctx.scale(s,s);ctx.imageSmoothingEnabled=false;ctx.drawImage(room,0,0,W,H);GalleryRoom.drawNameplates(ctx,nameplateImage);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';}const perfRoomEnd=perfMeasuring?performance.now():0;
     const hx=width/(2*s),hy=height/(2*s),margin=2/s;visibleBounds={left:c.x-hx-margin,right:c.x+hx+margin,top:c.y-hy-margin,bottom:c.y+hy+margin};
     for(const b of orderedBooks()){if(b.id!==selected)bookArt(b,pointFor(b));}
     if(held)bookArt(held,dragPoint||pointFor(held),!!dragPoint);
+    gpu?.end();window.__galleryGraphics=gpu?gpu.stats():{backend:'canvas2d'};
     if(perfMeasuring){const end=performance.now();profiler.frame({total:end-perfStart,room:perfRoomEnd-perfStart,books:end-perfRoomEnd,count:perfBookCount});}perfMeasuring=false;
     const zoomText=Math.round(c.zoom*100)+'%';if($('home').textContent!==zoomText)$('home').textContent=zoomText;
     window.__galleryRenderedFrames=(window.__galleryRenderedFrames||0)+1;
@@ -131,6 +135,7 @@
     }catch(error){failed(error);done();}
   }
   function loadAssets(){
+    gpu?.reset();
     ready=false;loadedImages=0;window.__galleryRenderedFrames=0;const generation=++loadGeneration;textureQueue.length=0;
     expectedImages=packed?packed.pages.length+3:11+collectionImages.length+volumeImages.length;
     const pending=[];
@@ -172,7 +177,7 @@
     let dropModel;
     profiler=GalleryPerformance.attach({
       ready:()=>ready&&!pointers.size,
-      environment:()=>({viewport:{width,height,dpr},canvas:{width:canvas.width,height:canvas.height},zoom:camera().zoom,totalBooks:TOTAL,
+      environment:()=>({viewport:{width,height,dpr},canvas:{width:canvas.width,height:canvas.height},graphics:window.__galleryGraphics,zoom:camera().zoom,totalBooks:TOTAL,
         placements:{floor:model.state.books.filter(b=>b.place==='floor').length,shelf:model.state.books.filter(b=>b.place==='shelf').length,cart:model.cart().length},
         decodedImageEstimateMiB:Math.round([...packedImages,background,repairImage,nameplateImage].reduce((n,i)=>n+(i.naturalWidth||0)*(i.naturalHeight||0)*4,0)/1048576*100)/100,userAgent:navigator.userAgent||'unknown'}),
       begin(){clearTimeout(saveTimer);const snapshot={state:JSON.parse(JSON.stringify(model.state)),selected,series,inspectionHidden:$('inspection').hidden};try{localStorage.setItem(KEY,JSON.stringify(snapshot.state));}catch{}autoTesting=true;$('gallery').inert=true;$('inspection').hidden=true;return snapshot;},

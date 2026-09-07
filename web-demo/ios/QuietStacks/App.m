@@ -58,6 +58,9 @@
     if(!failureBridge)failureBridge=@"window.webkit.messageHandlers.galleryStatus.postMessage({type:'diagnostic',kind:'resource-error',asset:'js/gallery-diagnostics.js',message:'Diagnostic bridge missing from app bundle'});";
     [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:failureBridge injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
 #if TARGET_OS_SIMULATOR
+    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-canvas-baseline"]){
+        [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"Object.defineProperty(window,'GalleryGpu',{get:()=>undefined,set:()=>{}});" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
+    }
     if ([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-smoke"]) {
         NSString *diagnostics = @"window.__galleryBootSaved=null;try{window.__galleryBootSaved=localStorage.getItem('quiet-stacks.gallery.v4');}catch{}window.__galleryErrors=[];const originalError=console.error;console.error=(...a)=>{window.__galleryErrors.push(a.map(String).join(' '));originalError.apply(console,a);};window.addEventListener('error',e=>window.__galleryErrors.push(e.message));";
         [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:diagnostics injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];

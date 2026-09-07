@@ -80,4 +80,15 @@ run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'performance-sh
 run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
 let performanceSavePreserved=false;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));const after=snapshot();if(after?.nativeReady&&after.bootSaved){assert.deepStrictEqual(JSON.parse(after.bootSaved),saved,'Performance test changed the saved game');performanceSavePreserved=true;break;}}
 assert.ok(performanceSavePreserved);fs.writeFileSync(path.join(out,'performance-save.json'),JSON.stringify({preserved:true}));
+// Same simulator, same saved game and automated path. Only renderer changes.
+assert.equal(performanceProbe.report.environment.graphics.backend,'webgl');
+run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
+for(const name of ['gallery-performance-probe.json','gallery-performance-share.json'])fs.unlinkSync(path.join(container,'Documents',name));
+run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-performance-smoke','--gallery-canvas-baseline']);
+let baseline;for(let n=0;n<120;n++){await new Promise(r=>setTimeout(r,1000));try{baseline=JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-performance-probe.json'),'utf8'));break;}catch{}}
+assert.equal(baseline?.report.status,'complete');assert.equal(baseline.report.environment.graphics.backend,'canvas2d');
+const comparison=['pan-wide','zoom','drag','shelves'].map(name=>{const a=baseline.report.stages.find(s=>s.name===name),b=performanceProbe.report.stages.find(s=>s.name===name);return {name,canvasFPS:a.renderFPS,webglFPS:b.renderFPS,ratio:b.renderFPS/a.renderFPS};});
+fs.writeFileSync(path.join(out,'renderer-comparison.json'),JSON.stringify({simulatorOnly:true,device:phone.name,runtime,comparison},null,2));fs.writeFileSync(path.join(out,'canvas-baseline-report.json'),JSON.stringify(baseline,null,2));
+assert.ok(comparison.every(s=>s.webglFPS>=20),'GPU renderer did not sustain 20 submitted FPS in every motion stage');
+assert.ok(comparison.filter(s=>['pan-wide','zoom'].includes(s.name)).every(s=>s.ratio>=1.5||s.canvasFPS>=40),'GPU path did not improve the slow camera stages');
 console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames}));
