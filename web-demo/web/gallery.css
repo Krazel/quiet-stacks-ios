@@ -10,6 +10,12 @@ canvas.cover{background:transparent;border:0;box-shadow:none;padding:0;object-fi
 
 .performance-panel{position:fixed;z-index:30;inset:12px auto auto 50%;transform:translateX(-50%);width:min(760px,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto;padding:18px 24px;font-size:14px;line-height:1.45}.performance-panel h2{margin:0 34px 12px 0;font-size:21px}.performance-panel p{margin:10px 0}.performance-actions{display:flex;flex-wrap:wrap;gap:8px}.performance-panel textarea{display:block;width:100%;height:110px;resize:vertical;background:#101215;color:var(--cream);border:1px solid #80613a;font:11px monospace;padding:10px}.performance-running{position:fixed;z-index:30;bottom:12px;right:12px;display:flex;gap:12px;align-items:center;padding:8px 12px;font-size:12px;max-width:calc(100vw - 24px)}.performance-panel[hidden],.performance-running[hidden]{display:none}
 
+/* Long presses belong to the game, not browser text selection or callouts. */
+html,body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+img,canvas{-webkit-user-drag:none}
+/* Keep the diagnostic report selectable for its manual-copy fallback. */
+#performance-report{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+
 /* App layout: compact phone HUD and a readable, independently scrolling book card. */
 #gallery{min-height:0}
 .selection[hidden]{display:none}#notice:empty{display:none}

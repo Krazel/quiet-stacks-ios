@@ -7,6 +7,7 @@ The owner confirms 0.16.7 now performs well on their device. This release addres
 - Opening the full book card hides the duplicate summary. Closing or choosing Pick up & place restores it; dragging still identifies the book before release.
 - Replaced conflicting top/bottom rules that reduced the phone card to a narrow strip. Phones use a wide card with cover alongside information. Header/close and bottom action remain outside the scrolling content. iPad retains a wider summary and side card.
 - Removed the scene's 320-pixel minimum height, which pushed the footer beyond short phone viewports.
+- Disabled browser text selection and iOS long-press callouts throughout the game and book panels. The diagnostic report alone remains selectable for manual copying. Pinch, book dragging and panel scrolling retain their existing touch behavior.
 
 ## Checks
 
