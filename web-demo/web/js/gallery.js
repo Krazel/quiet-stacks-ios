@@ -1,6 +1,6 @@
 (() => {
   'use strict';
-  const {Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,floorAllowed,details,BINDINGS}=GalleryModel, model=new Gallery();
+  const {Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,details,BINDINGS}=GalleryModel, model=new Gallery();
   const $=id=>document.getElementById(id);let canvas=$('scene'),gpu;
   try{gpu=window.GalleryGpu?.create(canvas,requestDraw);}catch(error){const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;console.warn('Using Canvas fallback:',error.message);}
   const ctx=gpu?null:canvas.getContext('2d');
@@ -45,7 +45,6 @@
   function select(id,inspect=true){selected=id;const b=model.book(id);if(b)series=b.series;update();if(inspect&&b)showInspection(b);}
   function update(){requestDraw();const b=model.book(selected);$('selection').hidden=!b||!$('inspection').hidden;const info=SERIES[b?b.series:series];$('selected-title').textContent=b?details(b.id).title:'';$('selected-detail').textContent=b?info.category+' '+b.volume+' · '+info.name:'';if(b&&ready){const icon=$('cover'),ic=icon.getContext('2d'),v=bookVisual(b,2),r=v.source,f=Math.min(96/r[2],136/r[3]);ic.clearRect(0,0,100,140);ic.drawImage(v.image,...r,(100-r[2]*f)/2,(140-r[3]*f)/2,r[2]*f,r[3]*f);}
     const trolley=model.cart();$('cart-section').hidden=!trolley.length;$('cart-label').textContent='On the trolley · '+trolley.length+(trolley.length===1?' book':' books');const items=$('cart-items');items.replaceChildren();for(const item of model.cart()){const button=document.createElement('button');button.textContent=BINDINGS[SERIES[item.series].art].icon;button.style.background=SERIES[item.series].color;button.title=details(item.id).title;button.setAttribute('aria-label','On the trolley: '+button.title+' · Volume '+item.volume);button.setAttribute('aria-pressed',String(selected===item.id));button.onclick=()=>select(item.id);items.append(button);}}
-  function moveTo(id,place,slot=-1,p){if(!model.move(id,place,slot,p)){say(place==='cart'?'The trolley is full.':'That space is occupied.');return false;}const b=model.book(id);selected=id;series=b.series;save();update();return true;}
   function zoom(factor,anchor={x:width/2,y:height/2}){if(autoTesting)return;const before=world(anchor),c=camera();c.zoom=clamp(c.zoom*factor,1,8);c.x=before.x-(anchor.x-width/2)/scale();c.y=before.y-(anchor.y-height/2)/scale();constrain();save();}
   function bookRect(b,p=pointFor(b),held=false){
     const floor=b.place==='floor'||held,source=bookVisual(b,floor?0:1).source;
@@ -68,14 +67,11 @@
     const chosen=model.book(selected);if(chosen){const r=bookRect(chosen),q=p;if(q.x>=r.x&&q.x<=r.x+r.w&&q.y>=r.y&&q.y<=r.y+r.h)return chosen;}
     for(const b of books){const r=bookRect(b),q=p,dx=Math.max(r.x-q.x,0,q.x-r.x-r.w),dy=Math.max(r.y-q.y,0,q.y-r.y-r.h);
       if(!dx&&!dy)return b;const d=Math.hypot(dx,dy);if(d<margin&&d<dist){nearest=b;dist=d;}}return nearest;}
-  const hitSlot=GalleryModel.slotAt;
   const onCart=GalleryModel.cartHit;
-  function tap(p){const b=hitBook(p),slot=hitSlot(p);
+  function tap(p){const b=hitBook(p);
     if(b){select(b.id);return;}
-    if(selected!==null&&slot>=0){moveTo(selected,'shelf',slot);return;}
-    if(onCart(p)){if(selected!==null)moveTo(selected,'cart');else if(model.cart().length)select(model.cart()[0].id);return;}
-    if(slot>=0)return;
-    if(selected!==null&&floorAllowed(p)){moveTo(selected,'floor',-1,p);return;}selected=null;update();
+    if(onCart(p)&&model.cart().length){select(model.cart()[0].id);return;}
+    selected=null;$('inspection').hidden=true;update();
   }
   function pinchStart(){const [a,b]=[...pointers.values()];pinch={distance:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)),anchor:world({x:(a.x+b.x)/2,y:(a.y+b.y)/2}),zoom:camera().zoom};gesture=null;dragPoint=null;suppressTap=true;}
   canvas.addEventListener('pointerdown',e=>{if(!ready||autoTesting||e.button>0)return;profiler?.input('pointerdown');canvas.setPointerCapture(e.pointerId);const p=local(e);pointers.set(e.pointerId,p);if(pointers.size===2){pinchStart();return;}if(pointers.size>2)return;const b=hitBook(world(p));gesture={start:p,last:p,id:b?.id,moved:false};canvas.classList.add('grabbing');});

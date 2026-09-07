@@ -55,6 +55,24 @@ test('engraved volumes follow only Moon Phases identities and never appear on lo
 });
 test('drag updates the identity and volume before release without moving the saved book',()=>{const t=harness(),b=t.state().books.at(-1),a=t.screen([b.x,b.y-14]),p=[a[0]+30,a[1]-20],before=t.state().books;t.pointer('pointerdown',a);t.pointer('pointermove',p);assert.equal(t.get('selection').hidden,false);assert.match(t.get('selected-title').textContent,/./);assert.match(t.get('selected-detail').textContent,new RegExp(' '+b.volume+' · '));assert.deepEqual(t.state().books,before);t.advance();assert.equal(t.strokes.length,0);t.pointer('pointercancel',p);assert.deepEqual(t.state().books,before);});
 test('manual drag places the exact book and reload preserves it',()=>{const t=harness(),b=t.state().books.at(-1),slot=t.slots[b.id];t.pointer('pointerdown',t.screen([b.x,b.y-14]));t.pointer('pointermove',t.screen([slot.x,slot.y-15]));t.pointer('pointerup',t.screen([slot.x,slot.y-15]));assert.equal(t.state().books[b.id].slot,b.id);t.advance();assert.equal(t.strokes.length,0);t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);});
+test('tapping a destination never moves a selected book, before or after closing its card',()=>{
+ for(const size of [[1440,810],[750,381]])for(const close of [false,true])for(const destination of ['floor','desk','shelf','cart']){
+  const t=harness(...size);t.get('demo-sort').click();t.live.move(524,'floor',-1,{x:870,y:250});t.advance();
+  const b=t.state().books[524],slot=t.slots[524];t.tap(t.screen([b.x,b.y-10]));assert.equal(t.get('inspection').hidden,false);
+  if(close)t.get('inspect-pickup').click();
+  const before=t.state().books,p={floor:[870,350],desk:[830,667],shelf:[slot.x,slot.y-15],cart:[848,520]}[destination];
+  t.tap(t.screen(p));assert.deepEqual(t.state().books,before,destination+' tap moved a book');
+  t.events.get('pagehide')();assert.deepEqual(harness(...size,t.data).state().books,before);
+ }
+});
+test('a book can be dragged onto and off the trolley without tap placement',()=>{
+ const t=harness();t.get('demo-sort').click();t.live.move(524,'floor',-1,{x:870,y:250});t.advance();
+ const drag=(from,to)=>{t.pointer('pointerdown',t.screen(from));t.pointer('pointermove',t.screen(to));t.pointer('pointerup',t.screen(to));};
+ drag([870,240],[848,520]);assert.equal(t.state().books[524].place,'cart');
+ t.tap(t.screen([811,490]));assert.equal(t.get('inspection').hidden,false);t.get('inspect-close').click();
+ const before=t.state().books;t.tap(t.screen([870,350]));assert.deepEqual(t.state().books,before);
+ drag([811,490],[870,350]);assert.equal(t.state().books[524].place,'floor');assert.equal(t.state().books[524].x,870);
+});
 test('pinch on a book changes camera without moving the book',()=>{const t=harness(390,844),b=t.state().books.at(-1),p=t.screen([b.x,b.y-14]),before=t.state();t.pointer('pointerdown',p,1);t.pointer('pointerdown',[p[0]+80,p[1]],2);t.pointer('pointermove',[p[0]+120,p[1]],2);t.pointer('pointerup',[p[0]+120,p[1]],2);t.pointer('pointerup',p,1);assert.deepEqual(t.state().books,before.books);assert.ok(t.state().camera.zoom>before.camera.zoom);});
 test('painted scene labels do not draw overlaid text or targets',()=>{const t=harness();t.live.state.camera.zoom=8;t.advance();assert.deepEqual(t.texts,[]);assert.ok(t.signDraws.length>=8);assert.ok(t.signDraws.every(d=>d[3]===704&&d[3]>d[7]*3));assert.equal(t.strokes.length,0);const b=t.state().books.at(-1);t.tap(t.screen([b.x,b.y-14]));t.strokes.length=0;t.advance();assert.equal(t.strokes.length,0);assert.equal(t.get('notice').textContent,'');});
 test('removed aids and orientation controls have no callbacks or keyboard actions',()=>{const t=harness();for(const id of ['find','gather','shelve','rotate','undo','help','books-button','place','inspect-button'])assert.equal(t.get(id).onclick,undefined);assert.equal(t.registered.size,0);const before=t.state().books;for(const key of ['r','R','z','Z'])t.events.get('keydown')({key,target:{tagName:'CANVAS'},preventDefault(){}});assert.deepEqual(t.state().books,before);});
