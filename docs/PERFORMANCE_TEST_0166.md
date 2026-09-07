@@ -23,7 +23,17 @@ The recorder is inactive outside a test. Samples are bounded and exported as agg
 
 - 78 Node tests, including summary statistics, empty samples and version consistency.
 - Real Chrome integration: six automatic stages and 21 drop cases; manual inputs and latency; exact layout/save restoration; cancel/background restoration; clipboard content; Web Share file payload through a mock; actual browser download fallback. No JavaScript errors. Evidence: artifacts/performance-0166/verification.json.
-- Native CI must additionally compile/run WKWebView, finish/copy the report, verify actual UIActivityViewController presentation with a matching JSON file, and relaunch to verify the save. Simulator-only probes are excluded from the device executable.
+- Native CI passed on iOS 18.5 simulator: WKWebView completed six stages and 21 placement probes; native clipboard matched; UIActivityViewController presented a matching 10 KB JSON file; the saved layout survived relaunch. Evidence: artifacts/performance-0166/native-report.json, native-share.json/png and native-save.json. WhatsApp is not installed in the simulator, so actual delivery through that app remains a device check. Simulator-only probes are excluded from the device target.
 - Physical-phone performance diagnosis remains pending the owner's report. Simulator and desktop timings are not iPhone X benchmarks.
 
-Native APIs: [ProcessInfo](https://developer.apple.com/documentation/foundation/processinfo), [WKScriptMessageHandler](https://developer.apple.com/documentation/webkit/wkscriptmessagehandler).
+Native APIs: [ProcessInfo](https://developer.apple.com/documentation/foundation/processinfo), [WKScriptMessageHandler](https://developer.apple.com/documentation/webkit/wkscriptmessagehandler), [UIActivityViewController](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller).
+
+## Signed delivery evidence
+
+CI [34127697629](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34127697629) passed native verification, signing, Apple validation and upload. Exact binary source commit: `6d18bf91030d9a2d7bd423c8492fb5b732e1264a`.
+
+IPA: `QuietStacks-0.16.6-build1-6d18bf9-TestFlight.ipa`. SHA-256: `83f39f9ad587bb5087526059bbf640ed551fb77f89149c6bc5529d780fc85e9c`.
+
+Downloaded archive verified against that committed source: 22 exact web resources, arm64 device binary, iOS 16 minimum, version/build 0.16.6 (1), valid ZIP and matching SHA-256. Simulator diagnostic fault probe absent. Evidence: artifacts/ios-testflight-0166-upload.json.
+
+Apple API verified build `330d9412-d94e-42ec-b3b5-0b11a16d3651`: VALID / IN_BETA_TESTING. Membership of existing internal group `2de05410-3476-48a4-b3b9-b8d3a56d6cfb` and test instructions read back successfully. Evidence: artifacts/testflight-0166-verification.json. Internal TestFlight only; no external testers or public App Store submission. Physical-device report still pending.
