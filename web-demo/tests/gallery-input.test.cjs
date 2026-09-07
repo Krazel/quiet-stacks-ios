@@ -5,21 +5,38 @@ function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacke
   class Element{constructor(){this.listeners={};this.children=[];this.value='';this.textContent='';this.style={};this.classList={add(){},remove(){}};this.dataset={};this.tagName='CANVAS';this.clientWidth=width;this.clientHeight=height;this.sub=new Map();}getBoundingClientRect(){return {left:0,top:0,width,height};}getContext(){return ctx;}setPointerCapture(){}addEventListener(k,f){this.listeners[k]=f;}setAttribute(k,v){this[k]=v;}replaceChildren(){this.children=[];this.value='';}append(x){this.children.push(x);if(!this.value)this.value=x.value;}querySelector(k){if(!this.sub.has(k))this.sub.set(k,new Element());return this.sub.get(k);}click(){this.onclick?.();}showModal(){this.open=true;}close(){this.open=false;}}
   const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
   const sandbox={console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
-  sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};if(usePacked)sandbox.GalleryPacked=require('../web/js/gallery-packed.js');sandbox.window=sandbox;vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
+  sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};if(usePacked)sandbox.GalleryPacked=require('../web/js/gallery-packed.js');sandbox.window=sandbox;sandbox.GalleryLayout=require("../web/js/gallery-layout.js");vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
   const Base=sandbox.GalleryModel.Gallery;sandbox.GalleryModel.Gallery=class extends Base{constructor(){super();live=this;}};
   get('demo-actions').hidden=true;vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery.js'),'utf8'),sandbox);
   const state=()=>JSON.parse(JSON.stringify(live.state)),screen=([x,y])=>{const c=live.state.camera,s=Math.min(width/1672,height/941)*c.zoom;return [(x-c.x)*s+width/2,(y-c.y)*s+height/2];};
   const pointer=(type,p,id=1)=>get('scene').listeners[type]({pointerId:id,button:0,clientX:p[0],clientY:p[1]});
   const tap=p=>{pointer('pointerdown',p);pointer('pointerup',p);};
-  return {state,screen,pointer,tap,get,live,data,events,registered,signDraws,draws,rotations,texts,strokes,slots:sandbox.GalleryModel.SLOTS,advance:()=>{for(let t=0;t<18;t++){clock+=33;frame(clock);}}};
+  const tick=()=>{clock+=16.67;const next=frame;frame=null;next?.(clock);};
+  // Legacy model-only mutations request a resize; input tests can use tick directly.
+  return {state,screen,pointer,tap,get,live,data,events,registered,signDraws,draws,rotations,texts,strokes,tick,slots:sandbox.GalleryModel.SLOTS,advance:()=>{events.get('resize')();for(let t=0;t<18;t++)tick();}};
 }
 
 
-test('manual gallery loads all books at desktop and touch dimensions',()=>{for(const [w,h] of [[1440,810],[390,844]]){const t=harness(w,h);t.advance();assert.equal(t.get('loading').hidden,true);assert.equal(t.state().books.length,525);assert.ok(t.draws.length>=525);assert.equal(t.get('selection').hidden,true);}});
+test('manual gallery loads the full catalogue and paints visible books at desktop and touch dimensions',()=>{for(const [w,h] of [[1440,810],[390,844]]){const t=harness(w,h);t.advance();assert.equal(t.get('loading').hidden,true);assert.equal(t.state().books.length,525);const count=t.draws.filter(d=>d.length===9).length;assert.ok(count>0&&count<=525);assert.equal(t.get('selection').hidden,true);}});
+
+test('idle has no canvas work, while zoom, demo and pageshow each invalidate the scene',()=>{
+  const t=harness(812,375,undefined,undefined,true);t.tick();t.draws.length=0;
+  for(let i=0;i<120;i++)t.tick();assert.equal(t.draws.length,0);
+  for(const action of [()=>t.get('plus').click(),()=>t.get('demo-sort').click(),()=>t.get('demo-scatter').click(),()=>t.events.get('pageshow')()]){
+    action();t.tick();assert.ok(t.draws.length>0);t.draws.length=0;t.tick();assert.equal(t.draws.length,0);
+  }
+});
+
+test('zoom culls offscreen books and returning home restores the complete visible shelf catalogue',()=>{
+  const t=harness(1440,810,undefined,undefined,true);t.get('demo-sort').click();t.get('home').click();t.tick();
+  assert.equal(t.draws.filter(d=>d.length===9).length,525);t.draws.length=0;
+  for(let i=0;i<5;i++)t.get('plus').click();t.tick();const visible=t.draws.filter(d=>d.length===9).length;
+  assert.ok(visible>0&&visible<250);t.draws.length=0;t.get('home').click();t.tick();assert.equal(t.draws.filter(d=>d.length===9).length,525);
+});
 
 test('every shelf book renders its own numbered artwork after changing bays',()=>{
  const {SERIES}=require('../web/js/gallery-model.js'),{atlases,bindings}=require('../web/js/gallery-volumes.js'),t=harness();t.live.demoArrange('sort');
- t.live.move(524,'floor',-1,{x:860,y:250});t.live.move(0,'shelf',524);t.live.move(524,'shelf',0);t.draws.length=0;t.advance();
+ t.live.move(524,'floor',-1,{x:860,y:250});t.live.move(0,'shelf',524);t.live.move(524,'shelf',0);t.get('home').click();t.draws.length=0;t.advance();
  const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
  for(const b of t.state().books){const s=t.slots[b.slot],v=bindings[SERIES[b.series].art][b.volume-1],d=rendered.find(d=>Math.abs(d[5]+d[7]/2-s.x)<1e-8&&Math.abs(d[6]+d[8]-s.y)<1e-8);assert.ok(d);assert.ok(d[0]._src.startsWith(atlases[v.atlas].file));assert.deepEqual(d.slice(1,5),v.source);}
  assert.deepEqual(t.texts,[]);assert.equal(t.strokes.length,0);t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
@@ -47,7 +64,7 @@ test('no horizontal shelf assets are rendered and floor art keeps proportions',(
 test('all 525 shelf books share one size and every collection still fits its bay',()=>{
   const {SERIES}=require('../web/js/gallery-model.js'),t=harness();
   for(const b of t.state().books)assert.ok(t.live.move(b.id,'shelf',b.id));
-  t.advance();const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
+  t.get('home').click();t.advance();const rendered=t.draws.filter(d=>d.length===9).slice(0,525);
   assert.equal(rendered.length,525);for(const d of rendered)assert.deepEqual(d.slice(7),[11,32]);
   for(const collection of SERIES){
     const slots=t.slots.slice(collection.start,collection.start+collection.count);

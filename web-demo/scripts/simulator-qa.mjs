@@ -25,11 +25,11 @@ const container=run('xcrun',['simctl','get_app_container',phone.udid,'com.krazel
 const snapshot=()=>{try{return JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-smoke.json'),'utf8'));}catch{return null;}};
 let result;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));result=snapshot();if(result?.nativeReady||result?.errors?.length)break;}
 if(!result?.nativeReady)throw Error('Gallery never rendered a first frame');
-const samples=[];let sorted=!!result.qaSorted,scattered=!!result.qaScattered,previousFrames=result.frames,staleSamples=0;
+const samples=[];let sorted=!!result.qaSorted,scattered=!!result.qaScattered,previousFrames=result.frames,idleFrames=null,idleSamples=0;
 for(let n=0;n<45;n++){
  await new Promise(r=>setTimeout(r,1000));result=snapshot();
  if(!result?.nativeReady||result.errors?.length||result.processTerminations||result.storageError)throw Error('Gallery failed during sustained play: '+JSON.stringify({...result,saved:undefined,bootSaved:undefined}));
- staleSamples=result.frames<=previousFrames?staleSamples+1:0;if(staleSamples>=5)throw Error('Rendering stalled for five samples');previousFrames=result.frames;
+ if(result.qaTicks>=30){if(idleFrames===null)idleFrames=result.frames;assert.equal(result.frames,idleFrames,'Canvas kept drawing after interaction stopped');idleSamples++;}previousFrames=result.frames;
  const shelf=result.saved?.books.filter(b=>b.place==='shelf').length||0,floor=result.saved?.books.filter(b=>b.place==='floor').length||0;
  if(result.qaSorted)sorted=true;if(result.qaScattered)scattered=true;
  samples.push({frames:result.frames,shelf,floor,qaTicks:result.qaTicks});
@@ -37,6 +37,8 @@ for(let n=0;n<45;n++){
 fs.writeFileSync(path.join(out,'launch.json'),JSON.stringify({device:phone.name,runtime,...result,samples,sorted,scattered},null,2));
 run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'launch.png')]);
 if(!sorted||!scattered)throw Error('Native sort/scatter/save sequence did not complete');
+assert.ok(idleSamples>=5,'Insufficient idle observation');assert.ok(result.qaMotion?.frames>20,'Camera interaction did not produce new frames');
+fs.writeFileSync(path.join(out,'performance.json'),JSON.stringify({device:phone.name,runtime,simulatorOnly:true,idleSamples,idleFrames,motion:result.qaMotion,renderFPS:result.qaMotion.frames*1000/result.qaMotion.durationMs},null,2));
 const saved=result.saved;
 run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
 run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);

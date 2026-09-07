@@ -51,7 +51,7 @@ const DETAIL_CACHE=[];
 function details(id){if(DETAIL_CACHE[id])return DETAIL_CACHE[id];const slot=SLOTS[id];if(!slot)return null;const collection=SERIES[slot.series],theme=THEMES[collection.theme];
 return DETAIL_CACHE[id]={title:TITLE_FORMS[(slot.volume-1)%TITLE_FORMS.length]+' '+collection.name+' · '+collection.category,author:AUTHORS[(id*7+slot.series)%AUTHORS.length],category:collection.category,collection:collection.name,type:theme.type,volume:slot.volume,total:collection.count,theme:collection.theme,art:collection.art,binding:BINDINGS[collection.art].name,edition:1+(id%4),year:1200+(id*17)%190,width:34+(id*7)%13,height:26+(id*11)%8};}
 const TOTAL=SLOTS.length,clone=x=>JSON.parse(JSON.stringify(x));
-function slotAt(p){if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))return -1;let best=-1,dist=Infinity;for(const slot of SLOTS){const c=SERIES[slot.series],dx=Math.abs(slot.x-p.x),dy=Math.abs(slot.y-c.bookHeight/2-p.y);if(p.x>=c.left&&p.x<=c.right&&dx<=c.slotWidth/2&&dy<c.bookHeight/2+2&&dx+dy<dist){best=slot.id;dist=dx+dy;}}return best;}
+function slotAt(p){if(!p||![p.x,p.y].every(Number.isFinite))return -1;let best=-1,dist=Infinity;for(const slot of SLOTS){const c=SERIES[slot.series],dx=Math.abs(slot.x-p.x),dy=Math.abs(slot.y-c.bookHeight/2-p.y);if(p.x>=c.left&&p.x<=c.right&&dx<=c.slotWidth/2&&dy<c.bookHeight/2+2&&dx+dy<dist){best=slot.id;dist=dx+dy;}}return best;}
 const OBSTACLES=[[0,84,234,210],[310,84,345,210],[1026,84,646,210],[0,354,44,217],[188,354,408,217],[1018,354,422,217],[1587,354,85,217],[88,631,490,218],[1058,631,520,219],[715,589,242,166],[789,455,124,108],[349,853,188,88],[1369,236,129,79]];
 // Preserve the seeded opening scene independently from player drop surfaces.
 function scatterAllowed(p){return !!p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=22&&p.x<=W-22&&p.y>=305&&p.y<=H-20&&!OBSTACLES.some(([x,y,w,h])=>p.x>x-15&&p.x<x+w+15&&p.y>y-8&&p.y<y+h+14);}
@@ -70,17 +70,17 @@ const SOLID_FURNITURE=[
   [[599,411],[635,412],[635,463],[599,463]]
 ];
 const FIXTURES=[[771,185,30,30],[816,162,24,22],[937,174,39,26],[743,611,21,24],[777,601,16,18],[912,657,19,19],[443,879,17,20],[480,879,17,20],[510,879,16,20],[1036,816,24,28],[591,813,25,25],[617,906,34,30]];
-const SHELF_OBSTACLES=OBSTACLES.slice(0,9);
 function floorAllowed(p){
-  if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)||p.x<22||p.x>W-22||p.y<90||p.y>H-20)return false;
+  if(!p||![p.x,p.y].every(Number.isFinite)||p.x<22||p.x>W-22||p.y<90||p.y>H-20)return false;
   if(FIXTURES.some(([x,y,rx,ry])=>((p.x-x)/rx)**2+((p.y-y)/ry)**2<1))return false;
   if(TABLE_TOPS.some(shape=>inPolygon(p,shape)))return true;
   if(!FLOOR_REGIONS.some(shape=>inPolygon(p,shape)))return false;
-  if(SHELF_OBSTACLES.some(([x,y,w,h])=>p.x>=x&&p.x<=x+w&&p.y>=y&&p.y<=y+h))return false;
+  if(OBSTACLES.slice(0,9).some(([x,y,w,h])=>p.x>=x&&p.x<=x+w&&p.y>=y&&p.y<=y+h))return false;
   return !SOLID_FURNITURE.some(shape=>inPolygon(p,shape));
 }
-const LAYOUT=root.GalleryLayout||(typeof require==='function'?require('./gallery-layout.js'):null);
-const SCATTER=LAYOUT.scatter;
+const SCATTER=[];let seed=19377;const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
+for(let i=0;i<TOTAL;i++){let candidate;for(let tries=0;tries<12000;tries++){const p={x:26+random()*(W-52),y:312+random()*(H-343)};if(!scatterAllowed(p)||!floorAllowed(p))continue;const spacing=tries<2500?19:tries<7000?14:8;if(SCATTER.every(q=>Math.hypot(q.x-p.x,q.y-p.y)>spacing)){candidate=p;break;}}
+if(!candidate)throw new Error('Not enough clear floor for the catalogue');SCATTER.push(candidate);}
 class Gallery{
 constructor(){this.state={version:4,books:SLOTS.map((slot,i)=>({id:i,series:slot.series,volume:slot.volume,place:'floor',slot:-1,pose:'upright',x:SCATTER[i].x,y:SCATTER[i].y,order:i})),camera:{x:836,y:470,zoom:1.12},nextOrder:TOTAL};}
 book(id){return Number.isInteger(id)?this.state.books[id]:undefined;}
@@ -102,25 +102,10 @@ if(cartHit(p)&&this.canPlace(id,'cart'))return {place:'cart'};
 if(floorAllowed(p))return {place:'floor',point:p};
 let best=null,distance=Math.hypot(W,H);
 const consider=(target,q)=>{const d=Math.hypot(q.x-p.x,q.y-p.y);if(d<distance){best=target;distance=d;}};
-const occupied=new Set(this.state.books.filter(b=>b.id!==id&&b.place==='shelf').map(b=>b.slot));
-for(const s of SLOTS)if(!occupied.has(s.id))consider({place:'shelf',slot:s.id},{x:s.x,y:s.y-SHELF_BOOK.height/2});
+for(const s of SLOTS)if(this.canPlace(id,'shelf',s.id))consider({place:'shelf',slot:s.id},{x:s.x,y:s.y-SHELF_BOOK.height/2});
 if(this.canPlace(id,'cart')){const cart=this.cart(),index=this.book(id).place==='cart'?cart.indexOf(this.book(id)):cart.length;consider({place:'cart'},{x:811+index%6*14,y:(index<6?500:529)-12.5});}
-// Search the balanced tree of valid boundary samples (<= 0.5 world pixels apart).
-// The direct drop path above keeps arbitrary player coordinates unchanged.
-const points=LAYOUT.points;let nearest=null,distance2=distance*distance;
-function search(lo,hi,axis){if(lo>=hi)return;const mid=(lo+hi)>>1,x=points[mid*2],y=points[mid*2+1],dx=x-p.x,dy=y-p.y,d2=dx*dx+dy*dy;
-  if(d2<distance2){distance2=d2;nearest={x,y};}
-  const delta=axis?dy:dx;
-  if(delta>0){search(lo,mid,1-axis);if(delta*delta<distance2)search(mid+1,hi,1-axis);}
-  else{search(mid+1,hi,1-axis);if(delta*delta<distance2)search(lo,mid,1-axis);}
-}
-search(0,points.length/2,0);
-if(nearest){
-  // Refine toward the attempted point while retaining a verified valid endpoint.
-  let valid=nearest,invalid=p;
-  for(let i=0;i<16;i++){const q={x:(valid.x+invalid.x)/2,y:(valid.y+invalid.y)/2};if(floorAllowed(q))valid=q;else invalid=q;}
-  return {place:'floor',point:valid};
-}
+// Search outward in half-world-pixel rings; ties never use collection identity.
+for(let r=.5;r<distance;r+=.5){const samples=Math.max(8,Math.ceil(2*Math.PI*r));for(let i=0;i<samples;i++){const a=i*2*Math.PI/samples,q={x:p.x+Math.cos(a)*r,y:p.y+Math.sin(a)*r};if(floorAllowed(q))return {place:'floor',point:q};}}
 return best;}
 drop(id,point){const target=this.nearestDrop(id,point);if(!target)return false;const b=this.book(id);
 if(b.place===target.place&&target.place!=='floor'&&(target.place!=='shelf'||b.slot===target.slot))return true;
