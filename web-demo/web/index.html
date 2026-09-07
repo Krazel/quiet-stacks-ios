@@ -4,7 +4,7 @@
 <canvas id="scene" tabindex="0" aria-label="Library. Drag empty space to move; pinch or scroll to zoom. Drag a book to move it. Tap a book to read its details."></canvas>
 <header class="panel brand"><span class="seal" aria-hidden="true">✧</span><div><h1>Quiet Stacks</h1><p>The Grand Gallery <span class="demo">DEMO</span></p></div></header>
 <aside class="panel map-panel" aria-label="View controls"><div class="zoom-row"><button id="minus" aria-label="Zoom out">−</button><button id="home" title="Show the whole room">100%</button><button id="plus" aria-label="Zoom in">+</button></div></aside>
-<aside class="demo-controls" aria-label="Demo controls"><button id="demo-toggle" aria-expanded="false" aria-controls="demo-actions">Demo ▾</button><div id="demo-actions" class="panel" hidden><button id="demo-sort">Sort all</button><button id="demo-scatter">Scatter all</button></div></aside>
+<aside class="demo-controls" aria-label="Demo controls"><button id="demo-toggle" aria-expanded="false" aria-controls="demo-actions">Demo ▾</button><div id="demo-actions" class="panel" hidden><button id="demo-sort">Sort all</button><button id="demo-scatter">Scatter all</button><button id="performance-open">Performance test</button></div></aside>
 <p id="notice" class="quiet" role="status" aria-live="polite"></p>
 <footer><section id="selection" class="panel selection" hidden><canvas id="cover" class="cover" width="100" height="140" aria-hidden="true"></canvas><div class="selection-copy"><strong id="selected-title">Astral Charts</strong><span id="selected-detail"></span><div id="cart-section" hidden><span id="cart-label"></span><div id="cart-items" aria-label="Books on the trolley"></div></div></div></section></footer>
 <div id="loading" class="loading"><div class="panel"><span class="loading-star">✦</span><h2>Opening the gallery…</h2><p>A quiet moment among the books.</p><button id="retry" hidden>Try again</button></div></div>
@@ -15,6 +15,15 @@
 <h2 id="inspect-title"></h2><p id="inspect-author"></p>
 <dl><dt>Bookcase</dt><dd id="inspect-category"></dd><dt>Collection</dt><dd id="inspect-collection"></dd><dt>Volume</dt><dd id="inspect-volume"></dd></dl><p id="inspect-edition" class="subtle"></p>
 <button id="inspect-pickup">Pick up & place</button></aside>
+<aside id="performance-panel" class="panel performance-panel" role="dialog" aria-labelledby="performance-title" hidden>
+<button id="performance-close" class="inspect-close" aria-label="Close performance test">×</button>
+<h2 id="performance-title">Performance test</h2>
+<p>Run a repeatable test, or record yourself playing. The automatic test restores your library afterwards.</p>
+<p class="subtle">Keep the app open. Reports stay on this device until you share or copy them. They contain timings and device information, not your saved layout.</p>
+<div class="performance-actions"><button id="performance-start">Automatic test · ~30s</button><button id="performance-manual">Record my play · 20s</button><button id="performance-share" disabled>Share report</button><button id="performance-copy" disabled>Copy report</button></div>
+<p id="performance-status" role="status">Choose a test.</p><textarea id="performance-report" readonly aria-label="Performance report" placeholder="Your report will appear here."></textarea>
+</aside>
+<aside id="performance-running" class="panel performance-running" hidden><span id="performance-phase" role="status">Preparing test…</span><button id="performance-cancel">Stop test</button></aside>
 <noscript>This library needs JavaScript to play.</noscript><script src="js/gallery-diagnostics.js"></script><script src="js/gallery-layout.js"></script>
   <script src="js/gallery-model.js"></script><script src="js/gallery-room.js"></script><script src="js/gallery-textures.js"></script><script src="js/gallery-volumes.js"></script><script src="js/gallery-packed.js"></script>
-<script src="js/gallery.js"></script></body></html>
+<script src="js/gallery-performance.js"></script><script src="js/gallery.js"></script></body></html>

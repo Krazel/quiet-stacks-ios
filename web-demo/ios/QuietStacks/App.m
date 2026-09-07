@@ -125,8 +125,65 @@
 - (void)exportDiagnosticToClipboard {
     if(self.diagnosticReport.length){UIPasteboard.generalPasteboard.string=self.diagnosticReport;[self.diagnosticCopyButton setTitle:@"Diagnostic copied" forState:UIControlStateNormal];}
 }
+- (NSDictionary *)performanceContext:(NSNumber *)requestID {
+    struct utsname hardware;uname(&hardware);NSProcessInfo *process=NSProcessInfo.processInfo;
+    NSArray *thermal=@[@"nominal",@"fair",@"serious",@"critical"];
+    NSInteger state=process.thermalState;UIDevice *device=UIDevice.currentDevice;
+    BOOL wasMonitoring=device.batteryMonitoringEnabled;device.batteryMonitoringEnabled=YES;
+    float battery=device.batteryLevel;NSInteger batteryState=device.batteryState;device.batteryMonitoringEnabled=wasMonitoring;
+    return @{@"requestId":requestID,@"appVersion":[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @"unknown",
+        @"build":[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"] ?: @"unknown",@"hardware":[NSString stringWithUTF8String:hardware.machine],
+        @"iOS":device.systemVersion,@"simulator":@(TARGET_OS_SIMULATOR),@"lowPowerMode":@(process.lowPowerModeEnabled),
+        @"thermalState":state>=0&&state<thermal.count?thermal[state]:@"unknown",@"batteryPercent":battery<0?(id)NSNull.null:@((NSInteger)(battery*100)),
+        @"batteryState":@(batteryState),@"devicePhysicalMemoryMiB":@(process.physicalMemory/1048576),@"webContentMemoryMiB":NSNull.null,
+        @"screenMaximumFPS":@(UIScreen.mainScreen.maximumFramesPerSecond),@"screenScale":@(UIScreen.mainScreen.scale),
+        @"memoryWarnings":@(self.memoryWarnings),@"processTerminations":@(self.processTerminations)};
+}
 - (void)userContentController:(WKUserContentController *)controller didReceiveScriptMessage:(WKScriptMessage *)message {
     if(!message.frameInfo.isMainFrame)return;
+    if([message.body isKindOfClass:NSDictionary.class]&&[self.webView.URL.scheme isEqual:@"quietstacks"]&&[self.webView.URL.host isEqual:@"localhost"]){
+        NSDictionary *body=message.body;
+        if([body[@"type"] isEqual:@"performance-context"]&&[body[@"requestId"] isKindOfClass:NSNumber.class]){
+            NSData *data=[NSJSONSerialization dataWithJSONObject:[self performanceContext:body[@"requestId"]] options:0 error:nil];
+            NSString *json=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            [self.webView evaluateJavaScript:[NSString stringWithFormat:@"window.GalleryPerformance?.nativeContext(%@)",json] completionHandler:nil];return;
+        }
+        if(([body[@"type"] isEqual:@"performance-copy"]||[body[@"type"] isEqual:@"performance-share"])&&[body[@"report"] isKindOfClass:NSString.class]){
+            NSString *text=body[@"report"];if(text.length>65536)return;
+            id report=[NSJSONSerialization JSONObjectWithData:[text dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+            if(![report isKindOfClass:NSDictionary.class]||![report[@"type"] isEqual:@"quiet-stacks-performance"]||![report[@"schema"] isEqual:@1])return;
+            if([body[@"type"] isEqual:@"performance-share"]){
+                NSString *version=[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"] ?: @"unknown";
+                NSString *name=[NSString stringWithFormat:@"Quiet-Stacks-performance-%@-%lld.json",version,(long long)(NSDate.date.timeIntervalSince1970*1000)];
+                NSURL *file=[[NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES] URLByAppendingPathComponent:name];
+                if(![[text dataUsingEncoding:NSUTF8StringEncoding] writeToURL:file options:NSDataWritingAtomic error:nil])return;
+                UIActivityViewController *sheet=[[UIActivityViewController alloc] initWithActivityItems:@[file] applicationActivities:nil];
+                sheet.popoverPresentationController.sourceView=self.view;sheet.popoverPresentationController.sourceRect=CGRectMake(CGRectGetMidX(self.view.bounds),CGRectGetMidY(self.view.bounds),1,1);
+                [self presentViewController:sheet animated:YES completion:^{
+#if TARGET_OS_SIMULATOR
+                    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-performance-smoke"]){
+                        NSDictionary *shared=[NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:file] options:0 error:nil];
+                        NSDictionary *probe=@{@"shareSheetPresented":@([self.presentedViewController isKindOfClass:UIActivityViewController.class]),@"filename":name,@"jsonFileMatchesReport":@([shared isEqual:report])};
+                        NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+                        [[NSJSONSerialization dataWithJSONObject:probe options:0 error:nil] writeToFile:[documents stringByAppendingPathComponent:@"gallery-performance-share.json"] atomically:YES];
+                    }
+#endif
+                }];return;
+            }
+            UIPasteboard.generalPasteboard.string=text;
+            BOOL copied=[UIPasteboard.generalPasteboard.string isEqualToString:text];
+            [self.webView evaluateJavaScript:copied?@"window.GalleryPerformance?.copyResult(true)":@"window.GalleryPerformance?.copyResult(false)" completionHandler:nil];
+#if TARGET_OS_SIMULATOR
+            if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-performance-smoke"]){
+                NSDictionary *probe=@{@"report":report,@"copyVerified":@(copied)};
+                NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+                [[NSJSONSerialization dataWithJSONObject:probe options:NSJSONWritingPrettyPrinted error:nil] writeToFile:[documents stringByAppendingPathComponent:@"gallery-performance-probe.json"] atomically:YES];
+                [self.webView evaluateJavaScript:@"document.getElementById('performance-share').click()" completionHandler:nil];
+            }
+#endif
+            return;
+        }
+    }
     NSString *kind=nil;NSMutableDictionary *details=[NSMutableDictionary new];
     if([message.body isKindOfClass:NSDictionary.class]&&[message.body[@"type"] isEqual:@"diagnostic"]){
         id value=message.body[@"kind"];if([value isKindOfClass:NSString.class])kind=[value substringToIndex:MIN((NSUInteger)60,[value length])];
@@ -138,6 +195,7 @@
     if([kind isEqual:@"ready"]&&!self.firstFailure){self.galleryReady=YES;self.loadingPanel.hidden=YES;
 #if TARGET_OS_SIMULATOR
         if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-diagnostic-smoke"])[self.webView evaluateJavaScript:@"setTimeout(function(){throw new Error('QUIET_STACKS_DIAGNOSTIC_PROBE');},0)" completionHandler:nil];
+        if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-performance-smoke"])[self.webView evaluateJavaScript:@"setTimeout(()=>{document.getElementById('performance-open').click();document.getElementById('performance-start').click();const timer=setInterval(()=>{const button=document.getElementById('performance-copy');if(!button.disabled){clearInterval(timer);button.click();}},500);},500)" completionHandler:nil];
 #endif
     }
 }

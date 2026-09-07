@@ -63,4 +63,21 @@ assert.equal(diagnostic.copyVerified,true,'Copy diagnostic did not put the repor
 assert.ok(diagnostic.overlayVisible===true||diagnostic.overlayVisible===1,'Native diagnostic overlay was not visible');
 assert.ok(diagnostic.report.firstFailure.line>0);
 assert.equal(diagnostic.report.saved,undefined);assert.equal(diagnostic.report.books,undefined);
+run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);
+run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-performance-smoke']);
+let performanceProbe,shareProbe;
+for(let n=0;n<120;n++){
+ await new Promise(r=>setTimeout(r,1000));
+ try{performanceProbe=JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-performance-probe.json'),'utf8'));shareProbe=JSON.parse(fs.readFileSync(path.join(container,'Documents/gallery-performance-share.json'),'utf8'));break;}catch{}
+}
+assert.ok(performanceProbe&&shareProbe,'Performance test did not finish, copy and present its file share sheet');
+assert.equal(performanceProbe.copyVerified,true);assert.equal(performanceProbe.report.status,'complete');assert.equal(performanceProbe.report.stages.length,6);
+assert.equal(performanceProbe.report.nativeStart.appVersion,JSON.parse(fs.readFileSync('package.json')).version);
+assert.ok(performanceProbe.report.nativeStart.hardware);assert.equal(performanceProbe.report.nativeEnd.webContentMemoryMiB,null);
+assert.ok(shareProbe.shareSheetPresented);assert.ok(shareProbe.jsonFileMatchesReport);assert.match(shareProbe.filename,/\.json$/);
+fs.writeFileSync(path.join(out,'performance-report.json'),JSON.stringify(performanceProbe,null,2));fs.writeFileSync(path.join(out,'performance-share.json'),JSON.stringify(shareProbe,null,2));
+run('xcrun',['simctl','io',phone.udid,'screenshot',path.join(out,'performance-share.png')]);
+run('xcrun',['simctl','terminate',phone.udid,'com.krazel.quietstacks']);run('xcrun',['simctl','launch',phone.udid,'com.krazel.quietstacks','--gallery-smoke']);
+let performanceSavePreserved=false;for(let n=0;n<60;n++){await new Promise(r=>setTimeout(r,1000));const after=snapshot();if(after?.nativeReady&&after.bootSaved){assert.deepStrictEqual(JSON.parse(after.bootSaved),saved,'Performance test changed the saved game');performanceSavePreserved=true;break;}}
+assert.ok(performanceSavePreserved);fs.writeFileSync(path.join(out,'performance-save.json'),JSON.stringify({preserved:true}));
 console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames}));
