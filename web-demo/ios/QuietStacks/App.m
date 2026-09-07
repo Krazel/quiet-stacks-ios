@@ -48,6 +48,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:23/255.0 green:18/255.0 blue:14/255.0 alpha:1];
     WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
+    configuration.ignoresViewportScaleLimits = NO;
     GalleryAssets *assets=[GalleryAssets new];
     __weak GalleryController *weakController=self;
     assets.failureReporter=^(NSDictionary *details){[weakController failWithKind:@"bundled-resource-error" details:details];};
@@ -148,7 +149,11 @@
 #if TARGET_OS_SIMULATOR
     if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-ui-smoke"]&&[message.body isKindOfClass:NSDictionary.class]&&[message.body[@"type"] isEqual:@"ui-probe"]){
         NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
-        [[NSJSONSerialization dataWithJSONObject:message.body options:0 error:nil] writeToFile:[documents stringByAppendingPathComponent:[NSString stringWithFormat:@"gallery-ui-%@.json",message.body[@"view"]]] atomically:YES];return;
+        NSMutableDictionary *probe=[message.body mutableCopy];
+        probe[@"pageZoom"]=@(self.webView.scrollView.zoomScale);
+        probe[@"minPageZoom"]=@(self.webView.scrollView.minimumZoomScale);
+        probe[@"maxPageZoom"]=@(self.webView.scrollView.maximumZoomScale);
+        [[NSJSONSerialization dataWithJSONObject:probe options:0 error:nil] writeToFile:[documents stringByAppendingPathComponent:[NSString stringWithFormat:@"gallery-ui-%@.json",message.body[@"view"]]] atomically:YES];return;
     }
 #endif
     if([message.body isKindOfClass:NSDictionary.class]&&[self.webView.URL.scheme isEqual:@"quietstacks"]&&[self.webView.URL.host isEqual:@"localhost"]){
