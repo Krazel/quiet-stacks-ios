@@ -1,6 +1,12 @@
 # Quiet Stacks · TestFlight
 
-**Versión actual: 0.16.8 (1), válida y activa en TestFlight interno.**
+**Versión actual: 0.16.9 (1), válida y activa en TestFlight interno.**
+[Movimiento solo al arrastrar](DRAG_ONLY_0169.md). Tocar un destino ya no coloca el libro seleccionado. Tocar libros abre su ficha; la acción vuelve a la biblioteca.
+80 pruebas, interacción táctil en cuatro tamaños web y QA nativa correctas. Build 80bf5303-0041-40c6-b3f8-870b767a57eb, VALID / IN_BETA_TESTING. [Validación y subida](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34146164845).
+Siguiente paso: instalar 0.16.9 y probar arrastre entre suelo, estantes y carro.
+
+## Historial: iOS 0.16.8
+
 [Interfaz móvil y evidencias](MOBILE_UI_0168.md).
 Eliminados título y controles de zoom de las esquinas; resumen compacto en iPhone, ficha completa legible y sin selección de texto al jugar. Pinch y arrastre conservados; iPad mantiene su tarjeta lateral.
 78 pruebas Node, cuatro tamaños web, copia/compartición del informe y QA nativa iPhone/iPad correctas. Build 811e4a7b-f15c-4189-8308-3bbeef9d2d41, VALID / IN_BETA_TESTING.
