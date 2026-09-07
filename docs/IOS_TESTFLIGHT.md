@@ -1,6 +1,12 @@
 # Quiet Stacks · TestFlight
 
-**Versión actual: 0.16.9 (1), válida y activa en TestFlight interno.**
+**Versión actual: 0.16.10 (1), válida y activa en TestFlight interno.**
+[Corrección del zoom de página](PAGE_ZOOM_01610.md). Doble toque en fichas y paneles sin ampliar la página; el zoom propio del juego y el desplazamiento de contenido se conservan.
+80 pruebas, gestos en cuatro tamaños y límites nativos de escala iPhone/iPad verificados. Build eb8b0f5a-537e-4d9f-9977-742c3e046ef9, VALID / IN_BETA_TESTING. [Validación y subida](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34169469202).
+Siguiente paso: instalar 0.16.10 y comprobar doble toque en descripciones.
+
+## Historial: iOS 0.16.9
+
 [Movimiento solo al arrastrar](DRAG_ONLY_0169.md). Tocar un destino ya no coloca el libro seleccionado. Tocar libros abre su ficha; la acción vuelve a la biblioteca.
 80 pruebas, interacción táctil en cuatro tamaños web y QA nativa correctas. Build 80bf5303-0041-40c6-b3f8-870b767a57eb, VALID / IN_BETA_TESTING. [Validación y subida](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34146164845).
 Siguiente paso: instalar 0.16.9 y probar arrastre entre suelo, estantes y carro.
