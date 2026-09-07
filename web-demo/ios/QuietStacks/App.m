@@ -1,24 +1,23 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import <sys/utsname.h>
+#import "GalleryAssetPath.h"
 
 // Give bundled web assets a single origin, without opening a network port or
 // relaxing WebKit's file-access settings. Only files inside web/ are served.
 @interface GalleryAssets : NSObject <WKURLSchemeHandler>
+@property(nonatomic, copy) void (^failureReporter)(NSDictionary *details);
 @end
 @implementation GalleryAssets
 - (void)webView:(WKWebView *)webView startURLSchemeTask:(id<WKURLSchemeTask>)task {
     NSURL *url=task.request.URL;
     NSURL *root=[NSBundle.mainBundle.resourceURL URLByAppendingPathComponent:@"web" isDirectory:YES];
-    NSString *relative=url.path.stringByRemovingPercentEncoding;
-    if ([relative hasPrefix:@"/"]) relative=[relative substringFromIndex:1];
-    if (relative.length==0) relative=@"index.html";
-    NSURL *file=[[root URLByAppendingPathComponent:relative] URLByStandardizingPath];
-    if (![url.host isEqualToString:@"localhost"] || ![file.path hasPrefix:[root.path stringByAppendingString:@"/"]]) {
-        [task didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNoPermissionsToReadFile userInfo:nil]];return;
+    NSError *error=nil;NSURL *file=QSResolveAssetURL(root,url,&error);
+    NSData *data=file?[NSData dataWithContentsOfURL:file options:NSDataReadingMappedIfSafe error:&error]:nil;
+    if(!data){
+        if(self.failureReporter)self.failureReporter(@{@"stage":file?@"asset-read":@"asset-path-validation",@"asset":url.path ?: @"index.html",@"domain":error.domain ?: NSURLErrorDomain,@"code":@(error.code),@"message":error.localizedDescription ?: @"Bundled resource could not be read"});
+        [task didFailWithError:error];return;
     }
-    NSError *error=nil;NSData *data=[NSData dataWithContentsOfURL:file options:NSDataReadingMappedIfSafe error:&error];
-    if(!data){[task didFailWithError:error];return;}
     NSDictionary *types=@{@"html":@"text/html; charset=utf-8",@"js":@"application/javascript; charset=utf-8",@"css":@"text/css; charset=utf-8",@"png":@"image/png",@"svg":@"image/svg+xml",@"json":@"application/json"};
     NSString *mime=types[file.pathExtension.lowercaseString] ?: @"application/octet-stream";
     NSHTTPURLResponse *response=[[NSHTTPURLResponse alloc] initWithURL:url statusCode:200 HTTPVersion:@"HTTP/1.1" headerFields:@{@"Content-Type":mime,@"Content-Length":[NSString stringWithFormat:@"%lu",(unsigned long)data.length],@"Access-Control-Allow-Origin":@"*"}];
@@ -49,7 +48,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:23/255.0 green:18/255.0 blue:14/255.0 alpha:1];
     WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
-    [configuration setURLSchemeHandler:[GalleryAssets new] forURLScheme:@"quietstacks"];
+    GalleryAssets *assets=[GalleryAssets new];
+    __weak GalleryController *weakController=self;
+    assets.failureReporter=^(NSDictionary *details){[weakController failWithKind:@"bundled-resource-error" details:details];};
+    [configuration setURLSchemeHandler:assets forURLScheme:@"quietstacks"];
     [configuration.userContentController addScriptMessageHandler:self name:@"galleryStatus"];
     NSString *bridgePath=[NSBundle.mainBundle.resourcePath stringByAppendingPathComponent:@"web/js/gallery-diagnostics.js"];
     NSString *failureBridge=[NSString stringWithContentsOfFile:bridgePath encoding:NSUTF8StringEncoding error:nil];
