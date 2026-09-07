@@ -1,6 +1,17 @@
 # Quiet Stacks · TestFlight
 
-**Versión actual: 0.16.6 (1), válida y activa en TestFlight interno.**
+**Versión actual: 0.16.7 (1), válida y activa en TestFlight interno.**
+[Optimización basada en el informe del iPhone](PERFORMANCE_0167.md).
+Renderizado WebGL 2D por lotes y texturas reutilizadas, con el arte, resolución
+y partida conservados. En el mismo simulador iOS: cámara 20,09 → 59,95 FPS;
+zoom 8,54 → 59,18 FPS. 78 pruebas Node y QA nativa correctas.
+Build `a2fd3e6a-8ab2-467e-97b4-89087d46dd42`, VALID / IN_BETA_TESTING.
+Siguiente paso: probar 0.16.7 en el iPhone y compartir un nuevo informe.
+Sin TestFlight externo ni publicación pública en App Store.
+
+## Historial: iOS 0.16.6
+
+Informe recibido: iPhone X a 3–6 FPS, con ahorro activo y estado térmico serious.
 [Prueba de rendimiento e informe compartible](PERFORMANCE_TEST_0166.md).
 Demo → Performance test → Automatic test → Share report → WhatsApp.
 También permite grabar 20 segundos de juego real. 78 pruebas Node e integración

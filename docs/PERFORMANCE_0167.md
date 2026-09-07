@@ -32,3 +32,26 @@ The shareable report now names the actual graphics backend and estimates uploade
 - The physical iPhone must run the new test after installation. No claim of 60 FPS on that phone is made before receiving that report.
 
 Evidence: scripts/verify-gpu.cjs, scripts/verify-profiler.cjs, artifacts/performance-0167/. Apple [UIActivityViewController](https://developer.apple.com/documentation/uikit/uiactivityviewcontroller) provides JSON file sharing as in 0.16.6.
+
+## Same-run native comparison
+
+CI [34130762035](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34130762035), binary source commit `c74664a44554dd0cb38eec379d31f9e39771147a`, passed native QA on iPhone 16 Pro / iOS 18.5 simulator. One automated run per renderer on the same simulator and saved game:
+
+| Stage | Canvas FPS | WebGL FPS | Ratio |
+| --- | ---: | ---: | ---: |
+| Wide pan | 20.09 | 59.95 | 2.98× |
+| Zoom | 8.54 | 59.18 | 6.93× |
+| Drag | 59.25 | 59.80 | 1.01× |
+| Sorted shelves | 59.84 | 59.87 | 1.00× |
+
+These are submitted-frame rates on a simulator, not physical iPhone X measurements. The comparison supports using WebGL for the slow camera stages; it does not isolate the exact Canvas bottleneck or promise these rates on the user's thermally constrained phone.
+
+The native run also passed 25 Foundation path checks, launch, 45-second gameplay observation, sort/scatter, idle without redraws, saved-game relaunch, error-report copy, performance-report copy, actual JSON share sheet and save restoration after the automatic test. No JS errors or WebContent terminations. Native rendering was visually inspected. Evidence: native-comparison.json, native-report.json, native-baseline.json, native-save.json and native-share.json in artifacts/performance-0167/.
+
+## Signed archive
+
+The same CI run passed signing, Apple validation and upload. Downloaded IPA `QuietStacks-0.16.7-build1-c74664a-TestFlight.ipa` verified as a valid ZIP and arm64 iPhoneOS binary, minimum iOS 16, bundle version 0.16.7 (1). All 23 bundled web resources match the exact committed source. Simulator diagnostic and renderer-override flags are absent from the device executable.
+
+SHA-256: `30e23ab464d892a3673e3e771eec7681b7b032b777996c9170b5c5f375cebfa3`. Evidence: artifacts/ios-testflight-0167-upload.json.
+
+Apple API verified build `a2fd3e6a-8ab2-467e-97b4-89087d46dd42`, VALID / IN_BETA_TESTING. Existing internal-group membership and test instructions read back successfully. Evidence: artifacts/testflight-0167-verification.json. Library PR-014 updated and verified. No external TestFlight or public App Store submission. Actual iPhone performance remains to be measured with 0.16.7.
