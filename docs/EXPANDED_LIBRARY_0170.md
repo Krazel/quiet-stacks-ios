@@ -6,7 +6,7 @@ The original 525 books and first 100 collection identities are preserved. The ve
 
 Seventeen new binding designs occupy the additional compartments. Volumes beyond the existing illustrated set use small gold numbers embedded within the spine. The approved background is `web/assets/gallery-expanded-v170.png`, SHA256 `6913829f25079ce919195e03dad037a815b5769d4931709f8110616077aea8a5`. It is the approved expanded composition at 1672 × 941, not an upscaled resolution claim. New generated sheets and their measured sprite bounds are retained in the product. The fourth generated sheet is spare design material and is excluded from the app.
 
-Lamp glow and a few window dust motes animate on a separate low-resolution canvas at at most 12 FPS. The book scene does not redraw while idle. Ambience pauses when hidden or Reduce Motion is enabled. Four subpixel samples smooth minified book textures without another atlas or mipmap memory. Context restoration re-enables the required extension before recompiling the shader.
+Lamp glow and a few window dust motes animate on a separate low-resolution canvas at 12 FPS while idle, synchronizing immediately with camera changes during movement. The book scene does not redraw while idle. Ambience pauses when hidden or Reduce Motion is enabled. Four subpixel samples smooth minified book textures without another atlas or mipmap memory. Context restoration re-enables the required extension before recompiling the shader.
 
 The camera fills the viewport and constrains panning/zoom to the room. WKWebView fills the native view, while interactive overlays respect safe-area insets. Drag-only placement, compact phone panels and blocked browser selection/zoom remain in place.
 

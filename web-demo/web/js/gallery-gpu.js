@@ -40,9 +40,16 @@ function create(canvas,invalidate){
   if(cut){const points=[[x+cut,y],[x+w-cut,y],[x+w,y+cut],[x+w,y+h-cut],[x+w-cut,y+h],[x+cut,y+h],[x,y+h-cut],[x,y+cut]];for(let i=0;i<8;i++){emit(x+w/2,y+h/2);emit(...points[i]);emit(...points[(i+1)%8]);}}
   else{emit(x,y);emit(x+w,y);emit(x,y+h);emit(x,y+h);emit(x+w,y);emit(x+w,y+h);}
  }
+ function warm(images){
+  if(lost)return;begin(1,1,1,1,{x:0,y:0});
+  // Finish texture decoding/upload and both filter paths under the loading panel,
+  // so WebKit does not defer the first expensive GPU submission until a pan.
+  for(const sharp of [true,false])for(const image of images){const r=resource(image);draw(image,[0,0,r.w,r.h],{x:-.5,y:-.5,w:1,h:1},sharp);}
+  flush();gl.finish();
+ }
  init();canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();lost=true;count=0;batch=[];root.GalleryDiagnostics?.report('graphics-context-lost',{});});
  canvas.addEventListener('webglcontextrestored',()=>{try{lost=false;init();invalidate();root.GalleryDiagnostics?.report('graphics-context-restored',{});}catch(error){root.GalleryDiagnostics?.report('asset-error',{message:error.message});}});
- return {begin,draw,end:flush,reset(){for(const r of resources.values())gl.deleteTexture(r.texture);resources.clear();count=0;batch=[];uploads=0;textureBytes=0;},stats:()=>({backend:'webgl',drawCalls,textureUploads:uploads,textureMiB:Math.round(textureBytes/1048576*100)/100,contextLost:lost})};
+ return {begin,draw,warm,end:flush,reset(){for(const r of resources.values())gl.deleteTexture(r.texture);resources.clear();count=0;batch=[];uploads=0;textureBytes=0;},stats:()=>({backend:'webgl',drawCalls,textureUploads:uploads,textureMiB:Math.round(textureBytes/1048576*100)/100,contextLost:lost})};
 }
 root.GalleryGpu={create};
 })(typeof window!=='undefined'?window:globalThis);
