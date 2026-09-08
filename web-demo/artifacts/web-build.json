@@ -1,5 +1,5 @@
 {
-  "version": "0.16.10",
+  "version": "0.17.0",
   "files": [
     "index.html",
     "gallery.css",
@@ -7,11 +7,12 @@
     "js/gallery-textures.js",
     "js/gallery-model.js",
     "js/gallery.js",
-    "assets/gallery-empty.png",
     "js/gallery-room.js",
-    "assets/gallery-repair-v13.png",
     "assets/nameplates-v14.png",
     "js/gallery-volumes.js",
+    "assets/gallery-expanded-v170.png",
+    "js/gallery-expanded.js",
+    "js/gallery-ambience.js",
     "js/gallery-gpu.js",
     "js/gallery-performance.js",
     "js/gallery-layout.js",

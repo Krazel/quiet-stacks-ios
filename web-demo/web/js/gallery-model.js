@@ -1,6 +1,6 @@
 (function(root){'use strict';
 const W=1672,H=941,CART_CAPACITY=12,PITCH=14;
-const SHELF_BOOK={width:11,height:32};
+const SHELF_BOOK={width:9,height:27};
 const PALETTE=[['#28618b','#5897bf'],['#794875','#b876a8'],['#47734c','#7aaa69'],['#986c29','#d6a657']];
 const RACKS=[
 {name:'Astral Charts',spans:[[220,306],[326,462],[490,564]],ys:[444,494,544],label:[395,389]},
@@ -46,43 +46,55 @@ const count=LEGACY_COUNTS[r][segment];info.slotWidth=(b-a)/count;info.bookWidth=
 for(let v=0;v<count;v++)SLOTS.push({id:SLOTS.length,series:index,volume:++info.count,x:a+(v+.5)*info.slotWidth,y,segment:r+':'+row+':'+segment});
 SERIES.push(info);
 });});});
+
+// Keep the first 525 slot/book IDs and first 100 collection IDs stable.
+const EXPANDED=root.GalleryExpanded||(typeof require==='function'?require('./gallery-expanded.js'):null);
+const LEGACY_SLOTS=JSON.parse(JSON.stringify(SLOTS)),LEGACY_SERIES=JSON.parse(JSON.stringify(SERIES));
+BINDINGS.push(...EXPANDED.bindings);
+RACKS.forEach((rack,r)=>Object.assign(rack,EXPANDED.racks[r]));
+const byBay=new Map();
+for(const c of SERIES){const rack=RACKS[c.rack];c.segment=rack.legacySegments?.[c.segment]??c.segment;byBay.set([c.rack,c.row,c.segment].join(':'),c);}
+RACKS.forEach((rack,r)=>rack.ys.forEach((y,row)=>rack.spans.forEach(([a,b],segment)=>{
+ const key=[r,row,segment].join(':');let c=byBay.get(key);
+ if(!c){const index=SERIES.length,theme=THEMES[rack.theme],art=100+index-100,binding=BINDINGS[art];if(!binding)throw Error('Missing new collection binding '+index);c={name:theme.subjects[(row*rack.spans.length+segment)%theme.subjects.length]+' / Archive Edition',category:rack.name,rack:r,row,segment,theme:rack.theme,color:binding.color,light:binding.light,art,start:-1,count:0};SERIES.push(c);byBay.set(key,c);}
+ const previous=c.count,count=Math.max(previous,Math.floor((b-a)/9.35));if(count*9>b-a)throw Error('Collection does not fit '+key);
+ Object.assign(c,{left:a,right:b,y,count,slotWidth:(b-a)/count,bookWidth:9,bookHeight:27,slotIds:[]});
+ const series=SERIES.indexOf(c);
+ for(let volume=1;volume<=count;volume++){let slot=volume<=previous?SLOTS[LEGACY_SERIES[series].start+volume-1]:null;if(!slot){slot={id:SLOTS.length,series,volume};SLOTS.push(slot);}Object.assign(slot,{x:a+(volume-.5)*c.slotWidth,y,segment:key});c.slotIds.push(slot.id);}
+ c.start=c.slotIds[0];
+})));
+
 const TITLE_FORMS=['An Introduction to','The Illustrated Book of','The Complete Survey of','A Reader’s Guide to','Field Notes on','The Collected Writings on','The Annotated Companion to','New Perspectives on','Selected Pages on','The Essential Book of','A Treasury of','The Definitive Study of','Further Readings in','The Pocket Companion to','The Reference Book of','Collected Observations on'];
 const DETAIL_CACHE=[];
 function details(id){if(DETAIL_CACHE[id])return DETAIL_CACHE[id];const slot=SLOTS[id];if(!slot)return null;const collection=SERIES[slot.series],theme=THEMES[collection.theme];
-return DETAIL_CACHE[id]={title:TITLE_FORMS[(slot.volume-1)%TITLE_FORMS.length]+' '+collection.name+' · '+collection.category,author:AUTHORS[(id*7+slot.series)%AUTHORS.length],category:collection.category,collection:collection.name,type:theme.type,volume:slot.volume,total:collection.count,theme:collection.theme,art:collection.art,binding:BINDINGS[collection.art].name,edition:1+(id%4),year:1200+(id*17)%190,width:34+(id*7)%13,height:26+(id*11)%8};}
+return DETAIL_CACHE[id]={title:TITLE_FORMS[(slot.volume-1)%TITLE_FORMS.length]+' '+collection.name+' · '+collection.category+(slot.volume>TITLE_FORMS.length?' · Volume '+slot.volume:''),author:AUTHORS[(id*7+slot.series)%AUTHORS.length],category:collection.category,collection:collection.name,type:theme.type,volume:slot.volume,total:collection.count,theme:collection.theme,art:collection.art,binding:BINDINGS[collection.art].name,edition:1+(id%4),year:1200+(id*17)%190,width:34+(id*7)%13,height:26+(id*11)%8};}
 const TOTAL=SLOTS.length,clone=x=>JSON.parse(JSON.stringify(x));
 function slotAt(p){if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))return -1;let best=-1,dist=Infinity;for(const slot of SLOTS){const c=SERIES[slot.series],dx=Math.abs(slot.x-p.x),dy=Math.abs(slot.y-c.bookHeight/2-p.y);if(p.x>=c.left&&p.x<=c.right&&dx<=c.slotWidth/2&&dy<c.bookHeight/2+2&&dx+dy<dist){best=slot.id;dist=dx+dy;}}return best;}
-const OBSTACLES=[[0,84,234,210],[310,84,345,210],[1026,84,646,210],[0,354,44,217],[188,354,408,217],[1018,354,422,217],[1587,354,85,217],[88,631,490,218],[1058,631,520,219],[715,589,242,166],[789,455,124,108],[349,853,188,88],[1369,236,129,79]];
-// Preserve the seeded opening scene independently from player drop surfaces.
-function scatterAllowed(p){return !!p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=22&&p.x<=W-22&&p.y>=305&&p.y<=H-20&&!OBSTACLES.some(([x,y,w,h])=>p.x>x-15&&p.x<x+w+15&&p.y>y-8&&p.y<y+h+14);}
+const OLD_OBSTACLES=[[0,84,234,210],[310,84,345,210],[1026,84,646,210],[0,354,44,217],[188,354,408,217],[1018,354,422,217],[1587,354,85,217],[88,631,490,218],[1058,631,520,219],[715,589,242,166],[789,455,124,108],[349,853,188,88],[1369,236,129,79]];
+
+const OBSTACLES=RACKS.map(r=>r.box);
+function scatterAllowed(p){return floorAllowed(p)&&!cartHit(p);}
 function inPolygon(p,vertices){let inside=false;for(let i=0,j=vertices.length-1;i<vertices.length;j=i++){const [ax,ay]=vertices[i],[bx,by]=vertices[j];if((ay>p.y)!==(by>p.y)&&p.x<(bx-ax)*(p.y-ay)/(by-ay)+ax)inside=!inside;}return inside;}
-const FLOOR_REGIONS=[[[18,294],[650,294],[650,218],[735,218],[735,166],[970,166],[970,218],[1026,218],[1026,294],[1654,294],[1654,923],[18,923]],[[235,112],[310,112],[310,295],[235,295]]];
-const TABLE_TOPS=[[[723,640],[757,618],[931,668],[899,700]],[[355,871],[524,871],[524,895],[355,895]]];
-const CART_OUTLINE=[[789,478],[883,458],[914,510],[896,553],[795,553]];
+const FLOOR_REGIONS=[[[20,172],[1652,172],[1652,923],[20,923]],[[357,40],[412,40],[412,185],[357,185]],[[1268,40],[1315,40],[1315,185],[1268,185]],[[665,155],[1004,155],[1004,284],[665,284]]];
+const TABLE_TOPS=[[[750,628],[785,606],[901,650],[868,680]],[[417,825],[574,825],[574,849],[417,849]]];
+const CART_OUTLINE=[[804,498],[875,478],[895,520],[880,551],[811,547]];
 const cartHit=p=>!!p&&inPolygon(p,CART_OUTLINE);
-const SOLID_FURNITURE=[
-  [[1340,597],[1438,597],[1438,628],[1340,628]],
-  [[717,634],[754,607],[947,660],[947,720],[902,747],[784,711],[717,700]],
-  [[786,699],[822,706],[824,748],[793,747]],[[832,719],[873,714],[882,756],[842,769]],
-  [[349,855],[531,855],[531,941],[349,941]],
-  CART_OUTLINE,
-  [[1374,252],[1403,227],[1454,233],[1485,274],[1461,315],[1412,317]],
-  [[599,411],[635,412],[635,463],[599,463]]
-];
-const FIXTURES=[[771,185,30,30],[816,162,24,22],[937,174,39,26],[743,611,21,24],[777,601,16,18],[912,657,19,19],[443,879,17,20],[480,879,17,20],[510,879,16,20],[1036,816,24,28],[591,813,25,25],[617,906,34,30]];
-const SHELF_OBSTACLES=OBSTACLES.slice(0,9);
+const cartPoint=i=>({x:817+i%6*11,y:i<6?514:538});
+const SOLID_FURNITURE=[[[742,628],[785,594],[912,647],[912,699],[870,727],[740,673]],[[778,677],[815,680],[820,719],[779,708]],[[837,692],[872,685],[881,727],[843,738]],[[413,807],[576,807],[576,893],[413,893]],CART_OUTLINE,[[1299,287],[1325,275],[1375,284],[1393,332],[1375,356],[1305,346]],[[1263,582],[1347,582],[1347,608],[1263,608]],[[665,429],[695,429],[695,479],[665,479]]];
+const FIXTURES=[[780,231,23,28],[764,604,19,22],[791,590,12,18],[898,650,13,15],[496,816,14,18],[526,824,14,17],[554,827,14,18],[650,854,31,43],[637,759,22,31],[1022,754,21,35],[29,132,21,29],[1632,314,24,37],[20,540,19,29],[1655,534,19,37],[685,409,14,22]];
+const SHELF_OBSTACLES=OBSTACLES;
 function floorAllowed(p){
-  if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)||p.x<22||p.x>W-22||p.y<90||p.y>H-20)return false;
-  if(FIXTURES.some(([x,y,rx,ry])=>((p.x-x)/rx)**2+((p.y-y)/ry)**2<1))return false;
-  if(TABLE_TOPS.some(shape=>inPolygon(p,shape)))return true;
-  if(!FLOOR_REGIONS.some(shape=>inPolygon(p,shape)))return false;
-  if(SHELF_OBSTACLES.some(([x,y,w,h])=>p.x>=x&&p.x<=x+w&&p.y>=y&&p.y<=y+h))return false;
-  return !SOLID_FURNITURE.some(shape=>inPolygon(p,shape));
+ if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)||p.x<22||p.x>W-22||p.y<40||p.y>H-20)return false;
+ if(FIXTURES.some(([x,y,rx,ry])=>((p.x-x)/rx)**2+((p.y-y)/ry)**2<1))return false;
+ if(TABLE_TOPS.some(shape=>inPolygon(p,shape)))return true;
+ if(!FLOOR_REGIONS.some(shape=>inPolygon(p,shape)))return false;
+ if(SHELF_OBSTACLES.some(([x,y,w,h])=>p.x>=x&&p.x<=x+w&&p.y>=y&&p.y<=y+h))return false;
+ return !SOLID_FURNITURE.some(shape=>inPolygon(p,shape));
 }
 const LAYOUT=root.GalleryLayout||(typeof require==='function'?require('./gallery-layout.js'):null);
 const SCATTER=LAYOUT.scatter;
 class Gallery{
-constructor(){this.state={version:4,books:SLOTS.map((slot,i)=>({id:i,series:slot.series,volume:slot.volume,place:'floor',slot:-1,pose:'upright',x:SCATTER[i].x,y:SCATTER[i].y,order:i})),camera:{x:836,y:470,zoom:1.12},nextOrder:TOTAL};}
+constructor(){this.state={version:4,mapRevision:2,books:SLOTS.map((slot,i)=>({id:i,series:slot.series,volume:slot.volume,place:'floor',slot:-1,pose:'upright',x:SCATTER[i].x,y:SCATTER[i].y,order:i})),camera:{x:836,y:470,zoom:1.12},nextOrder:TOTAL};}
 book(id){return Number.isInteger(id)?this.state.books[id]:undefined;}
 canPlace(id,place,slot=-1,point){const b=this.book(id);if(!b||!['floor','cart','shelf'].includes(place))return false;
 if(place==='cart')return b.place==='cart'||this.cart().length<CART_CAPACITY;
@@ -104,7 +116,7 @@ let best=null,distance=Math.hypot(W,H);
 const consider=(target,q)=>{const d=Math.hypot(q.x-p.x,q.y-p.y);if(d<distance){best=target;distance=d;}};
 const occupied=new Set(this.state.books.filter(b=>b.id!==id&&b.place==='shelf').map(b=>b.slot));
 for(const s of SLOTS)if(!occupied.has(s.id))consider({place:'shelf',slot:s.id},{x:s.x,y:s.y-SHELF_BOOK.height/2});
-if(this.canPlace(id,'cart')){const cart=this.cart(),index=this.book(id).place==='cart'?cart.indexOf(this.book(id)):cart.length;consider({place:'cart'},{x:811+index%6*14,y:(index<6?500:529)-12.5});}
+if(this.canPlace(id,'cart')){const cart=this.cart(),index=this.book(id).place==='cart'?cart.indexOf(this.book(id)):cart.length;consider({place:'cart'},{x:cartPoint(index).x,y:cartPoint(index).y-12.5});}
 // Search the balanced tree of valid boundary samples (<= 0.5 world pixels apart).
 // The direct drop path above keeps arbitrary player coordinates unchanged.
 const points=LAYOUT.points;let nearest=null,distance2=distance*distance;
@@ -126,14 +138,28 @@ drop(id,point){const target=this.nearestDrop(id,point);if(!target)return false;c
 if(b.place===target.place&&target.place!=='floor'&&(target.place!=='shelf'||b.slot===target.slot))return true;
 return this.move(id,target.place,target.slot??-1,target.point);}
 cart(){return this.state.books.filter(b=>b.place==='cart').sort((a,b)=>a.order-b.order);}
-restore(input){let s=input;
-if(s?.version===2||s?.version===3){if(!Array.isArray(s.books)||s.books.length!==TOTAL||s.books.some(b=>!b||!['upright','flat'].includes(b.pose)))return false;s=clone(s);const v=s.version;s.version=4;s.books.forEach((b,i)=>{b.pose='upright';if(v===2){b.series=SLOTS[i].series;b.volume=SLOTS[i].volume;if(b.place==='floor'){b.x=SCATTER[i].x;b.y=SCATTER[i].y;}}});}
-if(!Gallery.valid(s))return false;this.state=clone(s);return true;}
-static valid(s){if(!s||s.version!==4||!Array.isArray(s.books)||s.books.length!==TOTAL||!Number.isSafeInteger(s.nextOrder)||s.nextOrder<TOTAL)return false;const occupied=new Set();let cart=0;
-for(let i=0;i<TOTAL;i++){const b=s.books[i],slot=SLOTS[i];if(!b||b.id!==i||b.series!==slot.series||b.volume!==slot.volume||!['floor','cart','shelf'].includes(b.place)||b.pose!=='upright'||![b.x,b.y].every(Number.isFinite)||b.x<20||b.x>W-20||b.y<90||b.y>H-15||!Number.isSafeInteger(b.order)||b.order<0||b.order>=s.nextOrder)return false;
+restore(input){
+ if(!input||![2,3,4].includes(input.version))return false;
+ if(input.mapRevision!==2){
+  if(!Array.isArray(input.books)||input.books.length!==LEGACY_SLOTS.length||!Number.isSafeInteger(input.nextOrder)||input.nextOrder<LEGACY_SLOTS.length)return false;
+  const occupied=new Set();let cart=0;
+  for(let i=0;i<input.books.length;i++){const b=input.books[i],slot=LEGACY_SLOTS[i];if(!b||b.id!==i||!['floor','shelf','cart'].includes(b.place)||!(input.version===4?['upright']:['upright','flat']).includes(b.pose)||![b.x,b.y].every(Number.isFinite)||b.x<20||b.x>W-20||b.y<40||b.y>H-15||!Number.isSafeInteger(b.order)||b.order<0||b.order>=input.nextOrder)return false;if(input.version!==2&&(b.series!==slot.series||b.volume!==slot.volume))return false;if(b.place==='shelf'){if(!Number.isInteger(b.slot)||!LEGACY_SLOTS[b.slot]||occupied.has(b.slot))return false;occupied.add(b.slot);}else if(b.slot!==-1)return false;if(b.place==='cart')cart++;}
+  const camera=input.camera;if(cart>CART_CAPACITY||!camera||![camera.x,camera.y,camera.zoom].every(Number.isFinite)||camera.x<0||camera.x>W||camera.y<0||camera.y>H||camera.zoom<1||camera.zoom>8)return false;
+  const migrated=clone(this.state);migrated.camera=clone(camera);migrated.nextOrder=Math.max(input.nextOrder,TOTAL);
+  for(let i=0;i<input.books.length;i++){const b=clone(input.books[i]);Object.assign(b,{series:SLOTS[i].series,volume:SLOTS[i].volume,pose:'upright'});if(input.version===2&&b.place==='floor'){b.x=SCATTER[i].x;b.y=SCATTER[i].y;}migrated.books[i]=b;}
+  for(let i=LEGACY_SLOTS.length;i<TOTAL;i++)migrated.books[i].order=migrated.nextOrder++;
+  this.state=migrated;
+  for(const b of this.state.books.slice(0,LEGACY_SLOTS.length))if(b.place==='floor'&&!floorAllowed(b)){const target=this.nearestDrop(b.id,b);if(target?.place==='floor'){b.x=target.point.x;b.y=target.point.y;}else{b.x=SCATTER[b.id].x;b.y=SCATTER[b.id].y;}}
+  return Gallery.valid(this.state);
+ }
+ if(!Gallery.valid(input))return false;this.state=clone(input);return true;
+}
+static valid(s){if(!s||s.version!==4||s.mapRevision!==2||!Array.isArray(s.books)||s.books.length!==TOTAL||!Number.isSafeInteger(s.nextOrder)||s.nextOrder<TOTAL)return false;const occupied=new Set();let cart=0;
+for(let i=0;i<TOTAL;i++){const b=s.books[i],slot=SLOTS[i];if(!b||b.id!==i||b.series!==slot.series||b.volume!==slot.volume||!['floor','cart','shelf'].includes(b.place)||b.pose!=='upright'||![b.x,b.y].every(Number.isFinite)||b.x<20||b.x>W-20||b.y<40||b.y>H-15||!Number.isSafeInteger(b.order)||b.order<0||b.order>=s.nextOrder)return false;
 if(b.place==='shelf'){if(!Number.isInteger(b.slot)||!SLOTS[b.slot]||occupied.has(b.slot))return false;occupied.add(b.slot);}else if(b.slot!==-1)return false;if(b.place==='cart')cart++;}
 const c=s.camera;return cart<=CART_CAPACITY&&!!c&&[c.x,c.y,c.zoom].every(Number.isFinite)&&c.x>=0&&c.x<=W&&c.y>=0&&c.y<=H&&c.zoom>=1&&c.zoom<=8;}
 }
 const COLLECTION_ATLASES=[{"file":"assets/collections-01-v13.png","columns":6,"size":[1254,1254],"sprites":[[15,109,200,206],[219,109,199,208],[434,110,194,207],[636,110,194,206],[837,110,196,207],[1040,111,196,206],[24,377,186,201],[228,378,184,203],[422,377,185,201],[626,379,182,200],[829,379,187,202],[1035,381,182,199],[70,638,69,248],[278,638,70,248],[480,637,70,249],[682,637,71,249],[887,637,71,249],[1096,637,70,249],[23,926,186,236],[227,926,174,236],[427,926,180,236],[636,926,176,236],[838,926,176,236],[1044,926,176,236]]},{"file":"assets/collections-02-v13.png","columns":6,"size":[1254,1254],"sprites":[[39,67,179,177],[221,66,201,214],[430,66,199,214],[659,66,156,179],[854,67,186,212],[1071,66,173,179],[10,367,196,188],[219,367,196,201],[425,367,199,201],[633,376,195,191],[837,371,196,197],[1044,375,194,193],[60,667,77,175],[266,626,77,239],[474,626,76,241],[678,672,76,190],[884,627,77,238],[1092,672,75,170],[29,932,165,227],[226,932,173,232],[431,932,174,232],[663,932,146,232],[842,932,174,229],[1077,932,148,226]]},{"file":"assets/collections-03-v13.png","columns":6,"size":[1254,1254],"sprites":[[21,99,202,207],[237,101,200,206],[435,102,195,205],[636,102,196,205],[837,99,200,208],[1036,101,195,206],[18,380,182,205],[220,381,187,206],[434,382,180,205],[634,380,183,207],[831,381,179,206],[1028,380,183,207],[72,649,65,229],[290,648,63,230],[491,648,64,230],[690,648,65,231],[882,648,65,230],[1075,649,66,231],[21,938,177,231],[226,938,177,234],[435,939,170,232],[634,938,170,231],[837,939,171,233],[1033,939,178,233]]},{"file":"assets/collections-04-v13.png","columns":6,"size":[1254,1254],"sprites":[[18,82,206,222],[231,81,205,223],[445,81,202,223],[647,81,201,223],[845,81,200,223],[1039,81,198,223],[15,379,204,204],[219,378,210,208],[430,379,205,207],[637,378,205,208],[844,379,204,207],[1036,379,202,207],[81,654,78,249],[288,654,78,249],[488,654,76,248],[690,654,76,248],[891,654,78,248],[1094,654,78,248],[30,965,165,221],[232,964,167,222],[435,964,165,222],[637,964,164,222],[839,964,168,222],[1044,965,165,221]]},{"file":"assets/collections-05-v13.png","columns":6,"size":[1254,1254],"sprites":[[6,79,213,221],[233,78,208,222],[441,78,205,222],[650,79,206,221],[858,78,205,222],[1055,79,198,221],[12,367,205,216],[235,368,196,213],[443,369,196,213],[649,367,199,216],[854,370,197,215],[1051,374,194,212],[70,650,70,249],[275,650,70,249],[487,650,70,249],[697,650,70,249],[902,650,70,249],[1102,650,70,249],[13,958,176,232],[221,958,176,231],[432,958,176,231],[644,958,173,231],[852,958,175,232],[1059,958,176,232]]},{"file":"assets/collections-06-v13.png","columns":6,"size":[1254,1254],"sprites":[[12,98,198,213],[226,98,194,212],[430,98,192,212],[633,98,194,213],[844,98,191,213],[1045,98,193,213],[18,372,196,211],[218,372,200,215],[424,374,195,214],[630,374,196,214],[833,374,196,216],[1035,375,199,216],[69,637,71,244],[275,637,72,244],[477,637,69,244],[684,637,70,245],[883,637,70,245],[1087,637,70,244],[21,946,172,246],[235,946,163,246],[436,947,167,245],[642,947,166,247],[848,948,164,246],[1054,949,166,245]]},{"file":"assets/collections-07-v13.png","columns":6,"size":[1254,1254],"sprites":[[16,95,202,206],[227,95,197,201],[439,96,193,204],[638,95,195,206],[844,99,192,202],[1048,95,194,206],[30,375,197,202],[229,381,187,199],[435,385,188,201],[646,388,185,197],[850,389,181,203],[1052,392,185,200],[76,634,67,240],[275,635,70,241],[480,633,71,242],[685,633,64,242],[887,634,67,241],[1093,635,67,241],[18,959,171,233],[231,960,165,232],[433,960,161,232],[636,961,162,231],[834,961,169,232],[1042,962,176,231]]},{"file":"assets/collections-08-v13.png","columns":6,"size":[1254,1254],"sprites":[[28,90,196,212],[234,90,196,212],[436,91,188,210],[637,90,198,212],[841,90,194,212],[1041,90,191,212],[17,373,186,217],[221,377,190,217],[418,374,188,217],[628,373,190,219],[828,374,188,219],[1032,374,189,220],[70,633,68,255],[266,633,70,255],[461,633,69,255],[674,633,70,255],[873,634,71,254],[1070,632,70,256],[14,924,179,248],[216,924,183,248],[421,925,184,248],[630,925,178,248],[831,925,185,249],[1039,925,195,249]]},{"file":"assets/collections-09-v13.png","columns":6,"size":[1254,1254],"sprites":[[26,95,188,192],[230,95,186,192],[426,96,179,191],[625,95,181,192],[825,95,180,192],[1022,95,184,192],[34,359,181,184],[236,363,179,185],[426,363,176,185],[622,364,180,185],[826,363,177,185],[1022,364,181,186],[92,598,63,218],[282,598,65,219],[472,598,63,218],[680,599,63,218],[877,598,61,219],[1077,599,62,218],[37,883,158,243],[234,883,155,246],[425,883,157,246],[622,884,160,245],[830,883,165,246],[1038,885,167,244]]},{"file":"assets/collections-10-v13.png","columns":6,"size":[1254,1254],"sprites":[[27,113,192,203],[232,113,192,203],[431,113,189,203],[631,115,188,201],[831,113,190,203],[1036,113,190,203],[29,382,186,194],[226,382,187,196],[428,383,184,196],[629,385,183,194],[828,384,188,196],[1031,386,184,195],[82,639,76,239],[279,639,77,239],[482,639,74,239],[670,639,76,239],[876,639,76,239],[1076,639,75,239],[33,936,165,216],[235,936,164,216],[432,936,167,216],[630,935,167,217],[827,935,170,217],[1030,935,174,217]]},{"file":"assets/collections-11-v13.png","columns":6,"size":[1254,1254],"sprites":[[11,76,200,210],[214,74,208,215],[419,71,204,218],[626,70,209,219],[837,74,211,215],[1036,70,209,218],[10,353,189,201],[213,354,191,202],[409,355,189,202],[611,364,191,204],[815,365,186,203],[1016,367,187,203],[74,618,61,271],[274,618,63,271],[485,618,62,272],[685,620,67,270],[886,620,64,272],[1084,620,63,272],[15,950,174,243],[219,950,172,243],[425,950,186,243],[643,950,169,243],[840,950,173,243],[1045,950,174,243]]},{"file":"assets/collections-12-v13.png","columns":6,"size":[1254,1254],"sprites":[[16,94,199,206],[221,94,203,206],[432,94,201,206],[634,95,196,205],[835,94,193,206],[1029,95,196,205],[14,384,188,191],[215,384,187,193],[423,384,186,192],[621,384,187,193],[825,384,185,193],[1033,384,184,193],[69,618,72,242],[276,618,68,241],[482,619,67,241],[676,618,69,242],[882,619,70,241],[1090,619,69,242],[18,935,163,218],[220,935,169,217],[426,935,166,218],[635,935,162,217],[838,937,157,215],[1038,935,165,218]]},{"file":"assets/collections-13-v13.png","columns":4,"size":[1254,1254],"sprites":[[60,108,239,219],[370,110,231,217],[664,109,230,218],[962,110,235,217],[53,385,239,212],[335,383,237,213],[638,383,251,213],[949,384,240,213],[138,645,70,228],[421,645,70,228],[713,645,69,227],[1031,645,70,228],[59,925,205,258],[374,925,196,258],[665,925,193,258],[969,927,194,256]]}];
-const api={COLLECTION_ATLASES,Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,W,H,floorAllowed,cartHit,slotAt,THEMES,BINDINGS,details,SCATTER,SHELF_BOOK};if(typeof module!=='undefined')module.exports=api;root.GalleryModel=api;
+COLLECTION_ATLASES.push(...EXPANDED.atlases);
+const api={LEGACY_SLOTS,LEGACY_SERIES,cartPoint,COLLECTION_ATLASES,Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,W,H,floorAllowed,cartHit,slotAt,THEMES,BINDINGS,details,SCATTER,SHELF_BOOK};if(typeof module!=='undefined')module.exports=api;root.GalleryModel=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

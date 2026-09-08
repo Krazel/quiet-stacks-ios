@@ -5,15 +5,15 @@ const file=path.join(__dirname,'../web/js/gallery-model.js');
 const context={require:require('node:module').createRequire(file),module:{exports:{}}};
 vm.createContext(context);
 const scatterSource=`const SCATTER=[];let seed=19377;const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};
-for(let i=0;i<TOTAL;i++){let candidate;for(let tries=0;tries<12000;tries++){const p={x:26+random()*(W-52),y:312+random()*(H-343)};if(!scatterAllowed(p)||!floorAllowed(p))continue;const spacing=tries<2500?19:tries<7000?14:8;if(SCATTER.every(q=>Math.hypot(q.x-p.x,q.y-p.y)>spacing)){candidate=p;break;}}
+for(let i=0;i<TOTAL;i++){let candidate;for(let tries=0;tries<5000;tries++){const p={x:26+random()*(W-52),y:175+random()*(H-205)};if(!scatterAllowed(p)||!floorAllowed(p))continue;const spacing=tries<300?16:tries<1200?12:8;if(SCATTER.every(q=>Math.hypot(q.x-p.x,q.y-p.y)>spacing)){candidate=p;break;}}
 if(!candidate)throw new Error('Not enough clear floor for the catalogue');SCATTER.push(candidate);}`;
 vm.runInContext(fs.readFileSync(file,'utf8').replace('const SCATTER=LAYOUT.scatter;',scatterSource).replace('const api={','const api={geometry:{FLOOR_REGIONS,TABLE_TOPS,SOLID_FURNITURE,OBSTACLES,FIXTURES},'),context);
 const m=context.module.exports,g=m.geometry,points=[],seen=new Set();
 const offsets=[[0,0],[.02,0],[-.02,0],[0,.02],[0,-.02],[.02,.02],[-.02,.02],[.02,-.02],[-.02,-.02]];
 function sample(x,y){for(const [dx,dy] of offsets){const p={x:+(x+dx).toFixed(6),y:+(y+dy).toFixed(6)};if(!m.floorAllowed(p))continue;const key=p.x+','+p.y;if(!seen.has(key)){seen.add(key);points.push([p.x,p.y]);}return;}}
 const polygons=[...g.FLOOR_REGIONS,...g.TABLE_TOPS,...g.SOLID_FURNITURE,
-  ...g.OBSTACLES.slice(0,9).map(([x,y,w,h])=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]]),
-  [[22,90],[m.W-22,90],[m.W-22,m.H-20],[22,m.H-20]]];
+  ...g.OBSTACLES.map(([x,y,w,h])=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]]),
+  [[22,40],[m.W-22,40],[m.W-22,m.H-20],[22,m.H-20]]];
 for(const poly of polygons)for(let i=0;i<poly.length;i++){
   const a=poly[i],b=poly[(i+1)%poly.length],steps=Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])/.5);
   for(let n=0;n<=steps;n++)sample(a[0]+(b[0]-a[0])*n/steps,a[1]+(b[1]-a[1])*n/steps);

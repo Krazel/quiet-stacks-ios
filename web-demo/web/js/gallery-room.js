@@ -13,29 +13,24 @@ const PATCHES=[
 ];
 // Keep the painted lettering in its native atlas until the final screen render.
 const NAMEPLATES=[
- {source:[36,123,704,136],center:[395,389],width:158},
- {source:[798,123,704,136],center:[1232,389],width:158},
- {source:[36,335,704,136],center:[313,667],width:164},
- {source:[798,335,704,136],center:[1310,667],width:170},
- {source:[36,548,704,136],center:[109,115],width:165},
- {source:[798,548,704,136],center:[494,115],width:166},
- {source:[36,760,704,136],center:[1213,115],width:186},
- {source:[798,760,704,136],center:[1570,115],width:184}
+ {source:[36,123,704,136],center:[516,424],width:120},
+ {source:[798,123,704,136],center:[1151,424],width:120},
+ {source:[36,335,704,136],center:[410,658],width:140},
+ {source:[798,335,704,136],center:[1242,658],width:142},
+ {source:[36,548,704,136],center:[199,207],width:128},
+ {source:[798,548,704,136],center:[537,207],width:135},
+ {source:[36,760,704,136],center:[1151,207],width:153},
+ {source:[798,760,704,136],center:[1477,207],width:147}
 ];
-function compose(original,repair){
- const c=document.createElement('canvas');c.width=1672;c.height=941;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;
- ctx.drawImage(original,0,0,c.width,c.height);
- const sx=repair.naturalWidth/c.width,sy=repair.naturalHeight/c.height;
- for(const [x,y,w,h] of PATCHES)ctx.drawImage(repair,x*sx,y*sy,w*sx,h*sy,x,y,w,h);
- // These old sections were separated by ladders; now each has a full wooden post.
- ctx.drawImage(repair,1124*sx,130*sy,14*sx,164*sy,135,130,14,164);
- ctx.drawImage(repair,1142*sx,402*sy,14*sx,167*sy,1348,402,14,167);
- // Close the outermost shelf ends within the map instead of clipping planks.
- for(const [y,h] of [[0,84],[85,210],[355,215]]){
-  ctx.drawImage(repair,214*sx,130*sy,5*sx,140*sy,0,y,4,h);
-  ctx.drawImage(repair,214*sx,130*sy,5*sx,140*sy,1668,y,4,h);
- }
- ctx.drawImage(original,1580,101,10,29,1662,101,10,29);
+function compose(original){
+ const c=document.createElement('canvas');c.width=1672;c.height=941;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.drawImage(original,0,0,c.width,c.height);
+ // A wooden divider retains all three Luminara collections on each row.
+ ctx.drawImage(original,1097,439,11,109,1243,439,11,109);
+ return c;
+}
+function volumeMarks(){
+ const c=document.createElement('canvas');c.width=1024;c.height=48;const ctx=c.getContext('2d');ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 26px Georgia,serif';
+ for(let n=1;n<=32;n++){const x=(n-1)*32;ctx.fillStyle='#291b12';ctx.fillRect(x+1,2,30,43);ctx.strokeStyle='#af8042';ctx.lineWidth=1;ctx.strokeRect(x+2,3,28,41);ctx.fillStyle='#684221';ctx.fillText(String(n),x+16,25,25);ctx.fillStyle='#efd092';ctx.fillText(String(n),x+16,24,25);}
  return c;
 }
 function drawNameplates(ctx,signs){
@@ -45,5 +40,5 @@ function drawNameplates(ctx,signs){
   ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(signs,...plate.source,x,y,w,h);ctx.restore();
  }
 }
-const api={compose,drawNameplates,PATCHES,NAMEPLATES};if(typeof module!=='undefined')module.exports=api;root.GalleryRoom=api;
+const api={volumeMarks,compose,drawNameplates,PATCHES,NAMEPLATES};if(typeof module!=='undefined')module.exports=api;root.GalleryRoom=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
