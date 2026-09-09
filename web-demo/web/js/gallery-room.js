@@ -22,15 +22,31 @@ const NAMEPLATES=[
  {source:[36,760,704,136],center:[1151,207],width:153},
  {source:[798,760,704,136],center:[1477,207],width:147}
 ];
-function compose(original){
- const c=document.createElement('canvas');c.width=1672;c.height=941;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.drawImage(original,0,0,c.width,c.height);
+function compose(original,west){
+ const c=document.createElement('canvas');c.width=1832;c.height=941;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;if(west)ctx.drawImage(west,0,0,160,941);ctx.drawImage(original,160,0,1672,941);
  // A wooden divider retains all three Luminara collections on each row.
- ctx.drawImage(original,1097,439,11,109,1243,439,11,109);
+ ctx.drawImage(original,1097,439,11,109,1403,439,11,109);
  return c;
 }
+function numberedBindings(items){
+ const canvas=document.createElement('canvas'),columns=31;canvas.width=2048;canvas.height=Math.ceil(items.length/columns)*194;const ctx=canvas.getContext('2d'),bySeries=new Map();
+ for(let i=0;i<items.length;i++){const item=items[i],x=(i%columns)*66+1,y=Math.floor(i/columns)*194+1,w=64,h=192;ctx.drawImage(item.visual.image,...item.visual.source,x,y,w,h);
+  // Continue the existing leather grain through the foil area; retain the curved
+  // silhouette and outer tooling instead of laying a rectangular label over it.
+  const pixels=ctx.getImageData(x,y,w,h),d=pixels.data;
+  const top=item.hasFirst?119:138,bottom=179,left=15,right=49;
+  for(let yy=top;yy<bottom;yy++)for(let xx=left;xx<right;xx++){
+   const edge=Math.min(1,(xx-left)/4,(right-1-xx)/4,(yy-top)/3,(bottom-1-yy)/3),t=(xx-left)/(right-left);
+   for(let ch=0;ch<3;ch++){const row=item.hasFirst?yy:150;const a=d[(row*w+left-1)*4+ch],b=d[(row*w+right)*4+ch],v=a*(1-t)+b*t;const at=(yy*w+xx)*4+ch;d[at]=d[at]*(1-edge)+v*edge;}
+  }
+  ctx.putImageData(pixels,x,y);
+  bySeries.set(item.series,{image:canvas,source:[x,y,w,h]});
+ }return {canvas,bySeries};
+}
 function volumeMarks(){
- const c=document.createElement('canvas');c.width=1024;c.height=48;const ctx=c.getContext('2d');ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 26px Georgia,serif';
- for(let n=1;n<=32;n++){const x=(n-1)*32;ctx.fillStyle='#291b12';ctx.fillRect(x+1,2,30,43);ctx.strokeStyle='#af8042';ctx.lineWidth=1;ctx.strokeRect(x+2,3,28,41);ctx.fillStyle='#684221';ctx.fillText(String(n),x+16,25,25);ctx.fillStyle='#efd092';ctx.fillText(String(n),x+16,24,25);}
+ const c=document.createElement('canvas');c.width=48*17;c.height=64;const ctx=c.getContext('2d');ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='36px Georgia,serif';
+ // Gold foil and its small impressed shadow, directly over the leather: no label rectangle.
+ for(let n=1;n<=17;n++){const x=(n-1)*48+24;ctx.lineJoin='round';ctx.lineWidth=.8;ctx.strokeStyle='#211607';ctx.strokeText(String(n),x,34,40);ctx.fillStyle='#634014';ctx.fillText(String(n),x+1,35,40);ctx.fillStyle='#e6c179';ctx.fillText(String(n),x,33,40);}
  return c;
 }
 function drawNameplates(ctx,signs){
@@ -40,5 +56,5 @@ function drawNameplates(ctx,signs){
   ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(signs,...plate.source,x,y,w,h);ctx.restore();
  }
 }
-const api={volumeMarks,compose,drawNameplates,PATCHES,NAMEPLATES};if(typeof module!=='undefined')module.exports=api;root.GalleryRoom=api;
+const api={numberedBindings,volumeMarks,compose,drawNameplates,PATCHES,NAMEPLATES};if(typeof module!=='undefined')module.exports=api;root.GalleryRoom=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

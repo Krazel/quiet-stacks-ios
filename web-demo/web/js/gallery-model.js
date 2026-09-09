@@ -96,6 +96,7 @@ const SCATTER=LAYOUT.scatter;
 class Gallery{
 constructor(){this.state={version:4,mapRevision:2,books:SLOTS.map((slot,i)=>({id:i,series:slot.series,volume:slot.volume,place:'floor',slot:-1,pose:'upright',x:SCATTER[i].x,y:SCATTER[i].y,order:i})),camera:{x:836,y:470,zoom:1.12},nextOrder:TOTAL};}
 book(id){return Number.isInteger(id)?this.state.books[id]:undefined;}
+placement(id){const b=this.book(id);if(!b||b.place!=='shelf')return null;if(b.slot===b.id)return 'exact';return SERIES[SLOTS[b.slot].series].rack===SERIES[b.series].rack?'rack':null;}
 canPlace(id,place,slot=-1,point){const b=this.book(id);if(!b||!['floor','cart','shelf'].includes(place))return false;
 if(place==='cart')return b.place==='cart'||this.cart().length<CART_CAPACITY;
 if(place==='floor')return floorAllowed(point);
