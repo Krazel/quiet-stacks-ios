@@ -1,5 +1,5 @@
 {
-  "version": "0.17.4",
+  "version": "0.17.5",
   "files": [
     "index.html",
     "gallery.css",
@@ -11,6 +11,7 @@
     "assets/nameplates-v14.png",
     "js/gallery-volumes.js",
     "assets/gallery-walls-v174.png",
+    "js/gallery-story.js",
     "js/gallery-feedback.js",
     "js/gallery-expanded.js",
     "js/gallery-ambience.js",

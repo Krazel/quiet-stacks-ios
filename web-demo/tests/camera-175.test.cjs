@@ -1,0 +1,2 @@
+const test=require('node:test'),assert=require('node:assert/strict'),{Gallery}=require('../web/js/gallery-model.js');
+test('camera positions inside either painted side wall survive saving at close zoom',()=>{for(const x of [-50,1750]){const g=new Gallery();Object.assign(g.state.camera,{x,zoom:8});assert(Gallery.valid(g.state));const restored=new Gallery();assert(restored.restore(g.state));assert.deepEqual(restored.state,g.state);}for(const x of [-131,1863,Infinity]){const g=new Gallery();g.state.camera.x=x;assert(!Gallery.valid(g.state));}});

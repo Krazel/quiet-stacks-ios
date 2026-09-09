@@ -72,3 +72,11 @@ footer{left:calc(18px + var(--safe-left));right:calc(18px + var(--safe-right));b
 }
 
 .placement-feedback{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+
+/* The letter and appointment are brief, readable scenes, outside the playfield. */
+.story{width:min(780px,calc(100vw - var(--safe-left) - var(--safe-right) - 40px));max-width:none;max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 28px);margin:auto;padding:32px;border:2px solid #b58a48;border-radius:8px;background:linear-gradient(130deg,#30231a,#181412 72%);color:#f3e6ca;box-shadow:inset 0 0 0 5px #17130f,inset 0 0 0 6px #71502e,0 15px 65px #000a;overflow:auto;touch-action:pan-y}
+.story[open]{display:grid;grid-template-columns:110px minmax(0,1fr);gap:30px;align-items:center}.story::backdrop{background:#0b0805c9;backdrop-filter:none}
+.story-emblem{width:110px;padding:16px 8px;color:#d5ac65;background:radial-gradient(ellipse,#a775262c,transparent 70%);border-top:1px solid #71502e;border-bottom:1px solid #71502e}.story-emblem svg{width:100%;stroke:currentColor;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.story-chapter{color:#d7ad67;text-transform:uppercase;font:11px GalleryMono,monospace;letter-spacing:.2em;margin:0 0 12px}.story h1{font:34px/1.12 Georgia,serif;letter-spacing:0;margin:0 0 18px;color:#ffe8b9}.story-letter>p:not(.story-chapter){font:17px/1.5 Georgia,serif;margin:0 0 14px}.story-letter>p.story-signature{font-size:13px;font-style:italic;color:#c8ad83;margin:18px 0}.story button{background:linear-gradient(#77542c,#50351f);border-color:#c09755;color:#fff0d0;padding:10px 22px;min-height:46px;box-shadow:inset 0 0 0 2px #3e291a}.story[data-chapter=ending] .story-emblem{color:#e8ca88}
+@media(max-height:500px){.story{padding:18px 22px}.story[open]{grid-template-columns:76px minmax(0,1fr);gap:20px}.story-emblem{width:76px}.story h1{font-size:26px;margin-bottom:10px}.story-chapter{font-size:10px;margin-bottom:8px}.story-letter>p:not(.story-chapter){font-size:15px;line-height:1.35;margin-bottom:9px}.story-letter>p.story-signature{font-size:12px;margin:10px 0}.story button{font-size:13px;min-height:44px;padding:8px 16px}}
+@media(max-width:620px){.story[open]{grid-template-columns:1fr;gap:0}.story-emblem{display:none}.story{padding:20px;width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)}}

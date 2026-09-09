@@ -22,12 +22,12 @@ test('manual gallery loads the full catalogue and paints visible books at deskto
 test('the painted room covers every viewport at home, after extreme pan and after restoring an edge camera',()=>{
  for(const [w,h] of [[812,375],[568,320],[390,844],[1024,768],[1366,1024]]){
   const t=harness(w,h),books=t.state().books;
-  const covered=()=>{const [left,top]=t.screen([0,0]),[right,bottom]=t.screen([1672,941]);assert.ok(left<=1e-8&&top<=1e-8&&right>=w-1e-8&&bottom>=h-1e-8,JSON.stringify({w,h,left,top,right,bottom}));};
+  const covered=()=>{const [left,top]=t.screen([-130,0]),[right,bottom]=t.screen([1862,941]);assert.ok(left<=1e-8&&top<=1e-8&&right>=w-1e-8&&bottom>=h-1e-8,JSON.stringify({w,h,left,top,right,bottom}));};
   t.advance();covered();
   for(const zoom of [1,1.12,3,8])for(const x of [-10000,10000])for(const y of [-10000,10000]){Object.assign(t.live.state.camera,{x,y,zoom});t.advance();covered();}
   t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();covered();
   assert.deepEqual(t.state().books,books);
-  Object.assign(t.live.state.camera,{x:0,y:941,zoom:1});t.events.get('pagehide')();const restored=harness(w,h,t.data);restored.advance();const [left,top]=restored.screen([0,0]),[right,bottom]=restored.screen([1672,941]);assert.ok(left<=1e-8&&top<=1e-8&&right>=w-1e-8&&bottom>=h-1e-8);assert.deepEqual(restored.state().books,books);
+  Object.assign(t.live.state.camera,{x:0,y:941,zoom:1});t.events.get('pagehide')();const restored=harness(w,h,t.data);restored.advance();const [left,top]=restored.screen([-130,0]),[right,bottom]=restored.screen([1862,941]);assert.ok(left<=1e-8&&top<=1e-8&&right>=w-1e-8&&bottom>=h-1e-8);assert.deepEqual(restored.state().books,books);
  }
 });
 
