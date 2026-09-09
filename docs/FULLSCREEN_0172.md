@@ -18,3 +18,14 @@ El libro seleccionado se aclara un 9 % mediante su propia textura y transparenci
 La compilación y verificación nativa se registrarán aquí con la build exacta. La aceptación visual en el iPhone físico corresponde al usuario; el simulador no la sustituye.
 
 La primera QA nativa (run 34337688919) detectó que un ajuste de cámara previo a la carga de imágenes perdía el recorrido adicional guardado. Se pospone ese ajuste hasta que la vista está lista; la nueva regresión reproduce el primer cálculo de insets a cero y verifica la recarga exacta. Ningún libro cambió. La build no llegó a TestFlight en ese intento.
+
+## Entrega verificada
+
+- 0.17.2 (1), TestFlight **interno**, VALID / IN_BETA_TESTING; build `c4d3b69d-5aac-49ff-9711-5e7f243a732c`.
+- [CI verificada](https://github.com/Krazel/quiet-stacks-ios/actions/runs/34338599483), commit `63fef982058063ef1ea9cb70804b75eaa942772d`.
+- QA nativa en simuladores iPhone/iPad: escenario igual a toda la vista, ganancia de selección 1.09 sin borde, zona inferior reservada, cámara/partida conservadas tras relanzar y ejecutar el informe.
+- 960 volúmenes, ordenación/dispersión, guardado, diagnóstico y archivo JSON compartible correctos; diez texturas preparadas y cero redibujados de libros en reposo.
+- IPA arm64 iPhoneOS: 24 recursos idénticos al commit, firma y SHA256 `40425fc4f88d762cb2986889367f091bbd2ed7fe33e6f4762b34e40aa0ed5d9d` verificados; no incluye las sondas del simulador.
+- Biblioteca PR-014 guardada y releída en revisión 45; App Store creada sin publicación, anuncios Por confirmar, seguimiento restante conservado.
+
+Evidencia: `artifacts/native-0172-verification.json`, `artifacts/ios-testflight-0172-upload.json`, `artifacts/testflight-0172-verification.json` y `artifacts/library-0172-verification.json`.
