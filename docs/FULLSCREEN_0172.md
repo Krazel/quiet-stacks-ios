@@ -16,3 +16,5 @@ El libro seleccionado se aclara un 9 % mediante su propia textura y transparenci
 - Evidencias: `artifacts/fullscreen-0172/verification.json` y capturas.
 
 La compilación y verificación nativa se registrarán aquí con la build exacta. La aceptación visual en el iPhone físico corresponde al usuario; el simulador no la sustituye.
+
+La primera QA nativa (run 34337688919) detectó que un ajuste de cámara previo a la carga de imágenes perdía el recorrido adicional guardado. Se pospone ese ajuste hasta que la vista está lista; la nueva regresión reproduce el primer cálculo de insets a cero y verifica la recarga exacta. Ningún libro cambió. La build no llegó a TestFlight en ese intento.
