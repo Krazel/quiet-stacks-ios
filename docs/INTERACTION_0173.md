@@ -1,4 +1,4 @@
-# Quiet Stacks 0.17.3 (1)
+# Quiet Stacks 0.17.3 (2)
 
 Candidate release. The previous delivered version is 0.17.2 (1), internal TestFlight.
 
@@ -13,3 +13,11 @@ The existing 525 numbered spine images are retained. The remaining 435 volumes r
 Validation: 88 Node tests; actual mouse drops in wrong/right/exact locations; representative spine contact sheet; full viewport and bottom drop checks; Canvas/WebGL comparison and context restore; performance report/share/save checks. Native iPhone/iPad build and delivery verification are pending.
 
 Runtime manifest: 26 files. GPU preparation: 11 textures, 123.70 MiB, versus 117.05 MiB previously. Independent celebrations do not redraw the book scene after drop. Simulator performance is not a physical-device measurement.
+
+Candidate CI: https://github.com/Krazel/quiet-stacks-ios/actions/runs/34345549085; commit 982fd6e587fcf7a8a5e847fba86b1e5fc18713ef. Native QA and upload in progress.
+
+The first and last volume of all 117 collections were also visually reviewed: artifacts/placements-0173/all-collections.png. The Canvas highlight comparison warms the shared cover atlas first to isolate the illumination from Chrome's one-time image sampling cache change; all five viewport/backend cases then change only pixels inside the selected book.
+
+Effect stress check: 1,000 effect requests with reduced motion enabled are capped at four active effects, all stop, and the book scene renders no extra frames (artifacts/placements-0173/effects-budget.json). This is an effect queue check, not a physical-device FPS benchmark.
+
+Build 1 native QA passed, but its wide-pan measurement was 28.17 FPS versus 54.69 previously, alongside an anomalous 16-second idle stage. Build 2 guards the color operation so unselected books and the background skip it, then repeats native validation. Build 1 is not the final delivery.
