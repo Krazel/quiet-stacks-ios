@@ -1,6 +1,6 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts/performance-0173');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts/performance-0174');fs.mkdirSync(out,{recursive:true});
 (async()=>{
  const {default:files}=await import('../runtime-files.mjs');
  const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(!files.includes(name)){res.writeHead(404).end();return;}let data=fs.readFileSync(path.join(root,'web',name));if(name==='js/gallery.js')data=Buffer.from(data.toString().replace('const camera=()=>model.state.camera;','window.__qaModel=model;const camera=()=>model.state.camera;'));
