@@ -52,7 +52,7 @@
     async function start(requestedMode){
       if(active||!adapter.ready())return;
       mode=requestedMode;active=true;const id=++epoch;started=now();completed.length=0;dropCases.length=0;inputAt=null;
-      result={type:'quiet-stacks-performance',schema:1,version:'0.17.0',build:'1',mode,createdAt:new Date().toISOString(),environment:adapter.environment(),
+      result={type:'quiet-stacks-performance',schema:1,version:'0.17.1',build:'1',mode,createdAt:new Date().toISOString(),environment:adapter.environment(),
         timingNotes:'Render timings and render FPS measure main-thread draw submissions, not GPU presentation. Graphics identifies WebGL or the Canvas fallback; textureMiB estimates uploaded RGBA textures, not total process memory. Render FPS during idle is expected to be zero. Input latency starts when the JS listener receives an event. WebContent process memory is unavailable through the public bridge. No saved layout or book identities are included.'};
       $('performance-panel').hidden=true;$('performance-running').hidden=false;$('performance-phase').textContent='Preparing test…';$('performance-copy').disabled=true;$('performance-share').disabled=true;
       try{

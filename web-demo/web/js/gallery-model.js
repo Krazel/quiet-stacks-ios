@@ -107,13 +107,15 @@ const points=SCATTER.map(p=>({...p}));let seed=this.state.nextOrder>>>0;
 if(mode==='scatter')for(let i=points.length-1;i>0;i--){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const j=seed%(i+1);[points[i],points[j]]=[points[j],points[i]];}
 for(const b of this.state.books){b.place=mode==='sort'?'shelf':'floor';b.slot=mode==='sort'?b.id:-1;b.pose='upright';b.order=this.state.nextOrder++;if(mode==='scatter'){b.x=points[b.id].x;b.y=points[b.id].y;}}
 return true;}
-nearestDrop(id,point){if(!this.book(id)||!point||![point.x,point.y].every(Number.isFinite))return null;
+nearestDrop(id,point,accept=()=>true,floorSeed){if(!this.book(id)||!point||![point.x,point.y].every(Number.isFinite))return null;
 const p={x:Math.max(0,Math.min(W,point.x)),y:Math.max(0,Math.min(H,point.y))},slot=slotAt(p);
-if(slot>=0&&this.canPlace(id,'shelf',slot))return {place:'shelf',slot};
-if(cartHit(p)&&this.canPlace(id,'cart'))return {place:'cart'};
-if(floorAllowed(p))return {place:'floor',point:p};
+if(slot>=0&&this.canPlace(id,'shelf',slot)&&accept({place:'shelf',slot}))return {place:'shelf',slot};
+if(cartHit(p)&&this.canPlace(id,'cart')&&accept({place:'cart'}))return {place:'cart'};
+if(floorAllowed(p)&&accept({place:'floor',point:p}))return {place:'floor',point:p};
 let best=null,distance=Math.hypot(W,H);
-const consider=(target,q)=>{const d=Math.hypot(q.x-p.x,q.y-p.y);if(d<distance){best=target;distance=d;}};
+const consider=(target,q)=>{const d=Math.hypot(q.x-p.x,q.y-p.y);if(d<distance&&accept(target)){best=target;distance=d;}};
+// The viewport can lie wholly inside open floor, with no furniture boundary samples.
+if(floorSeed&&floorAllowed(floorSeed))consider({place:'floor',point:floorSeed},floorSeed);
 const occupied=new Set(this.state.books.filter(b=>b.id!==id&&b.place==='shelf').map(b=>b.slot));
 for(const s of SLOTS)if(!occupied.has(s.id))consider({place:'shelf',slot:s.id},{x:s.x,y:s.y-SHELF_BOOK.height/2});
 if(this.canPlace(id,'cart')){const cart=this.cart(),index=this.book(id).place==='cart'?cart.indexOf(this.book(id)):cart.length;consider({place:'cart'},{x:cartPoint(index).x,y:cartPoint(index).y-12.5});}
@@ -121,7 +123,7 @@ if(this.canPlace(id,'cart')){const cart=this.cart(),index=this.book(id).place===
 // The direct drop path above keeps arbitrary player coordinates unchanged.
 const points=LAYOUT.points;let nearest=null,distance2=distance*distance;
 function search(lo,hi,axis){if(lo>=hi)return;const mid=(lo+hi)>>1,x=points[mid*2],y=points[mid*2+1],dx=x-p.x,dy=y-p.y,d2=dx*dx+dy*dy;
-  if(d2<distance2){distance2=d2;nearest={x,y};}
+  if(d2<distance2&&accept({place:'floor',point:{x,y}})){distance2=d2;nearest={x,y};}
   const delta=axis?dy:dx;
   if(delta>0){search(lo,mid,1-axis);if(delta*delta<distance2)search(mid+1,hi,1-axis);}
   else{search(mid+1,hi,1-axis);if(delta*delta<distance2)search(lo,mid,1-axis);}
@@ -130,11 +132,11 @@ search(0,points.length/2,0);
 if(nearest){
   // Refine toward the attempted point while retaining a verified valid endpoint.
   let valid=nearest,invalid=p;
-  for(let i=0;i<16;i++){const q={x:(valid.x+invalid.x)/2,y:(valid.y+invalid.y)/2};if(floorAllowed(q))valid=q;else invalid=q;}
+  for(let i=0;i<16;i++){const q={x:(valid.x+invalid.x)/2,y:(valid.y+invalid.y)/2};if(floorAllowed(q)&&accept({place:'floor',point:q}))valid=q;else invalid=q;}
   return {place:'floor',point:valid};
 }
 return best;}
-drop(id,point){const target=this.nearestDrop(id,point);if(!target)return false;const b=this.book(id);
+drop(id,point,accept,floorSeed){const target=this.nearestDrop(id,point,accept,floorSeed);if(!target)return false;const b=this.book(id);
 if(b.place===target.place&&target.place!=='floor'&&(target.place!=='shelf'||b.slot===target.slot))return true;
 return this.move(id,target.place,target.slot??-1,target.point);}
 cart(){return this.state.books.filter(b=>b.place==='cart').sort((a,b)=>a.order-b.order);}
