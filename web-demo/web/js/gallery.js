@@ -5,7 +5,7 @@
   try{gpu=window.GalleryGpu?.create(canvas,requestDraw);}catch(error){const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;console.warn('Using Canvas fallback:',error.message);}
   const ctx=gpu?null:canvas.getContext('2d');
   const W=1672,H=941,KEY='quiet-stacks.gallery.v4',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-  let safeLeft=0,safeBottom=0,width=1,height=1,dpr=1,base=1,selected=null,series=0,ready=false,restored=false,noticeTimer,saveTimer,storageWarning=false;
+  let safeLeft=0,safeRight=0,safeBottom=0,width=1,height=1,dpr=1,base=1,selected=null,series=0,ready=false,restored=false,noticeTimer,saveTimer,storageWarning=false;
   let gesture=null,pinch=null,suppressTap=false,dragPoint=null,framePending=false;
   const visualCache=new Map();let cachedState,cachedOrder=-1,sortedBooks=[],cartBooks=[];
   function requestDraw(){if(!framePending){framePending=true;requestAnimationFrame(frame);}}
@@ -13,10 +13,10 @@
   const ambience=window.GalleryAmbience?.create(document.getElementById('playfield'));
   const pointers=new Map();let profiler=null,autoTesting=false,perfMeasuring=false,perfBookCount=0;
   const packed=window.GalleryPacked,packedImages=packed?packed.pages.map(()=>new Image()):[];
-  let expectedImages=11+GalleryModel.COLLECTION_ATLASES.length+GalleryVolumes.atlases.length;
+  let expectedImages=10+GalleryModel.COLLECTION_ATLASES.length+GalleryVolumes.atlases.length;
   const volumeImages=GalleryVolumes.atlases.map(()=>new Image()),volumeAtlases=[...volumeImages];
   const nameplateImage=new Image();let room,marks,numberedBindings;const collectionImages=GalleryModel.COLLECTION_ATLASES.map(()=>new Image()),collectionAtlases=[...collectionImages];
-  const westWall=new Image(),background=new Image(),atlasImage=new Image(),floorImage=new Image(),directionsImage=new Image();const openImage=new Image();let openAtlas=openImage;const turnImage=new Image(),bindingImages=[new Image(),new Image(),new Image()];let turnAtlas=turnImage,bindingAtlases=[...bindingImages],directionsAtlas=directionsImage,floorAtlas=floorImage,atlas=atlasImage,loadedImages=0;
+  const background=new Image(),atlasImage=new Image(),floorImage=new Image(),directionsImage=new Image();const openImage=new Image();let openAtlas=openImage;const turnImage=new Image(),bindingImages=[new Image(),new Image(),new Image()];let turnAtlas=turnImage,bindingAtlases=[...bindingImages],directionsAtlas=directionsImage,floorAtlas=floorImage,atlas=atlasImage,loadedImages=0;
   const FLOOR_SPRITES=[[148,190,350,276],[596,194,352,275],[1057,183,340,280],[145,550,355,307],[589,561,335,296],[1042,559,355,297]];
   const DIRECTION_SPRITES=[[76,65,226,189],[414,109,239,130],[736,62,283,206],[75,299,227,192],[411,345,242,131],[735,299,285,206],[76,536,226,196],[412,583,241,133],[735,538,285,207],[75,777,227,197],[410,825,243,127],[735,778,285,209],[78,1009,222,188],[409,1054,238,129],[734,1005,281,209],[77,1227,223,186],[408,1278,235,127],[734,1228,280,207]];
   const BINDING_SPRITES=[[[24,93,180,180],[232,93,181,184],[437,94,178,183],[641,94,176,180],[844,93,177,182],[1048,93,175,184],[31,353,168,165],[235,357,163,163],[449,352,161,169],[642,356,164,170],[852,359,166,164],[1053,354,169,174],[76,582,64,212],[279,582,66,212],[478,582,64,212],[685,582,65,212],[893,582,59,212],[1094,582,62,212],[22,983,162,213],[229,983,163,213],[434,983,165,213],[637,984,163,212],[843,984,163,212],[1049,984,175,212]],[[26,87,192,201],[238,87,187,198],[438,89,180,195],[648,89,184,196],[855,89,180,198],[1048,91,177,195],[32,342,188,181],[244,341,181,180],[451,341,174,181],[662,340,179,183],[869,340,176,183],[1055,342,173,183],[87,568,54,222],[292,568,53,222],[494,568,54,222],[699,568,54,222],[906,568,54,222],[1096,568,56,222],[42,968,156,228],[246,968,157,229],[449,968,156,229],[648,968,160,229],[853,969,157,228],[1051,969,156,228]],[[20,96,187,174],[233,96,184,174],[439,96,184,174],[640,98,181,175],[843,98,181,175],[1045,96,182,176],[33,352,174,174],[240,353,173,175],[445,354,173,176],[649,355,172,176],[854,357,170,174],[1056,357,169,174],[78,593,54,174],[283,593,53,174],[490,593,53,174],[699,593,51,174],[901,593,53,174],[1108,593,53,174],[24,994,147,204],[238,994,145,204],[439,993,150,205],[649,994,151,205],[859,994,147,204],[1070,994,141,204]]];
@@ -41,8 +41,8 @@
   const slotPoint=i=>({x:SLOTS[i].x,y:SLOTS[i].y});
   function pointFor(b){if(b.place==='shelf')return slotPoint(b.slot);if(b.place==='cart'){refreshOrder();const i=cartBooks.indexOf(b);return GalleryModel.cartPoint(i);}return {x:b.x,y:b.y};}
   // Cover the viewport and keep its edges inside the painted room, at every zoom.
-  function constrain(){requestDraw();const c=camera(),s=scale(),hx=Math.min(W/2,width/(2*s)),hy=Math.min(H/2,height/(2*s));c.x=clamp(c.x,hx-Math.min(160,(safeLeft+ (safeLeft?6:0))/s),W-hx);c.y=clamp(c.y,hy,H-hy);}
-  function resize(){width=canvas.clientWidth||innerWidth;height=canvas.clientHeight||innerHeight;const insets=typeof getComputedStyle==='function'?getComputedStyle($('device-insets')):{};safeLeft=parseFloat(insets.paddingLeft)||0;safeBottom=parseFloat(insets.paddingBottom)||0;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);base=Math.max(width/W,height/H);if(ready)constrain();}
+  function constrain(){requestDraw();const c=camera(),s=scale(),hx=Math.min(W/2,width/(2*s)),hy=Math.min(H/2,height/(2*s));c.x=clamp(c.x,hx-Math.min(130,(safeLeft+(safeLeft?6:0))/s),W-hx+Math.min(190,(safeRight+(safeRight?6:0))/s));c.y=clamp(c.y,hy,H-hy);}
+  function resize(){width=canvas.clientWidth||innerWidth;height=canvas.clientHeight||innerHeight;const insets=typeof getComputedStyle==='function'?getComputedStyle($('device-insets')):{};safeLeft=parseFloat(insets.paddingLeft)||0;safeRight=parseFloat(insets.paddingRight)||0;safeBottom=parseFloat(insets.paddingBottom)||0;dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);base=Math.max(width/W,height/H);if(ready)constrain();}
   function say(message){$('notice').textContent=message;$('notice').classList.remove('quiet');clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>$('notice').classList.add('quiet'),6500);}
   function save(){if(autoTesting)return;clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{const data=JSON.stringify(model.state),previous=localStorage.getItem(KEY);if(previous){try{if(Gallery.valid(JSON.parse(previous)))localStorage.setItem(KEY+'.backup',previous);}catch{}}localStorage.setItem(KEY,data);}catch{if(!storageWarning){storageWarning=true;say('Storage is unavailable. You can still play in this session.');}}},200);}
   function select(id,inspect=true){selected=id;const b=model.book(id);if(b)series=b.series;update();if(inspect&&b)showInspection(b);}
@@ -114,17 +114,17 @@
 
   }
   function frame(time){framePending=false;if(!ready)return;perfMeasuring=!!profiler?.active;perfBookCount=0;const perfStart=perfMeasuring?performance.now():0;const s=scale(),c=camera(),held=model.book(selected);
-    if(gpu){if(!gpu.begin(width,height,dpr,s,c))return;gpu.draw(room,[0,0,W+160,H],{x:-160,y:0,w:W+160,h:H},true);for(const plate of GalleryRoom.NAMEPLATES){const [cx,cy]=plate.center,w=plate.width,h=w*plate.source[3]/plate.source[2];gpu.draw(nameplateImage,plate.source,{x:cx-w/2,y:cy-h/2,w,h},false,2.6);}}
-    else{ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#17120e';ctx.fillRect(0,0,width,height);ctx.translate(width/2-c.x*s,height/2-c.y*s);ctx.scale(s,s);ctx.imageSmoothingEnabled=false;ctx.drawImage(room,-160,0,W+160,H);GalleryRoom.drawNameplates(ctx,nameplateImage);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';}const perfRoomEnd=perfMeasuring?performance.now():0;
+    if(gpu){if(!gpu.begin(width,height,dpr,s,c))return;gpu.draw(room,[0,0,W+320,H],{x:-130,y:0,w:W+320,h:H},true);for(const plate of GalleryRoom.NAMEPLATES){const [cx,cy]=plate.center,w=plate.width,h=w*plate.source[3]/plate.source[2];gpu.draw(nameplateImage,plate.source,{x:cx-w/2,y:cy-h/2,w,h},false,2.6);}}
+    else{ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#17120e';ctx.fillRect(0,0,width,height);ctx.translate(width/2-c.x*s,height/2-c.y*s);ctx.scale(s,s);ctx.imageSmoothingEnabled=false;ctx.drawImage(room,-130,0,W+320,H);GalleryRoom.drawNameplates(ctx,nameplateImage);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';}const perfRoomEnd=perfMeasuring?performance.now():0;
     const hx=width/(2*s),hy=height/(2*s),margin=2/s;visibleBounds={left:c.x-hx-margin,right:c.x+hx+margin,top:c.y-hy-margin,bottom:c.y+hy+margin};
     for(const b of orderedBooks()){if(b.id!==selected)bookArt(b,pointFor(b));}
     if(held)bookArt(held,dragPoint||pointFor(held),!!dragPoint);
-    gpu?.end();feedback?.sync(width,height,s,c);window.__galleryInteraction={selectionGain:held?1.4:1,selectionSaturation:held?1.35:1,bottomClearance:safeBottom?safeBottom+6:0,extraRight:safeLeft?Math.min(160*s,safeLeft+6):0,selectionOutline:false};ambience?.sync(width,height,scale(),camera());window.__galleryGraphics=gpu?gpu.stats():{backend:'canvas2d'};
+    gpu?.end();feedback?.sync(width,height,s,c);window.__galleryInteraction={selectionGain:held?1.4:1,selectionSaturation:held?1.35:1,bottomClearance:safeBottom?safeBottom+6:0,extraRight:safeLeft?Math.min(130*s,safeLeft+6):0,extraLeft:safeRight?Math.min(190*s,safeRight+6):0,selectionOutline:false};ambience?.sync(width,height,scale(),camera());window.__galleryGraphics=gpu?gpu.stats():{backend:'canvas2d'};
     if(perfMeasuring){const end=performance.now();profiler.frame({total:end-perfStart,room:perfRoomEnd-perfStart,books:end-perfRoomEnd,count:perfBookCount});}perfMeasuring=false;
     window.__galleryRenderedFrames=(window.__galleryRenderedFrames||0)+1;
     if(window.__galleryRenderedFrames===1){if(window.GalleryDiagnostics)GalleryDiagnostics.ready();else window.webkit?.messageHandlers?.galleryStatus?.postMessage('ready');}
   }
-  const imageLoaded=()=>{loadedImages++;if(loadedImages<expectedImages)return;visualCache.clear();room=GalleryRoom.compose(background,westWall);marks=GalleryRoom.volumeMarks();numberedBindings=null;const missing=SERIES.map((c,series)=>({series,color:c.color,book:model.state.books.find(b=>b.series===series&&!GalleryVolumes.bindings[c.art]?.[b.volume-1])})).filter(x=>x.book);numberedBindings=GalleryRoom.numberedBindings?.(missing.map(x=>({...x,visual:bookVisual({...x.book,volume:1},1),hasFirst:!!GalleryVolumes.bindings[SERIES[x.series].art]?.[0]})));visualCache.clear();if(gpu&&packed)gpu.warm([room,nameplateImage,...packedImages,marks,...(numberedBindings?[numberedBindings.canvas]:[])]);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();};
+  const imageLoaded=()=>{loadedImages++;if(loadedImages<expectedImages)return;visualCache.clear();room=GalleryRoom.compose(background);marks=GalleryRoom.volumeMarks();numberedBindings=null;const missing=SERIES.map((c,series)=>({series,color:c.color,book:model.state.books.find(b=>b.series===series&&!GalleryVolumes.bindings[c.art]?.[b.volume-1])})).filter(x=>x.book);numberedBindings=GalleryRoom.numberedBindings?.(missing.map(x=>({...x,visual:bookVisual({...x.book,volume:1},1),hasFirst:!!GalleryVolumes.bindings[SERIES[x.series].art]?.[0]})));visualCache.clear();if(gpu&&packed)gpu.warm([room,nameplateImage,...packedImages,marks,...(numberedBindings?[numberedBindings.canvas]:[])]);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();};
   const imageError=(error)=>{window.GalleryDiagnostics?.report('asset-error',{message:error?.message||error?.name||'Image did not load',asset:error?.target?.assetFile||error?.target?.src});console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
   let loadGeneration=0,textureBusy=false;
   const textureQueue=[];
@@ -151,7 +151,7 @@
   function loadAssets(){
     gpu?.reset();
     ready=false;loadedImages=0;window.__galleryRenderedFrames=0;const generation=++loadGeneration;textureQueue.length=0;
-    expectedImages=packed?packed.pages.length+3:11+collectionImages.length+volumeImages.length;
+    expectedImages=packed?packed.pages.length+2:10+collectionImages.length+volumeImages.length;
     const pending=[];
     $('retry').hidden=true;$('loading').hidden=false;
     $('loading').querySelector('h2').textContent='Opening the gallery…';
@@ -173,7 +173,7 @@
     watch(nameplateImage,'assets/nameplates-v14.png');
     collectionImages.forEach((img,i)=>watch(img,GalleryModel.COLLECTION_ATLASES[i].file,value=>collectionAtlases[i]=value,true));
     watch(openImage,'assets/books-open-v12.png',value=>openAtlas=value);
-    watch(background,'assets/gallery-expanded-v170.png');watch(westWall,'assets/gallery-west-wall-v173.png');
+    watch(background,'assets/gallery-walls-v174.png');
     watch(atlasImage,'assets/books-varied-v9.png',value=>atlas=value);
     watch(floorImage,'assets/books-floor-v6.png',value=>floorAtlas=value);
     watch(directionsImage,'assets/books-directions-v7.png',value=>directionsAtlas=value);

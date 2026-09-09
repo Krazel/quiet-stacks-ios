@@ -13,21 +13,16 @@ const PATCHES=[
 ];
 // Keep the painted lettering in its native atlas until the final screen render.
 const NAMEPLATES=[
- {source:[36,123,704,136],center:[516,424],width:120},
- {source:[798,123,704,136],center:[1151,424],width:120},
- {source:[36,335,704,136],center:[410,658],width:140},
- {source:[798,335,704,136],center:[1242,658],width:142},
- {source:[36,548,704,136],center:[199,207],width:128},
- {source:[798,548,704,136],center:[537,207],width:135},
- {source:[36,760,704,136],center:[1151,207],width:153},
- {source:[798,760,704,136],center:[1477,207],width:147}
+ {source:[36,123,704,136],center:[507.44,447.5754],width:120},
+ {source:[798,123,704,136],center:[1178.7167,447.5754],width:120},
+ {source:[36,335,704,136],center:[392.8318,691.0128],width:140},
+ {source:[798,335,704,136],center:[1272.5863,691.0128],width:142},
+ {source:[36,548,704,136],center:[161.4323,220.5128],width:128},
+ {source:[798,548,704,136],center:[519.4466,220.5128],width:135},
+ {source:[36,760,704,136],center:[1174.3507,220.5128],width:153},
+ {source:[798,760,704,136],center:[1538.914,220.5128],width:147}
 ];
-function compose(original,west){
- const c=document.createElement('canvas');c.width=1832;c.height=941;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;if(west)ctx.drawImage(west,0,0,160,941);ctx.drawImage(original,160,0,1672,941);
- // A wooden divider retains all three Luminara collections on each row.
- ctx.drawImage(original,1097,439,11,109,1403,439,11,109);
- return c;
-}
+function compose(original){return original;}
 function numberedBindings(items){
  const canvas=document.createElement('canvas'),columns=31;canvas.width=2048;canvas.height=Math.ceil(items.length/columns)*194;const ctx=canvas.getContext('2d'),bySeries=new Map();
  for(let i=0;i<items.length;i++){const item=items[i],x=(i%columns)*66+1,y=Math.floor(i/columns)*194+1,w=64,h=192;ctx.drawImage(item.visual.image,...item.visual.source,x,y,w,h);

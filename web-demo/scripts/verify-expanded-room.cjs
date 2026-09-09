@@ -1,5 +1,5 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts/expanded-room-0170');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts/expanded-room-0174');fs.mkdirSync(out,{recursive:true});
 (async()=>{const {default:files}=await import('../runtime-files.mjs');const server=http.createServer((req,res)=>{const name=new URL(req.url,'http://localhost').pathname.slice(1)||'index.html';if(!files.includes(name)){res.writeHead(404).end();return;}let data=fs.readFileSync(path.join(root,'web',name));if(name==='js/gallery.js')data=Buffer.from(data.toString().replace('const local=e=>','window.__qa={model,constrain,update,screen,scale,select};const local=e=>'));res.writeHead(200,{'Content-Type':name.endsWith('.js')?'text/javascript':name.endsWith('.html')?'text/html':name.endsWith('.css')?'text/css':'image/png'});res.end(data);});await new Promise(r=>server.listen(0,'127.0.0.1',r));let browser;
  try{browser=await chromium.launch({executablePath:process.env.CHROME_EXECUTABLE,headless:true});const result=[];
  for(const [name,width,height] of [['full-map',1672,941],['iphone',812,375],['ipad',1024,768]]){

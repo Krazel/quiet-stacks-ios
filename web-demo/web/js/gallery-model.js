@@ -57,10 +57,14 @@ for(const c of SERIES){const rack=RACKS[c.rack];c.segment=rack.legacySegments?.[
 RACKS.forEach((rack,r)=>rack.ys.forEach((y,row)=>rack.spans.forEach(([a,b],segment)=>{
  const key=[r,row,segment].join(':');let c=byBay.get(key);
  if(!c){const index=SERIES.length,theme=THEMES[rack.theme],art=100+index-100,binding=BINDINGS[art];if(!binding)throw Error('Missing new collection binding '+index);c={name:theme.subjects[(row*rack.spans.length+segment)%theme.subjects.length]+' / Archive Edition',category:rack.name,rack:r,row,segment,theme:rack.theme,color:binding.color,light:binding.light,art,start:-1,count:0};SERIES.push(c);byBay.set(key,c);}
- const previous=c.count,count=Math.max(previous,Math.floor((b-a)/9.35));if(count*9>b-a)throw Error('Collection does not fit '+key);
- Object.assign(c,{left:a,right:b,y,count,slotWidth:(b-a)/count,bookWidth:9,bookHeight:27,slotIds:[]});
+ // Catalogue sizes are independent of painted bay width: art revisions must
+ // never add volumes or change persistent book/slot identities.
+ const previous=c.count,count=EXPANDED.counts?.[r]?.[row]?.[segment]??Math.max(previous,Math.floor((b-a)/9.35));
+ const pitch=9.2,runWidth=count*9+(count-1)*.2;
+ if(runWidth>b-a)throw Error('Collection does not fit '+key);
+ Object.assign(c,{left:a,right:b,y,count,slotWidth:pitch,bookWidth:9,bookHeight:27,slotIds:[]});
  const series=SERIES.indexOf(c);
- for(let volume=1;volume<=count;volume++){let slot=volume<=previous?SLOTS[LEGACY_SERIES[series].start+volume-1]:null;if(!slot){slot={id:SLOTS.length,series,volume};SLOTS.push(slot);}Object.assign(slot,{x:a+(volume-.5)*c.slotWidth,y,segment:key});c.slotIds.push(slot.id);}
+ for(let volume=1;volume<=count;volume++){let slot=volume<=previous?SLOTS[LEGACY_SERIES[series].start+volume-1]:null;if(!slot){slot={id:SLOTS.length,series,volume};SLOTS.push(slot);}Object.assign(slot,{x:(a+b-runWidth)/2+4.5+(volume-1)*pitch,y,segment:key});c.slotIds.push(slot.id);}
  c.start=c.slotIds[0];
 })));
 
@@ -75,13 +79,13 @@ const OLD_OBSTACLES=[[0,84,234,210],[310,84,345,210],[1026,84,646,210],[0,354,44
 const OBSTACLES=RACKS.map(r=>r.box);
 function scatterAllowed(p){return floorAllowed(p)&&!cartHit(p);}
 function inPolygon(p,vertices){let inside=false;for(let i=0,j=vertices.length-1;i<vertices.length;j=i++){const [ax,ay]=vertices[i],[bx,by]=vertices[j];if((ay>p.y)!==(by>p.y)&&p.x<(bx-ax)*(p.y-ay)/(by-ay)+ax)inside=!inside;}return inside;}
-const FLOOR_REGIONS=[[[20,172],[1652,172],[1652,923],[20,923]],[[357,40],[412,40],[412,185],[357,185]],[[1268,40],[1315,40],[1315,185],[1268,185]],[[665,155],[1004,155],[1004,284],[665,284]]];
-const TABLE_TOPS=[[[750,628],[785,606],[901,650],[868,680]],[[417,825],[574,825],[574,849],[417,849]]];
-const CART_OUTLINE=[[804,498],[875,478],[895,520],[880,551],[811,547]];
+const FLOOR_REGIONS=[[[38.0921,181.2135],[1698.274,181.2135],[1725.5616,925.7169],[11.8959,925.7169]],[[329.5244,43.6659],[387.3742,43.6659],[387.3742,201.9548],[329.5244,201.9548]],[[1299.874,43.6659],[1354.4493,43.6659],[1354.4493,201.9548],[1299.874,201.9548]],[[654.7934,165.9304],[1021.5397,165.9304],[1021.5397,296.9281],[654.7934,296.9281]]];
+const TABLE_TOPS=[[[754.1205,663.7216],[794.5063,632.0638],[927.6701,677.913],[894.9249,709.5708]],[[404.8384,851.4849],[559.8323,851.4849],[559.8323,870.0429],[404.8384,870.0429]]];
+const CART_OUTLINE=[[815.2449,523.9907],[879.6438,506.5244],[900.3825,538.1821],[891.6504,575.2981],[819.611,577.4814]];
 const cartHit=p=>!!p&&inPolygon(p,CART_OUTLINE);
-const cartPoint=i=>({x:817+i%6*11,y:i<6?514:538});
-const SOLID_FURNITURE=[[[742,628],[785,594],[912,647],[912,699],[870,727],[740,673]],[[778,677],[815,680],[820,719],[779,708]],[[837,692],[872,685],[881,727],[843,738]],[[413,807],[576,807],[576,893],[413,893]],CART_OUTLINE,[[1299,287],[1325,275],[1375,284],[1393,332],[1375,356],[1305,346]],[[1263,582],[1347,582],[1347,608],[1263,608]],[[665,429],[695,429],[695,479],[665,479]]];
-const FIXTURES=[[780,231,23,28],[764,604,19,22],[791,590,12,18],[898,650,13,15],[496,816,14,18],[526,824,14,17],[554,827,14,18],[650,854,31,43],[637,759,22,31],[1022,754,21,35],[29,132,21,29],[1632,314,24,37],[20,540,19,29],[1655,534,19,37],[685,409,14,22]];
+const cartPoint=i=>({x:823.977+i%6*11,y:i<6?539.2738:563.2738});
+const SOLID_FURNITURE=[[[745.3885,663.7216],[791.2318,616.7807],[942.9512,679.0046],[940.7682,710.6624],[897.1079,745.5951],[745.3885,700.8376]],[[798.8723,709.5708],[835.9836,709.5708],[838.1666,748.8701],[799.9638,746.6868]],[[842.5326,733.587],[876.3693,715.029],[885.1014,756.5116],[845.8071,763.0615]],[[400.4723,829.652],[566.3814,829.652],[566.3814,919.1671],[400.4723,919.1671]],[[815.2449,523.9907],[879.6438,506.5244],[900.3825,538.1821],[891.6504,575.2981],[819.611,577.4814]],[[1333.7107,301.2947],[1366.4559,289.2865],[1415.5737,313.3028],[1473.4236,371.1601],[1451.5934,398.4513],[1332.6192,365.7019]],[[1297.691,611.3225],[1387.1945,611.3225],[1387.1945,638.6137],[1297.691,638.6137]],[[660.251,455.2169],[696.2707,455.2169],[696.2707,517.4408],[660.251,517.4408]]];
+const FIXTURES=[[779.2252,243.4374,25.104657534246577,29.47447795823666],[763.9441,637.522,19.647123287671235,25.10788863109049],[796.6893,620.0557,13.098082191780822,19.649651972157773],[911.2975,670.2715,15.28109589041096,18.55800464037123],[483.4268,835.1102,14.189589041095891,19.649651972157773],[513.989,840.5684,14.189589041095891,19.649651972157773],[544.5512,844.935,14.189589041095891,19.649651972157773],[646.0614,889.6926,31.65369863013699,37.11600928074246],[636.2378,802.3608,24.01315068493151,33.841067285382834],[1036.8208,800.1775,25.104657534246577,33.841067285382834],[45.7326,148.464,18.555616438356164,30.5661252900232],[1690.6334,332.9524,24.01315068493151,33.841067285382834],[-18.6663,554.5568,18.555616438356164,29.47447795823666],[1710.2805,554.5568,24.01315068493151,31.657772621809745],[677.7151,461.7668,16.37260273972603,28.382830626450115],[157.0663,805.6357,24.01315068493151,38.207656612529],[636.2378,711.7541,24.01315068493151,31.657772621809745],[1009.5332,539.2738,25.104657534246577,34.932714617169374],[-4.4767,332.9524,25.104657534246577,33.841067285382834],[890.5589,234.7042,17.464109589041097,27.291183294663572],[913.4805,217.2378,19.647123287671235,27.291183294663572],[758.4866,206.3213,17.464109589041097,26.19953596287703]];
 const SHELF_OBSTACLES=OBSTACLES;
 function floorAllowed(p){
  if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)||p.x<22||p.x>W-22||p.y<40||p.y>H-20)return false;
@@ -94,7 +98,7 @@ function floorAllowed(p){
 const LAYOUT=root.GalleryLayout||(typeof require==='function'?require('./gallery-layout.js'):null);
 const SCATTER=LAYOUT.scatter;
 class Gallery{
-constructor(){this.state={version:4,mapRevision:2,books:SLOTS.map((slot,i)=>({id:i,series:slot.series,volume:slot.volume,place:'floor',slot:-1,pose:'upright',x:SCATTER[i].x,y:SCATTER[i].y,order:i})),camera:{x:836,y:470,zoom:1.12},nextOrder:TOTAL};}
+constructor(){this.state={version:4,mapRevision:2,artRevision:174,books:SLOTS.map((slot,i)=>({id:i,series:slot.series,volume:slot.volume,place:'floor',slot:-1,pose:'upright',x:SCATTER[i].x,y:SCATTER[i].y,order:i})),camera:{x:836,y:470,zoom:1.12},nextOrder:TOTAL};}
 book(id){return Number.isInteger(id)?this.state.books[id]:undefined;}
 placement(id){const b=this.book(id);if(!b||b.place!=='shelf')return null;if(b.slot===b.id)return 'exact';return SERIES[SLOTS[b.slot].series].rack===SERIES[b.series].rack?'rack':null;}
 canPlace(id,place,slot=-1,point){const b=this.book(id);if(!b||!['floor','cart','shelf'].includes(place))return false;
@@ -155,7 +159,7 @@ restore(input){
   for(const b of this.state.books.slice(0,LEGACY_SLOTS.length))if(b.place==='floor'&&!floorAllowed(b)){const target=this.nearestDrop(b.id,b);if(target?.place==='floor'){b.x=target.point.x;b.y=target.point.y;}else{b.x=SCATTER[b.id].x;b.y=SCATTER[b.id].y;}}
   return Gallery.valid(this.state);
  }
- if(!Gallery.valid(input))return false;this.state=clone(input);return true;
+ if(!Gallery.valid(input))return false;this.state=clone(input);if(input.artRevision!==174){for(const b of this.state.books)if(b.place==='floor'&&!floorAllowed(b)){const target=this.nearestDrop(b.id,b,t=>t.place==='floor');const p=target?.point||SCATTER[b.id];b.x=p.x;b.y=p.y;}this.state.artRevision=174;}return true;
 }
 static valid(s){if(!s||s.version!==4||s.mapRevision!==2||!Array.isArray(s.books)||s.books.length!==TOTAL||!Number.isSafeInteger(s.nextOrder)||s.nextOrder<TOTAL)return false;const occupied=new Set();let cart=0;
 for(let i=0;i<TOTAL;i++){const b=s.books[i],slot=SLOTS[i];if(!b||b.id!==i||b.series!==slot.series||b.volume!==slot.volume||!['floor','cart','shelf'].includes(b.place)||b.pose!=='upright'||![b.x,b.y].every(Number.isFinite)||b.x<20||b.x>W-20||b.y<40||b.y>H-15||!Number.isSafeInteger(b.order)||b.order<0||b.order>=s.nextOrder)return false;

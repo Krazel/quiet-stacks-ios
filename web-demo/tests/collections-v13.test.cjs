@@ -7,9 +7,9 @@ test('all new collection views refer to their own complete measured raster sprit
  }assert.equal(seen.size,372);
 });
 test('ladder spaces accept shelf books and the parked ladder occupies floor only',()=>{
- for(const p of [{x:130,y:245},{x:1258,y:460},{x:450,y:730},{x:1180,y:770},{x:1400,y:245},{x:488,y:70},{x:1215,y:70},{x:965,y:185}])assert.ok(m.slotAt(p)>=0,JSON.stringify(p));
- assert.equal(m.floorAllowed({x:1300,y:596}),false);
- for(const s of m.SLOTS)assert.ok(!(s.x>=1263&&s.x<=1347&&s.y>=582&&s.y<=608));
+ for(const s of m.SLOTS)assert.equal(m.slotAt({x:s.x,y:s.y-13.5}),s.id);
+ assert.equal(m.floorAllowed({x:1340,y:625}),false);
+ for(const s of m.SLOTS)assert.ok(!(s.x>=1300&&s.x<=1380&&s.y>=612&&s.y<=635));
 });
 test('black atlas padding clears while enclosed ink stays opaque',()=>{
  const {clearMatte}=require('../web/js/gallery-textures.js'),w=7,a=new Uint8ClampedArray(w*w*4);

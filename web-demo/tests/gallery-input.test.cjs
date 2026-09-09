@@ -81,9 +81,9 @@ test('a book can be dragged onto and off the trolley without tap placement',()=>
  const t=harness();t.get('demo-sort').click();t.live.move(524,'floor',-1,{x:870,y:250});t.advance();
  const drag=(from,to)=>{t.pointer('pointerdown',t.screen(from));t.pointer('pointermove',t.screen(to));t.pointer('pointerup',t.screen(to));};
  drag([870,240],[848,520]);assert.equal(t.state().books[524].place,'cart');
- t.tap(t.screen([811,490]));assert.equal(t.get('inspection').hidden,false);t.get('inspect-close').click();
+ t.tap(t.screen([824,527]));assert.equal(t.get('inspection').hidden,false);t.get('inspect-close').click();
  const before=t.state().books;t.tap(t.screen([870,350]));assert.deepEqual(t.state().books,before);
- drag([811,490],[870,350]);assert.equal(t.state().books[524].place,'floor');assert.equal(t.state().books[524].x,870);
+ drag([824,527],[870,350]);assert.equal(t.state().books[524].place,'floor');assert.equal(t.state().books[524].x,870);
 });
 test('pinch on a book changes camera without moving the book',()=>{const t=harness(390,844),b=t.state().books.at(-1),p=t.screen([b.x,b.y-14]),before=t.state();t.pointer('pointerdown',p,1);t.pointer('pointerdown',[p[0]+80,p[1]],2);t.pointer('pointermove',[p[0]+120,p[1]],2);t.pointer('pointerup',[p[0]+120,p[1]],2);t.pointer('pointerup',p,1);assert.deepEqual(t.state().books,before.books);assert.ok(t.state().camera.zoom>before.camera.zoom);});
 test('painted scene labels do not draw overlaid text or targets',()=>{const t=harness();t.live.state.camera.zoom=8;t.advance();assert.deepEqual(t.texts,[]);assert.ok(t.signDraws.length>=8);assert.ok(t.signDraws.every(d=>d[3]===704&&d[3]>d[7]*3));assert.equal(t.strokes.length,0);const b=t.state().books.at(-1);t.tap(t.screen([b.x,b.y-14]));t.strokes.length=0;t.advance();assert.equal(t.strokes.length,0);assert.equal(t.get('notice').textContent,'');});
@@ -127,7 +127,7 @@ test('drag accepts both ends of a collection bay without an outline',()=>{
 });
 
 test('dragging onto both desks and newly accessible floor survives reload',()=>{
-  for(const dimensions of [[1440,810],[390,844]])for(const destination of [[830,646],[450,836],[350,370],[870,265],[950,600],[795,455]]){
+  for(const dimensions of [[1440,810],[390,844]])for(const destination of [[838,668],[430,855],[350,370],[870,265],[950,600],[795,455]]){
     const t=harness(...dimensions),b=t.state().books.at(-1),p=t.screen(destination);
     t.pointer('pointerdown',t.screen([b.x,b.y-14]));t.pointer('pointermove',p);t.pointer('pointerup',p);
     const placed=t.state().books[b.id];assert.equal(placed.place,'floor');
@@ -162,7 +162,7 @@ test('open books use the new spread atlas and preserve its aspect ratio',()=>{
  assert.ok(!t.draws.some(d=>d.length===9&&d[0]._src!=='volume-marks'&&d[0]._src.includes('books-directions-v7')&&[62,299,538,778,1005,1228].includes(d[2])&&d[1]>700));
 });
 test('dragging to the highest shelf still targets its visible slot',()=>{
- const t=harness(),b=t.state().books.at(-1),slot=t.slots.find(s=>s.y===83),p=t.screen([slot.x,slot.y-16]);
+ const t=harness(),b=t.state().books.at(-1),slot=t.slots.find(s=>s.y===Math.min(...t.slots.map(s=>s.y))),p=t.screen([slot.x,slot.y-16]);
  t.pointer('pointerdown',t.screen([b.x,b.y-14]));t.pointer('pointermove',p);t.pointer('pointerup',p);
  assert.equal(t.state().books[b.id].slot,slot.id);
 });
