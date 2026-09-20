@@ -23,6 +23,10 @@ const NAMEPLATES=[
  {source:[798,760,704,136],center:[1538.914,220.5128],width:147}
 ];
 function compose(original){return original;}
+// Measured numeral centres on the first illustrated spine in each collection.
+const NUMBER_CENTRES=[.85,.76,.79,.76,.88,.77,.77,.77,.78,.84,.76,.74,.86,.76,.8,.77,.76,.83,.83,.72,.82,.86,.76,.78,.81,.83,.83,.79,.76,.75,.86,.8,.76,.87,.72,.78,.83,.81,.79,.81,.86,.84,.85,.84,.83,.86,.85,.83,.77,.76,.79,.77,.76,.76,.86,.87,.89,.73,.8,.77,.9,.74,.85,.84,.78,.77,.86,.84,.86,.82,.86,.79,.83,.83,.85,.87,.87,.9,.9,.87,.87,.88,.88,.87,.77,.78,.78,.78,.78,.79,.84,.78,.78,.83,.75,.84,.77,.77,.77,.77,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83,.83];
+const DARK_NUMBERS=new Set([9,28,42,50,62,68,78,86,93,100,108,115]);
+function volumePlacement(series){return {center:Math.min(.82,series===95?.75:NUMBER_CENTRES[series]??.8)-.035,dark:DARK_NUMBERS.has(series)};}
 function numberedBindings(items){
  const canvas=document.createElement('canvas'),columns=31;canvas.width=2048;canvas.height=Math.ceil(items.length/columns)*194;const ctx=canvas.getContext('2d'),bySeries=new Map();
  for(let i=0;i<items.length;i++){const item=items[i],x=(i%columns)*66+1,y=Math.floor(i/columns)*194+1,w=64,h=192;ctx.drawImage(item.visual.image,...item.visual.source,x,y,w,h);
@@ -39,9 +43,9 @@ function numberedBindings(items){
  }return {canvas,bySeries};
 }
 function volumeMarks(){
- const c=document.createElement('canvas');c.width=48*17;c.height=64;const ctx=c.getContext('2d');ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='36px Georgia,serif';
+ const c=document.createElement('canvas');c.width=48*17;c.height=128;const ctx=c.getContext('2d');ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='44px Georgia,serif';
  // Gold foil and its small impressed shadow, directly over the leather: no label rectangle.
- for(let n=1;n<=17;n++){const x=(n-1)*48+24;ctx.lineJoin='round';ctx.lineWidth=.8;ctx.strokeStyle='#211607';ctx.strokeText(String(n),x,34,40);ctx.fillStyle='#634014';ctx.fillText(String(n),x+1,35,40);ctx.fillStyle='#e6c179';ctx.fillText(String(n),x,33,40);}
+ for(let row=0;row<2;row++)for(let n=1;n<=17;n++){const x=(n-1)*48+24,y=row*64+32;ctx.lineJoin='round';ctx.lineWidth=.7;ctx.strokeStyle=row?'#e9cb8f':'#382511';ctx.strokeText(String(n),x,y,40);ctx.fillStyle=row?'#b58b4e':'#634014';ctx.fillText(String(n),x+.7,y+.7,40);ctx.fillStyle=row?'#49301b':'#d9ac60';ctx.fillText(String(n),x,y,40);}
  return c;
 }
 function drawNameplates(ctx,signs){
@@ -51,5 +55,5 @@ function drawNameplates(ctx,signs){
   ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(signs,...plate.source,x,y,w,h);ctx.restore();
  }
 }
-const api={numberedBindings,volumeMarks,compose,drawNameplates,PATCHES,NAMEPLATES};if(typeof module!=='undefined')module.exports=api;root.GalleryRoom=api;
+const api={volumePlacement,numberedBindings,volumeMarks,compose,drawNameplates,PATCHES,NAMEPLATES};if(typeof module!=='undefined')module.exports=api;root.GalleryRoom=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

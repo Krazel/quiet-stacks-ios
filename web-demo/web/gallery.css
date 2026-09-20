@@ -12,6 +12,9 @@ canvas.cover{background:transparent;border:0;box-shadow:none;padding:0;object-fi
 
 /* Panel taps never trigger browser smart zoom; the scene owns its pinch gesture. */
 html,body,.panel,.panel *{touch-action:manipulation}
+/* Keep mobile text metrics stable when a panel is hidden or focus returns. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.inspect-close:active{transform:none}
 /* Long presses belong to the game, not browser text selection or callouts. */
 html,body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 img,canvas{-webkit-user-drag:none}
@@ -72,6 +75,11 @@ footer{left:calc(18px + var(--safe-left));right:calc(18px + var(--safe-right));b
 }
 
 .placement-feedback{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
+.music-open{position:fixed;z-index:5;top:calc(12px + var(--safe-top));right:calc(104px + var(--safe-right));font-size:12px;min-height:36px;padding:7px 12px}
+.music-panel{margin:auto;color:#f3e6ca;width:min(430px,calc(100vw - var(--safe-left) - var(--safe-right) - 32px));max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px);padding:24px;overflow:auto;touch-action:pan-y;font-size:13px;overflow-wrap:anywhere}
+.music-panel::backdrop{background:#0b0805b0}.music-panel h2{margin-top:0}.music-panel input{display:block;width:100%;margin:14px 0;touch-action:pan-x}.music-panel p{line-height:1.5}.music-panel .inspect-close{float:right}
+body:has(#inspection:not([hidden])) .music-open,body:has(#performance-panel:not([hidden])) .music-open{visibility:hidden}
+@media(max-height:500px),(max-width:600px){.music-open{top:calc(8px + var(--safe-top));right:calc(94px + var(--safe-right))}.music-panel{padding:16px}}
 
 /* The letter and appointment are brief, readable scenes, outside the playfield. */
 .story{width:min(780px,calc(100vw - var(--safe-left) - var(--safe-right) - 40px));max-width:none;max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 28px);margin:auto;padding:32px;border:2px solid #b58a48;border-radius:8px;background:linear-gradient(130deg,#30231a,#181412 72%);color:#f3e6ca;box-shadow:inset 0 0 0 5px #17130f,inset 0 0 0 6px #71502e,0 15px 65px #000a;overflow:auto;touch-action:pan-y}

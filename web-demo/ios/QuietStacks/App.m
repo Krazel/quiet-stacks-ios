@@ -18,7 +18,7 @@
         if(self.failureReporter)self.failureReporter(@{@"stage":file?@"asset-read":@"asset-path-validation",@"asset":url.path ?: @"index.html",@"domain":error.domain ?: NSURLErrorDomain,@"code":@(error.code),@"message":error.localizedDescription ?: @"Bundled resource could not be read"});
         [task didFailWithError:error];return;
     }
-    NSDictionary *types=@{@"html":@"text/html; charset=utf-8",@"js":@"application/javascript; charset=utf-8",@"css":@"text/css; charset=utf-8",@"png":@"image/png",@"svg":@"image/svg+xml",@"json":@"application/json"};
+    NSDictionary *types=@{@"html":@"text/html; charset=utf-8",@"js":@"application/javascript; charset=utf-8",@"css":@"text/css; charset=utf-8",@"png":@"image/png",@"svg":@"image/svg+xml",@"json":@"application/json",@"mp3":@"audio/mpeg",@"wav":@"audio/wav"};
     NSString *mime=types[file.pathExtension.lowercaseString] ?: @"application/octet-stream";
     NSHTTPURLResponse *response=[[NSHTTPURLResponse alloc] initWithURL:url statusCode:200 HTTPVersion:@"HTTP/1.1" headerFields:@{@"Content-Type":mime,@"Content-Length":[NSString stringWithFormat:@"%lu",(unsigned long)data.length],@"Access-Control-Allow-Origin":@"*"}];
     [task didReceiveResponse:response];[task didReceiveData:data];[task didFinish];
@@ -257,6 +257,14 @@
 @property(nonatomic, strong) UIWindow *window;
 @end
 @implementation AppDelegate
+- (void)applicationWillResignActive:(UIApplication *)application {
+    GalleryController *controller=(GalleryController *)self.window.rootViewController;
+    [controller.webView evaluateJavaScript:@"window.dispatchEvent(new Event('gallery-background'))" completionHandler:nil];
+}
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    GalleryController *controller=(GalleryController *)self.window.rootViewController;
+    [controller.webView evaluateJavaScript:@"window.dispatchEvent(new Event('gallery-foreground'))" completionHandler:nil];
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)options {
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = [GalleryController new];

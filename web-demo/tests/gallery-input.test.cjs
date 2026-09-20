@@ -4,7 +4,7 @@ function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacke
   const ctx=new Proxy({strokeRect(...args){strokes.push(args);},fillText(text){texts.push(String(text));},rotate(angle){rotations.push(angle);},drawImage(...args){(args[0]?._src?.includes('nameplates')?signDraws:draws).push(args); }},{get:(o,k)=>o[k]??((...args)=>{for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n),'Non-finite canvas '+k);})});
   class Element{constructor(){this.listeners={};this.children=[];this.value='';this.textContent='';this.style={};this.classList={add(){},remove(){}};this.dataset={};this.tagName='CANVAS';this.clientWidth=width;this.clientHeight=height;this.sub=new Map();}getBoundingClientRect(){return {left:0,top:0,width,height};}getContext(){return ctx;}setPointerCapture(){}addEventListener(k,f){this.listeners[k]=f;}setAttribute(k,v){this[k]=v;}replaceChildren(){this.children=[];this.value='';}append(x){this.children.push(x);if(!this.value)this.value=x.value;}querySelector(k){if(!this.sub.has(k))this.sub.set(k,new Element());return this.sub.get(k);}click(){this.onclick?.();}showModal(){this.open=true;}close(){this.open=false;}}
   const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
-  const sandbox={console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
+  const soundCalls=[];const sandbox={GalleryAudio:{effect:kind=>soundCalls.push(kind)},console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
   sandbox.GalleryExpanded=require('../web/js/gallery-expanded.js');sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={volumeMarks:()=>({_src:'volume-marks',width:1024,height:48}),compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};if(usePacked)sandbox.GalleryPacked=require('../web/js/gallery-packed.js');sandbox.window=sandbox;sandbox.GalleryLayout=require("../web/js/gallery-layout.js");vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
   const Base=sandbox.GalleryModel.Gallery;sandbox.GalleryModel.Gallery=class extends Base{constructor(){super();live=this;}};
   get('demo-actions').hidden=true;vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery.js'),'utf8'),sandbox);
@@ -13,7 +13,7 @@ function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacke
   const tap=p=>{pointer('pointerdown',p);pointer('pointerup',p);};
   const tick=()=>{clock+=16.67;const next=frame;frame=null;next?.(clock);};
   // Legacy model-only mutations request a resize; input tests can use tick directly.
-  return {state,screen,pointer,tap,get,live,data,events,registered,signDraws,draws,rotations,texts,strokes,tick,slots:sandbox.GalleryModel.SLOTS,advance:()=>{events.get('resize')();for(let t=0;t<18;t++)tick();}};
+  return {soundCalls,state,screen,pointer,tap,get,live,data,events,registered,signDraws,draws,rotations,texts,strokes,tick,slots:sandbox.GalleryModel.SLOTS,advance:()=>{events.get('resize')();for(let t=0;t<18;t++)tick();}};
 }
 
 
@@ -66,7 +66,15 @@ test('engraved volumes follow only Moon Phases identities and never appear on lo
   t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
 });
 test('drag updates the identity and volume before release without moving the saved book',()=>{const t=harness(),b=t.state().books.at(-1),a=t.screen([b.x,b.y-14]),p=[a[0]+30,a[1]-20],before=t.state().books;t.pointer('pointerdown',a);t.pointer('pointermove',p);assert.equal(t.get('selection').hidden,false);assert.match(t.get('selected-title').textContent,/./);assert.match(t.get('selected-detail').textContent,new RegExp(' '+b.volume+' · '));assert.deepEqual(t.state().books,before);t.advance();assert.equal(t.strokes.length,0);t.pointer('pointercancel',p);assert.deepEqual(t.state().books,before);});
-test('manual drag places the exact book and reload preserves it',()=>{const t=harness(),b=t.state().books.at(-1),slot=t.slots[b.id];t.pointer('pointerdown',t.screen([b.x,b.y-14]));t.pointer('pointermove',t.screen([slot.x,slot.y-15]));t.pointer('pointerup',t.screen([slot.x,slot.y-15]));assert.equal(t.state().books[b.id].slot,b.id);t.advance();assert.equal(t.strokes.length,0);t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);});
+test('manual drag places the exact book and reload preserves it',()=>{const t=harness(),b=t.state().books.at(-1),slot=t.slots[b.id];t.pointer('pointerdown',t.screen([b.x,b.y-14]));t.pointer('pointermove',t.screen([slot.x,slot.y-15]));t.pointer('pointerup',t.screen([slot.x,slot.y-15]));assert.equal(t.state().books[b.id].slot,b.id);assert.equal(t.soundCalls.filter(x=>x==='correct').length,1);t.advance();assert.equal(t.strokes.length,0);t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);});
+
+test('correct placement sound does not repeat for the same slot, taps, demo or cancellation',()=>{
+ const t=harness();t.get('demo-sort').click();assert.deepEqual(t.soundCalls,[]);const s=t.slots[959],p=t.screen([s.x,s.y-13]);
+ t.pointer('pointerdown',p);t.pointer('pointermove',[p[0]+12,p[1]]);t.pointer('pointermove',p);t.pointer('pointerup',p);
+ assert.equal(t.live.placement(959),'exact');assert(!t.soundCalls.includes('correct'));
+ t.tap(p);assert(!t.soundCalls.includes('correct'));
+ t.pointer('pointerdown',p);t.pointer('pointermove',[p[0]+20,p[1]]);t.pointer('pointercancel',p);assert(!t.soundCalls.includes('correct'));
+});
 test('tapping a destination never moves a selected book, before or after closing its card',()=>{
  for(const size of [[1440,810],[750,381]])for(const close of [false,true])for(const destination of ['floor','desk','shelf','cart']){
   const t=harness(...size);t.get('demo-sort').click();t.live.move(524,'floor',-1,{x:870,y:250});t.advance();
@@ -169,6 +177,7 @@ test('dragging to the highest shelf still targets its visible slot',()=>{
 
 
 test('asynchronous texture imports run one at a time and only unlock after all atlases',async()=>{
+ const expected=8+require('../web/js/gallery-model.js').COLLECTION_ATLASES.length+require('../web/js/gallery-volumes.js').atlases.length;
  let active=0,peak=0,loaded=0,closed=0;
  const t=harness(1672,941,undefined,image=>{
    active++;peak=Math.max(peak,active);const src=image._src;
@@ -176,11 +185,11 @@ test('asynchronous texture imports run one at a time and only unlock after all a
  });
  assert.equal(t.get('loading').hidden,false);
  for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
- assert.equal(t.get('loading').hidden,true);assert.equal(peak,1);assert.equal(loaded,44);
+ assert.equal(t.get('loading').hidden,true);assert.equal(peak,1);assert.equal(loaded,expected);
  t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();assert.ok(t.draws.length>=960);
- t.get('retry').click();assert.equal(closed,44);
+ t.get('retry').click();assert.equal(closed,expected);
  for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
- assert.equal(t.get('loading').hidden,true);assert.equal(loaded,88);assert.equal(peak,1);
+ assert.equal(t.get('loading').hidden,true);assert.equal(loaded,expected*2);assert.equal(peak,1);
 });
 
 test('retry ignores an obsolete in-flight bitmap and starts a complete new gallery',async()=>{
@@ -201,4 +210,27 @@ test('packed runtime renders every numbered volume without runtime atlas process
  t.live.demoArrange('sort');t.draws.length=0;t.advance();const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,960);
  for(const b of t.state().books){const slot=t.slots[b.slot],v=volumes.bindings[SERIES[b.series].art]?.[b.volume-1],d=rendered.find(d=>Math.abs(d[5]+d[7]/2-slot.x)<1e-8&&Math.abs(d[6]+d[8]-slot.y)<1e-8);assert.ok(d);assert.ok(d[0]._src.includes('packed-'));if(v){const crop=packed.sprites[volumes.atlases[v.atlas].file+'|'+v.source.join(',')];assert.ok(d[0]._src.startsWith(packed.pages[crop.page].file));assert.deepEqual(d.slice(1,5),crop.source);}else assert.ok(t.draws.some(mark=>mark[0]._src==='volume-marks'&&mark[1]===(b.volume-1)*48&&Math.abs(mark[5]-(d[5]+d[7]*.125))<1e-8&&Math.abs(mark[6]-(d[6]+d[8]*.65))<1e-8));}
  t.get('demo-scatter').click();t.advance();assert.equal(t.state().books.filter(b=>b.place==='floor').length,960);
+});
+
+test('overview is modest, centers fitting axes, preserves books and restores below 100 percent',()=>{
+ for(const [w,h] of [[1440,810],[812,375],[390,844],[1024,768]]){
+  const t=harness(w,h),books=t.state().books;
+  const key=key=>t.events.get('keydown')({key,target:{tagName:'CANVAS'},preventDefault(){}});
+  for(let i=0;i<20;i++)key('-');
+  const c=t.state().camera,min=Math.max(.8,Math.min(w/1992,h/941)/Math.max(w/1672,h/941));
+  assert.ok(Math.abs(c.zoom-min)<1e-9);assert.ok(c.zoom>=.8&&c.zoom<1);
+  const [left,top]=t.screen([-130,0]),[right,bottom]=t.screen([1862,941]);
+  if(right-left<=w+1e-6){assert.ok(Math.abs(left-(w-right))<1e-6);assert.ok(left>=-1e-6);}
+  if(bottom-top<=h+1e-6){assert.ok(Math.abs(top-(h-bottom))<1e-6);assert.ok(top>=-1e-6);}
+  t.events.get('pagehide')();const restored=harness(w,h,t.data);assert.deepEqual(restored.state().camera,c);assert.deepEqual(restored.state().books,books);
+  for(let i=0;i<30;i++)key('+');assert.equal(t.state().camera.zoom,8);
+  key('ArrowUp');assert.ok(t.state().camera.y<c.y);assert.deepEqual(t.state().books,books);
+ }
+});
+
+test('pinch reaches overview, can pan to top at detail, and selection still works',()=>{
+ const t=harness(812,375);t.pointer('pointerdown',[200,180],1);t.pointer('pointerdown',[600,180],2);t.pointer('pointermove',[399,180],1);t.pointer('pointermove',[401,180],2);t.pointer('pointerup',[399,180],1);t.pointer('pointerup',[401,180],2);
+ assert.ok(t.state().camera.zoom<1);assert.ok(t.state().camera.zoom>=.8);
+ const b=t.state().books.find(b=>b.place==='floor');t.tap(t.screen([b.x,b.y-3]));assert.ok(t.get('inspection').hidden===false);
+ Object.assign(t.live.state.camera,{zoom:8,y:-10000});t.advance();assert.ok(Math.abs(t.screen([0,0])[1])<1e-8);
 });

@@ -1,5 +1,5 @@
 {
-  "version": "0.17.5",
+  "version": "0.17.6",
   "files": [
     "index.html",
     "gallery.css",
@@ -8,9 +8,7 @@
     "js/gallery-model.js",
     "js/gallery.js",
     "js/gallery-room.js",
-    "assets/nameplates-v14.png",
     "js/gallery-volumes.js",
-    "assets/gallery-walls-v174.png",
     "js/gallery-story.js",
     "js/gallery-feedback.js",
     "js/gallery-expanded.js",
@@ -26,7 +24,25 @@
     "assets/packed-03-v162.png",
     "assets/packed-04-v162.png",
     "assets/packed-05-v162.png",
-    "assets/packed-06-v162.png"
+    "assets/packed-06-v162.png",
+    "assets/packed-07-v162.png",
+    "assets/packed-08-v162.png",
+    "js/gallery-music.js",
+    "assets/meditation-impromptu-01.mp3",
+    "js/gallery-book-motion.js",
+    "assets/sfx-handleSmallLeather.wav",
+    "assets/sfx-handleSmallLeather2.wav",
+    "assets/sfx-bookPlace1.wav",
+    "assets/sfx-bookPlace2.wav",
+    "assets/sfx-bookPlace3.wav",
+    "assets/sfx-bookFlip3.wav",
+    "assets/sfx-bookFlip2.wav",
+    "assets/sfx-confirmation_001.wav",
+    "js/gallery-room-artwork.js",
+    "assets/library-complete-3x-0-0.png",
+    "assets/library-complete-3x-0-1.png",
+    "assets/library-complete-3x-1-0.png",
+    "assets/library-complete-3x-1-1.png"
   ],
   "engine": "HTML + Canvas 2D + JavaScript",
   "dependencies": 0

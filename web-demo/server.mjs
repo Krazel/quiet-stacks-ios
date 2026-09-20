@@ -5,7 +5,7 @@ import path from 'node:path';
 const root=fileURLToPath(new URL('./web/',import.meta.url));
 import files from './runtime-files.mjs';
 const allowed=new Set(files);
-const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png'};
+const types={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.mp3':'audio/mpeg','.wav':'audio/wav'};
 const server=http.createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),name=pathname==='/'?'index.html':pathname.slice(1);if(!allowed.has(name)||!['GET','HEAD'].includes(req.method)){res.writeHead(404);res.end('Not found');return}const body=await readFile(path.join(root,name));res.writeHead(200,{'Content-Type':types[path.extname(name)],'Cache-Control':'no-cache','X-Quiet-Stacks':'web-v2','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:body)}catch{res.writeHead(400);res.end('Bad request')}});
 server.on('error',e=>{console.error(e.code==='EADDRINUSE'?'Port 4179 is already in use. Close the previous local server or use the existing Quiet Stacks tab.':e.message);process.exit(1)});
 server.listen(Number(process.env.PORT||4179),'127.0.0.1',()=>console.log('Quiet Stacks — http://127.0.0.1:'+server.address().port));
