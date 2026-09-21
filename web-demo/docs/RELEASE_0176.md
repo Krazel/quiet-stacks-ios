@@ -23,3 +23,12 @@ Candidata autorizada para TestFlight interno. Parte de 0.17.5 (1) y agrupa únic
 ## Distribución
 
 Versión 0.17.6, build 1, Bundle ID `com.krazel.quietstacks`. Solo TestFlight interno. No beta externa, App Review ni publicación en App Store.
+
+## Entrega verificada
+
+- Commit entregado: `a3cc9feffa4a315e2db7f83ad51bc55fcb92e6e7`.
+- GitHub Actions: ejecución `35628997844`, validación nativa y subida correctas.
+- IPA: 131.637.672 bytes, SHA-256 `732E16EDF0B1BDBE6299BC8FEA1F20182728DABE62C06470B0088A32E413417C`.
+- App Store Connect: build `412b32be-f1d0-46dd-b8ec-77f24c1e6217`, estado `VALID` e `IN_BETA_TESTING`.
+- Grupo asignado: `Krazel — pruebas internas`.
+- Biblioteca Krazel Studio: ficha `PR-014`, revisión 114.
