@@ -3,14 +3,14 @@ const sharp=require(process.env.SHARP_PATH||'sharp');
 const {clearMatte}=require('../web/js/gallery-textures.js'),model=require('../web/js/gallery-model.js'),volumes=require('../web/js/gallery-volumes.js');
 const source=fs.readFileSync('web/js/gallery.js','utf8'),groups=new Map();
 function constants(name){return JSON.parse(source.match(new RegExp('const '+name+'=(\\[[\\s\\S]*?\\]);'))[1]);}
-function add(file,rect,black=false){if(!groups.has(file))groups.set(file,{black,rects:new Map()});groups.get(file).rects.set(rect.join(','),rect);}
+function add(file,rect,black=false,prepared=false){if(!groups.has(file))groups.set(file,{black,prepared,rects:new Map()});groups.get(file).rects.set(rect.join(','),rect);}
 for(const [name,file] of [['SPRITES','books-varied-v9'],['FLOOR_SPRITES','books-floor-v6'],['DIRECTION_SPRITES','books-directions-v7'],['TURN_SPRITES','books-turn-v8'],['OPEN_SPRITES','books-open-v12']])for(const r of constants(name))add('assets/'+file+'.png',r);
 constants('BINDING_SPRITES').forEach((rows,i)=>rows.forEach(r=>add('assets/bindings-'+['b','c','d'][i]+'-v9.png',r)));
 for(const a of model.COLLECTION_ATLASES)for(const r of a.sprites)add(a.file,r,true);
-for(const rows of volumes.bindings)for(const v of rows)add(volumes.atlases[v.atlas].file,v.source,true);
+for(const rows of volumes.bindings)for(const v of rows){const a=volumes.atlases[v.atlas];add(a.file,v.source,true,!!a.preprocessedAlpha);}
 (async()=>{
  const sprites=[];let originalBytes=0;
- for(const [file,{black,rects}] of groups){const {data,info}=await sharp('web/'+file).ensureAlpha().raw().toBuffer({resolveWithObject:true});originalBytes+=data.length;clearMatte(data,info.width,info.height,black);
+ for(const [file,{black,prepared,rects}] of groups){const {data,info}=await sharp('web/'+file).ensureAlpha().raw().toBuffer({resolveWithObject:true});originalBytes+=data.length;if(!prepared)clearMatte(data,info.width,info.height,black);
  for(const [key,[x,y,w,h]] of rects){assert(x>=0&&y>=0&&x+w<=info.width&&y+h<=info.height);const pixels=Buffer.alloc(w*h*4);for(let r=0;r<h;r++)data.copy(pixels,r*w*4,((y+r)*info.width+x)*4,((y+r)*info.width+x+w)*4);sprites.push({key:file+'|'+key,w,h,pixels});}}
  sprites.sort((a,b)=>b.h-a.h||b.w-a.w||a.key.localeCompare(b.key));
  const pages=[],manifest={pages:[],sprites:{}};let page,x=0,y=0,rowHeight=0;

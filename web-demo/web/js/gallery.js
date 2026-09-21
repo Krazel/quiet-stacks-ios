@@ -36,7 +36,7 @@
     const result={image:packedImages[crop.page],source:crop.source};visualCache.set(key,result);return result;
   }
   const SPRITES=[[106,327,75,237],[346,329,77,235],[576,329,87,233],[813,329,87,233],[1046,327,63,235],[1250,327,75,233],[60,788,159,225],[296,788,163,225],[530,782,179,235],[777,782,169,233],[1016,794,123,223],[1216,782,171,233]];
-  for(const key of [KEY,KEY+'.backup','quiet-stacks.gallery.v3','quiet-stacks.gallery.v3.backup','quiet-stacks.gallery.v2','quiet-stacks.gallery.v2.backup']){try{if(model.restore(JSON.parse(localStorage.getItem(key)))){restored=true;if(key===KEY){const previous=JSON.parse(localStorage.getItem(key));if(previous?.mapRevision!==2&&!localStorage.getItem(KEY+'.before-expanded'))localStorage.setItem(KEY+'.before-expanded',JSON.stringify(previous));}break;}}catch{}}
+  for(const key of [KEY,KEY+'.backup','quiet-stacks.gallery.v3','quiet-stacks.gallery.v3.backup','quiet-stacks.gallery.v2','quiet-stacks.gallery.v2.backup']){try{if(model.restore(JSON.parse(localStorage.getItem(key)))){restored=true;if(key===KEY){const previous=JSON.parse(localStorage.getItem(key));if(previous?.mapRevision!==2&&!localStorage.getItem(KEY+'.before-expanded'))localStorage.setItem(KEY+'.before-expanded',JSON.stringify(previous));if(previous?.books?.length===960&&!localStorage.getItem(KEY+'.before-shelf-fit'))localStorage.setItem(KEY+'.before-shelf-fit',JSON.stringify(previous));}break;}}catch{}}
   const camera=()=>model.state.camera;
   const scale=()=>base*camera().zoom;
   const world=p=>({x:(p.x-width/2)/scale()+camera().x,y:(p.y-height/2)/scale()+camera().y});
@@ -56,7 +56,7 @@
   function zoom(factor,anchor={x:width/2,y:height/2}){if(autoTesting)return;const before=world(anchor),c=camera();c.zoom=clamp(c.zoom*factor,minZoom(),8);c.x=before.x-(anchor.x-width/2)/scale();c.y=before.y-(anchor.y-height/2)/scale();constrain();save();}
   function bookRect(b,p=pointFor(b),held=false){
     const floor=b.place==='floor'||held,source=bookVisual(b,floor?0:1).source;
-    const collection=SERIES[b.series],factor=b.place==='cart'?25/collection.bookHeight:1;
+    const collection=SERIES[b.place==='shelf'?SLOTS[b.slot].series:b.series],factor=b.place==='cart'?25/collection.bookHeight:1;
     const w=floor?details(b.id).width*(floorVariant(b)===3?1.45:1):collection.bookWidth*factor;
     const h=floor?w*source[3]/source[2]:collection.bookHeight*factor;
     return {x:p.x-w/2,y:p.y-h,w,h,view:floor?0:1};

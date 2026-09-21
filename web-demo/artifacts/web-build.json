@@ -1,5 +1,5 @@
 {
-  "version": "0.17.6",
+  "version": "0.17.7",
   "files": [
     "index.html",
     "gallery.css",
@@ -39,6 +39,7 @@
     "assets/sfx-bookFlip2.wav",
     "assets/sfx-confirmation_001.wav",
     "js/gallery-room-artwork.js",
+    "js/gallery-shelf-fit.js",
     "assets/library-complete-3x-0-0.png",
     "assets/library-complete-3x-0-1.png",
     "assets/library-complete-3x-1-0.png",

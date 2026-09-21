@@ -6,5 +6,5 @@ files.push('js/gallery-music.js','assets/meditation-impromptu-01.mp3','js/galler
 files.push(...['handleSmallLeather','handleSmallLeather2','bookPlace1','bookPlace2','bookPlace3','bookFlip3','bookFlip2','confirmation_001'].map(n=>'assets/sfx-'+n+'.wav'));
 const roomArtwork=await import('./web/js/gallery-room-artwork.js').then(()=>globalThis.GalleryRoomArtwork);
 files=files.filter(f=>!['assets/gallery-walls-v174.png','assets/nameplates-v14.png'].includes(f));
-files.push('js/gallery-room-artwork.js',...roomArtwork.tiles.map(t=>t.file));
+files.push('js/gallery-room-artwork.js','js/gallery-shelf-fit.js',...roomArtwork.tiles.map(t=>t.file));
 export default files;

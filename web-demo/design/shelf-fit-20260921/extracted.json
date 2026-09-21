@@ -1,0 +1,3023 @@
+[
+  {
+    "art": 0,
+    "series": 0,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-0.png",
+    "size": [
+      212,
+      713
+    ],
+    "file": "book-0-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 90,
+      "top": 45,
+      "width": 82,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 6,
+    "series": 1,
+    "volume": 10,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-6.png",
+    "size": [
+      66,
+      182
+    ],
+    "file": "book-6-10.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 360,
+      "top": 46,
+      "width": 87,
+      "height": 238
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 12,
+    "series": 2,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-12.png",
+    "size": [
+      46,
+      178
+    ],
+    "file": "book-12-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 639,
+      "top": 46,
+      "width": 67,
+      "height": 241
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 24,
+    "series": 3,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-24.png",
+    "size": [
+      64,
+      170
+    ],
+    "file": "book-24-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 895,
+      "top": 46,
+      "width": 91,
+      "height": 241
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 18,
+    "series": 4,
+    "volume": 10,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-18.png",
+    "size": [
+      64,
+      169
+    ],
+    "file": "book-18-10.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 1167,
+      "top": 47,
+      "width": 91,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 25,
+    "series": 5,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-25.png",
+    "size": [
+      65,
+      172
+    ],
+    "file": "book-25-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 86,
+      "top": 321,
+      "width": 91,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 26,
+    "series": 6,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-26.png",
+    "size": [
+      66,
+      172
+    ],
+    "file": "book-26-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 358,
+      "top": 322,
+      "width": 91,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 27,
+    "series": 7,
+    "volume": 10,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-27.png",
+    "size": [
+      66,
+      162
+    ],
+    "file": "book-27-10.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 624,
+      "top": 322,
+      "width": 94,
+      "height": 237
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 28,
+    "series": 8,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-28.png",
+    "size": [
+      67,
+      158
+    ],
+    "file": "book-28-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 892,
+      "top": 322,
+      "width": 97,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 29,
+    "series": 10,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-29.png",
+    "size": [
+      66,
+      160
+    ],
+    "file": "book-29-14.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 1163,
+      "top": 322,
+      "width": 95,
+      "height": 236
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 10,
+    "series": 11,
+    "volume": 4,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-10.png",
+    "size": [
+      60,
+      123
+    ],
+    "file": "book-10-4.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 82,
+      "top": 596,
+      "width": 107,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 10,
+    "series": 11,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-10.png",
+    "size": [
+      60,
+      123
+    ],
+    "file": "book-10-5.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 350,
+      "top": 596,
+      "width": 109,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 30,
+    "series": 13,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-30.png",
+    "size": [
+      64,
+      177
+    ],
+    "file": "book-30-14.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 626,
+      "top": 596,
+      "width": 90,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 16,
+    "series": 14,
+    "volume": 4,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-16.png",
+    "size": [
+      47,
+      124
+    ],
+    "file": "book-16-4.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 894,
+      "top": 596,
+      "width": 91,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 16,
+    "series": 14,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-16.png",
+    "size": [
+      47,
+      124
+    ],
+    "file": "book-16-5.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 1164,
+      "top": 596,
+      "width": 91,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 33,
+    "series": 17,
+    "volume": 4,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-33.png",
+    "size": [
+      59,
+      148
+    ],
+    "file": "book-33-4.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 84,
+      "top": 879,
+      "width": 97,
+      "height": 236
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 33,
+    "series": 17,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-33.png",
+    "size": [
+      59,
+      148
+    ],
+    "file": "book-33-5.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 356,
+      "top": 879,
+      "width": 96,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 15,
+    "series": 18,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-15.png",
+    "size": [
+      47,
+      138
+    ],
+    "file": "book-15-8.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 623,
+      "top": 879,
+      "width": 93,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 9,
+    "series": 19,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-9.png",
+    "size": [
+      64,
+      142
+    ],
+    "file": "book-9-7.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 889,
+      "top": 879,
+      "width": 108,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 3,
+    "series": 20,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-3.png",
+    "size": [
+      64,
+      150
+    ],
+    "file": "book-3-13.png",
+    "source": "generated-0.png",
+    "rect": {
+      "left": 1160,
+      "top": 879,
+      "width": 100,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 3,
+    "series": 20,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-3.png",
+    "size": [
+      64,
+      150
+    ],
+    "file": "book-3-14.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 85,
+      "top": 51,
+      "width": 97,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 3,
+    "series": 20,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-3.png",
+    "size": [
+      64,
+      150
+    ],
+    "file": "book-3-15.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 353,
+      "top": 51,
+      "width": 98,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 21,
+    "series": 21,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-21.png",
+    "size": [
+      68,
+      149
+    ],
+    "file": "book-21-8.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 620,
+      "top": 51,
+      "width": 102,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 34,
+    "series": 22,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-34.png",
+    "size": [
+      60,
+      123
+    ],
+    "file": "book-34-8.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 885,
+      "top": 51,
+      "width": 109,
+      "height": 224
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 35,
+    "series": 23,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-35.png",
+    "size": [
+      61,
+      134
+    ],
+    "file": "book-35-7.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 1159,
+      "top": 51,
+      "width": 100,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 36,
+    "series": 24,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-36.png",
+    "size": [
+      66,
+      200
+    ],
+    "file": "book-36-13.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 93,
+      "top": 324,
+      "width": 84,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 36,
+    "series": 24,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-36.png",
+    "size": [
+      66,
+      200
+    ],
+    "file": "book-36-14.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 361,
+      "top": 324,
+      "width": 84,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 36,
+    "series": 24,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-36.png",
+    "size": [
+      66,
+      200
+    ],
+    "file": "book-36-15.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 628,
+      "top": 323,
+      "width": 86,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 37,
+    "series": 25,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-37.png",
+    "size": [
+      65,
+      174
+    ],
+    "file": "book-37-8.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 894,
+      "top": 324,
+      "width": 93,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 38,
+    "series": 26,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-38.png",
+    "size": [
+      65,
+      150
+    ],
+    "file": "book-38-8.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 1158,
+      "top": 325,
+      "width": 100,
+      "height": 238
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 39,
+    "series": 27,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-39.png",
+    "size": [
+      65,
+      140
+    ],
+    "file": "book-39-7.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 82,
+      "top": 607,
+      "width": 107,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 40,
+    "series": 28,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-40.png",
+    "size": [
+      63,
+      140
+    ],
+    "file": "book-40-13.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 351,
+      "top": 607,
+      "width": 105,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 40,
+    "series": 28,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-40.png",
+    "size": [
+      63,
+      140
+    ],
+    "file": "book-40-14.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 619,
+      "top": 609,
+      "width": 104,
+      "height": 222
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 40,
+    "series": 28,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-40.png",
+    "size": [
+      63,
+      140
+    ],
+    "file": "book-40-15.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 885,
+      "top": 607,
+      "width": 107,
+      "height": 224
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 41,
+    "series": 29,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-41.png",
+    "size": [
+      64,
+      135
+    ],
+    "file": "book-41-8.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 1152,
+      "top": 607,
+      "width": 108,
+      "height": 225
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 14,
+    "series": 31,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-14.png",
+    "size": [
+      47,
+      154
+    ],
+    "file": "book-14-14.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 95,
+      "top": 879,
+      "width": 82,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 14,
+    "series": 31,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-14.png",
+    "size": [
+      47,
+      154
+    ],
+    "file": "book-14-15.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 362,
+      "top": 879,
+      "width": 83,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 14,
+    "series": 31,
+    "volume": 16,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-14.png",
+    "size": [
+      47,
+      154
+    ],
+    "file": "book-14-16.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 630,
+      "top": 879,
+      "width": 83,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 42,
+    "series": 32,
+    "volume": 16,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-42.png",
+    "size": [
+      68,
+      182
+    ],
+    "file": "book-42-16.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 893,
+      "top": 879,
+      "width": 95,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 42,
+    "series": 32,
+    "volume": 17,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-42.png",
+    "size": [
+      68,
+      182
+    ],
+    "file": "book-42-17.png",
+    "source": "generated-1.png",
+    "rect": {
+      "left": 1160,
+      "top": 879,
+      "width": 96,
+      "height": 243
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 8,
+    "series": 34,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-8.png",
+    "size": [
+      64,
+      161
+    ],
+    "file": "book-8-14.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 91,
+      "top": 15,
+      "width": 98,
+      "height": 250
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 8,
+    "series": 34,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-8.png",
+    "size": [
+      64,
+      161
+    ],
+    "file": "book-8-15.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 359,
+      "top": 15,
+      "width": 98,
+      "height": 250
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 8,
+    "series": 34,
+    "volume": 16,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-8.png",
+    "size": [
+      64,
+      161
+    ],
+    "file": "book-8-16.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 622,
+      "top": 15,
+      "width": 98,
+      "height": 250
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 43,
+    "series": 35,
+    "volume": 16,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-43.png",
+    "size": [
+      68,
+      179
+    ],
+    "file": "book-43-16.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 883,
+      "top": 15,
+      "width": 99,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 43,
+    "series": 35,
+    "volume": 17,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-43.png",
+    "size": [
+      68,
+      179
+    ],
+    "file": "book-43-17.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 1154,
+      "top": 15,
+      "width": 99,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 45,
+    "series": 37,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-45.png",
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-45-14.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 89,
+      "top": 294,
+      "width": 104,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 45,
+    "series": 37,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-45.png",
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-45-15.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 357,
+      "top": 294,
+      "width": 104,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 46,
+    "series": 38,
+    "volume": 16,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-46.png",
+    "size": [
+      65,
+      148
+    ],
+    "file": "book-46-16.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 618,
+      "top": 294,
+      "width": 108,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 46,
+    "series": 38,
+    "volume": 17,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-46.png",
+    "size": [
+      65,
+      148
+    ],
+    "file": "book-46-17.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 878,
+      "top": 294,
+      "width": 109,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 47,
+    "series": 39,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-47.png",
+    "size": [
+      64,
+      133
+    ],
+    "file": "book-47-6.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 1149,
+      "top": 294,
+      "width": 111,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 47,
+    "series": 39,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-47.png",
+    "size": [
+      64,
+      133
+    ],
+    "file": "book-47-7.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 89,
+      "top": 586,
+      "width": 104,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 48,
+    "series": 40,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-48.png",
+    "size": [
+      73,
+      181
+    ],
+    "file": "book-48-8.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 356,
+      "top": 586,
+      "width": 104,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 49,
+    "series": 41,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-49.png",
+    "size": [
+      72,
+      173
+    ],
+    "file": "book-49-7.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 619,
+      "top": 586,
+      "width": 107,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 50,
+    "series": 42,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-50.png",
+    "size": [
+      72,
+      154
+    ],
+    "file": "book-50-6.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 876,
+      "top": 586,
+      "width": 114,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 50,
+    "series": 42,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-50.png",
+    "size": [
+      72,
+      154
+    ],
+    "file": "book-50-7.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 1146,
+      "top": 586,
+      "width": 115,
+      "height": 233
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 51,
+    "series": 43,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-51.png",
+    "size": [
+      70,
+      152
+    ],
+    "file": "book-51-8.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 82,
+      "top": 879,
+      "width": 114,
+      "height": 227
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 52,
+    "series": 44,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-52.png",
+    "size": [
+      70,
+      130
+    ],
+    "file": "book-52-7.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 350,
+      "top": 879,
+      "width": 121,
+      "height": 228
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 53,
+    "series": 45,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-53.png",
+    "size": [
+      70,
+      142
+    ],
+    "file": "book-53-6.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 610,
+      "top": 879,
+      "width": 122,
+      "height": 229
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 53,
+    "series": 45,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-53.png",
+    "size": [
+      70,
+      142
+    ],
+    "file": "book-53-7.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 873,
+      "top": 879,
+      "width": 122,
+      "height": 228
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 54,
+    "series": 46,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-54.png",
+    "size": [
+      63,
+      185
+    ],
+    "file": "book-54-8.png",
+    "source": "generated-2.png",
+    "rect": {
+      "left": 1152,
+      "top": 879,
+      "width": 104,
+      "height": 230
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 55,
+    "series": 47,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-55.png",
+    "size": [
+      63,
+      179
+    ],
+    "file": "book-55-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 90,
+      "top": 42,
+      "width": 89,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 56,
+    "series": 48,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-56.png",
+    "size": [
+      62,
+      167
+    ],
+    "file": "book-56-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 354,
+      "top": 42,
+      "width": 95,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 56,
+    "series": 48,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-56.png",
+    "size": [
+      62,
+      167
+    ],
+    "file": "book-56-8.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 623,
+      "top": 42,
+      "width": 95,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 57,
+    "series": 49,
+    "volume": 17,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-57.png",
+    "size": [
+      63,
+      148
+    ],
+    "file": "book-57-17.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 892,
+      "top": 42,
+      "width": 106,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 57,
+    "series": 49,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-57.png",
+    "size": [
+      63,
+      148
+    ],
+    "file": "book-57-18.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 1159,
+      "top": 42,
+      "width": 104,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 58,
+    "series": 50,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-58.png",
+    "size": [
+      61,
+      148
+    ],
+    "file": "book-58-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 87,
+      "top": 319,
+      "width": 102,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 58,
+    "series": 50,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-58.png",
+    "size": [
+      61,
+      148
+    ],
+    "file": "book-58-8.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 353,
+      "top": 318,
+      "width": 102,
+      "height": 250
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 59,
+    "series": 51,
+    "volume": 17,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-59.png",
+    "size": [
+      63,
+      151
+    ],
+    "file": "book-59-17.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 619,
+      "top": 318,
+      "width": 105,
+      "height": 252
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 59,
+    "series": 51,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-59.png",
+    "size": [
+      63,
+      151
+    ],
+    "file": "book-59-18.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 888,
+      "top": 318,
+      "width": 106,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 60,
+    "series": 52,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-60.png",
+    "size": [
+      61,
+      181
+    ],
+    "file": "book-60-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 1167,
+      "top": 318,
+      "width": 88,
+      "height": 252
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 60,
+    "series": 52,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-60.png",
+    "size": [
+      61,
+      181
+    ],
+    "file": "book-60-8.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 92,
+      "top": 594,
+      "width": 90,
+      "height": 256
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 61,
+    "series": 53,
+    "volume": 17,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-61.png",
+    "size": [
+      60,
+      165
+    ],
+    "file": "book-61-17.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 356,
+      "top": 594,
+      "width": 96,
+      "height": 256
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 61,
+    "series": 53,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-61.png",
+    "size": [
+      60,
+      165
+    ],
+    "file": "book-61-18.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 623,
+      "top": 594,
+      "width": 96,
+      "height": 256
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 1,
+    "series": 54,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-1.png",
+    "size": [
+      63,
+      172
+    ],
+    "file": "book-1-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 894,
+      "top": 595,
+      "width": 96,
+      "height": 255
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 13,
+    "series": 55,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-13.png",
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-13-18.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 1172,
+      "top": 594,
+      "width": 78,
+      "height": 256
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 13,
+    "series": 55,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-13.png",
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-13-19.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 96,
+      "top": 879,
+      "width": 80,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 19,
+    "series": 56,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-19.png",
+    "size": [
+      67,
+      162
+    ],
+    "file": "book-19-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 351,
+      "top": 879,
+      "width": 107,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 7,
+    "series": 57,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-7.png",
+    "size": [
+      64,
+      176
+    ],
+    "file": "book-7-18.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 622,
+      "top": 879,
+      "width": 99,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 7,
+    "series": 57,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-7.png",
+    "size": [
+      64,
+      176
+    ],
+    "file": "book-7-19.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 893,
+      "top": 879,
+      "width": 97,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 62,
+    "series": 58,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-62.png",
+    "size": [
+      61,
+      165
+    ],
+    "file": "book-62-7.png",
+    "source": "generated-3.png",
+    "rect": {
+      "left": 1159,
+      "top": 879,
+      "width": 99,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 63,
+    "series": 59,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-63.png",
+    "size": [
+      60,
+      151
+    ],
+    "file": "book-63-18.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 81,
+      "top": 39,
+      "width": 101,
+      "height": 241
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 63,
+    "series": 59,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-63.png",
+    "size": [
+      60,
+      151
+    ],
+    "file": "book-63-19.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 351,
+      "top": 39,
+      "width": 102,
+      "height": 241
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 23,
+    "series": 60,
+    "volume": 9,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-23.png",
+    "size": [
+      69,
+      155
+    ],
+    "file": "book-23-9.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 618,
+      "top": 39,
+      "width": 106,
+      "height": 241
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 11,
+    "series": 61,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-11.png",
+    "size": [
+      61,
+      125
+    ],
+    "file": "book-11-13.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 884,
+      "top": 40,
+      "width": 111,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 11,
+    "series": 61,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-11.png",
+    "size": [
+      61,
+      125
+    ],
+    "file": "book-11-14.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 1152,
+      "top": 40,
+      "width": 110,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 17,
+    "series": 62,
+    "volume": 9,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-17.png",
+    "size": [
+      48,
+      137
+    ],
+    "file": "book-17-9.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 87,
+      "top": 319,
+      "width": 92,
+      "height": 252
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 5,
+    "series": 63,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-5.png",
+    "size": [
+      60,
+      169
+    ],
+    "file": "book-5-13.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 354,
+      "top": 318,
+      "width": 96,
+      "height": 253
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 5,
+    "series": 63,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-5.png",
+    "size": [
+      60,
+      169
+    ],
+    "file": "book-5-14.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 623,
+      "top": 318,
+      "width": 96,
+      "height": 254
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 64,
+    "series": 64,
+    "volume": 9,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-64.png",
+    "size": [
+      136,
+      512
+    ],
+    "file": "book-64-9.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 894,
+      "top": 318,
+      "width": 91,
+      "height": 254
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 65,
+    "series": 65,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-65.png",
+    "size": [
+      63,
+      146
+    ],
+    "file": "book-65-13.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 1156,
+      "top": 319,
+      "width": 104,
+      "height": 253
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 65,
+    "series": 65,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-65.png",
+    "size": [
+      63,
+      146
+    ],
+    "file": "book-65-14.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 80,
+      "top": 598,
+      "width": 106,
+      "height": 241
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 69,
+    "series": 69,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-69.png",
+    "size": [
+      81,
+      155
+    ],
+    "file": "book-69-18.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 342,
+      "top": 598,
+      "width": 124,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 69,
+    "series": 69,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-69.png",
+    "size": [
+      81,
+      155
+    ],
+    "file": "book-69-19.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 607,
+      "top": 598,
+      "width": 127,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 69,
+    "series": 69,
+    "volume": 20,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-69.png",
+    "size": [
+      81,
+      155
+    ],
+    "file": "book-69-20.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 874,
+      "top": 598,
+      "width": 128,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 70,
+    "series": 70,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-70.png",
+    "size": [
+      82,
+      149
+    ],
+    "file": "book-70-18.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 1145,
+      "top": 598,
+      "width": 127,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 70,
+    "series": 70,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-70.png",
+    "size": [
+      82,
+      149
+    ],
+    "file": "book-70-19.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 67,
+      "top": 879,
+      "width": 130,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 70,
+    "series": 70,
+    "volume": 20,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-70.png",
+    "size": [
+      82,
+      149
+    ],
+    "file": "book-70-20.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 338,
+      "top": 879,
+      "width": 133,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 71,
+    "series": 71,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-71.png",
+    "size": [
+      83,
+      155
+    ],
+    "file": "book-71-18.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 609,
+      "top": 879,
+      "width": 127,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 71,
+    "series": 71,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-71.png",
+    "size": [
+      83,
+      155
+    ],
+    "file": "book-71-19.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 875,
+      "top": 879,
+      "width": 129,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 71,
+    "series": 71,
+    "volume": 20,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-71.png",
+    "size": [
+      83,
+      155
+    ],
+    "file": "book-71-20.png",
+    "source": "generated-4.png",
+    "rect": {
+      "left": 1146,
+      "top": 879,
+      "width": 128,
+      "height": 240
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 73,
+    "series": 73,
+    "volume": 12,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-73.png",
+    "size": [
+      62,
+      178
+    ],
+    "file": "book-73-12.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 88,
+      "top": 36,
+      "width": 90,
+      "height": 250
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 73,
+    "series": 73,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-73.png",
+    "size": [
+      62,
+      178
+    ],
+    "file": "book-73-13.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 357,
+      "top": 36,
+      "width": 90,
+      "height": 250
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 73,
+    "series": 73,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-73.png",
+    "size": [
+      62,
+      178
+    ],
+    "file": "book-73-14.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 626,
+      "top": 36,
+      "width": 90,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 73,
+    "series": 73,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-73.png",
+    "size": [
+      62,
+      178
+    ],
+    "file": "book-73-15.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 894,
+      "top": 36,
+      "width": 91,
+      "height": 251
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 75,
+    "series": 75,
+    "volume": 12,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-75.png",
+    "size": [
+      61,
+      151
+    ],
+    "file": "book-75-12.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 1160,
+      "top": 36,
+      "width": 98,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 75,
+    "series": 75,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-75.png",
+    "size": [
+      61,
+      151
+    ],
+    "file": "book-75-13.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 86,
+      "top": 317,
+      "width": 98,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 75,
+    "series": 75,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-75.png",
+    "size": [
+      61,
+      151
+    ],
+    "file": "book-75-14.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 356,
+      "top": 316,
+      "width": 99,
+      "height": 248
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 75,
+    "series": 75,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-75.png",
+    "size": [
+      61,
+      151
+    ],
+    "file": "book-75-15.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 622,
+      "top": 315,
+      "width": 100,
+      "height": 248
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 76,
+    "series": 76,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-76.png",
+    "size": [
+      61,
+      136
+    ],
+    "file": "book-76-6.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 887,
+      "top": 315,
+      "width": 106,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 76,
+    "series": 76,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-76.png",
+    "size": [
+      61,
+      136
+    ],
+    "file": "book-76-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 1157,
+      "top": 315,
+      "width": 102,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 77,
+    "series": 77,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-77.png",
+    "size": [
+      58,
+      129
+    ],
+    "file": "book-77-6.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 82,
+      "top": 594,
+      "width": 106,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 77,
+    "series": 77,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-77.png",
+    "size": [
+      58,
+      129
+    ],
+    "file": "book-77-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 353,
+      "top": 595,
+      "width": 105,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 79,
+    "series": 79,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-79.png",
+    "size": [
+      67,
+      167
+    ],
+    "file": "book-79-6.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 623,
+      "top": 593,
+      "width": 99,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 79,
+    "series": 79,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-79.png",
+    "size": [
+      67,
+      167
+    ],
+    "file": "book-79-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 890,
+      "top": 593,
+      "width": 99,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 80,
+    "series": 80,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-80.png",
+    "size": [
+      66,
+      152
+    ],
+    "file": "book-80-6.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 1157,
+      "top": 594,
+      "width": 102,
+      "height": 245
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 80,
+    "series": 80,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-80.png",
+    "size": [
+      66,
+      152
+    ],
+    "file": "book-80-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 84,
+      "top": 879,
+      "width": 104,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 82,
+    "series": 82,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-82.png",
+    "size": [
+      64,
+      147
+    ],
+    "file": "book-82-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 352,
+      "top": 879,
+      "width": 107,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 83,
+    "series": 83,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-83.png",
+    "size": [
+      63,
+      146
+    ],
+    "file": "book-83-6.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 620,
+      "top": 879,
+      "width": 104,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 84,
+    "series": 84,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-84.png",
+    "size": [
+      77,
+      173
+    ],
+    "file": "book-84-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 885,
+      "top": 879,
+      "width": 109,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 85,
+    "series": 85,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-85.png",
+    "size": [
+      78,
+      172
+    ],
+    "file": "book-85-7.png",
+    "source": "generated-5.png",
+    "rect": {
+      "left": 1154,
+      "top": 879,
+      "width": 108,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 86,
+    "series": 86,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-86.png",
+    "size": [
+      78,
+      163
+    ],
+    "file": "book-86-6.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 78,
+      "top": 36,
+      "width": 113,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 87,
+    "series": 87,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-87.png",
+    "size": [
+      78,
+      152
+    ],
+    "file": "book-87-7.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 340,
+      "top": 36,
+      "width": 123,
+      "height": 234
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 88,
+    "series": 88,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-88.png",
+    "size": [
+      79,
+      145
+    ],
+    "file": "book-88-6.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 607,
+      "top": 35,
+      "width": 127,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 89,
+    "series": 89,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-89.png",
+    "size": [
+      77,
+      158
+    ],
+    "file": "book-89-8.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 883,
+      "top": 35,
+      "width": 116,
+      "height": 235
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 90,
+    "series": 90,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-90.png",
+    "size": [
+      67,
+      172
+    ],
+    "file": "book-90-7.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 1157,
+      "top": 35,
+      "width": 103,
+      "height": 236
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 91,
+    "series": 91,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-91.png",
+    "size": [
+      69,
+      171
+    ],
+    "file": "book-91-6.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 80,
+      "top": 308,
+      "width": 110,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 92,
+    "series": 92,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-92.png",
+    "size": [
+      68,
+      171
+    ],
+    "file": "book-92-8.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 346,
+      "top": 308,
+      "width": 112,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 93,
+    "series": 93,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-93.png",
+    "size": [
+      67,
+      165
+    ],
+    "file": "book-93-7.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 615,
+      "top": 308,
+      "width": 111,
+      "height": 245
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 94,
+    "series": 94,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-94.png",
+    "size": [
+      66,
+      141
+    ],
+    "file": "book-94-5.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 884,
+      "top": 307,
+      "width": 116,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 95,
+    "series": 95,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-95.png",
+    "size": [
+      66,
+      135
+    ],
+    "file": "book-95-5.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 1148,
+      "top": 308,
+      "width": 124,
+      "height": 243
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 96,
+    "series": 96,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-96.png",
+    "size": [
+      71,
+      237
+    ],
+    "file": "book-96-5.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 87,
+      "top": 586,
+      "width": 97,
+      "height": 257
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 97,
+    "series": 97,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-97.png",
+    "size": [
+      72,
+      239
+    ],
+    "file": "book-97-5.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 353,
+      "top": 586,
+      "width": 98,
+      "height": 257
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 97,
+    "series": 97,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-97.png",
+    "size": [
+      72,
+      239
+    ],
+    "file": "book-97-6.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 623,
+      "top": 586,
+      "width": 97,
+      "height": 257
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 98,
+    "series": 98,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-98.png",
+    "size": [
+      71,
+      228
+    ],
+    "file": "book-98-5.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 892,
+      "top": 586,
+      "width": 98,
+      "height": 257
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 98,
+    "series": 98,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-98.png",
+    "size": [
+      71,
+      228
+    ],
+    "file": "book-98-6.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 1161,
+      "top": 586,
+      "width": 99,
+      "height": 257
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 99,
+    "series": 99,
+    "volume": 5,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-99.png",
+    "size": [
+      71,
+      233
+    ],
+    "file": "book-99-5.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 88,
+      "top": 879,
+      "width": 97,
+      "height": 261
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 100,
+    "series": 100,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-100.png",
+    "size": [
+      69,
+      258
+    ],
+    "file": "book-100-18.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 361,
+      "top": 879,
+      "width": 83,
+      "height": 261
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 100,
+    "series": 100,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-100.png",
+    "size": [
+      69,
+      258
+    ],
+    "file": "book-100-19.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 629,
+      "top": 879,
+      "width": 84,
+      "height": 262
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 101,
+    "series": 101,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-101.png",
+    "size": [
+      72,
+      257
+    ],
+    "file": "book-101-18.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 897,
+      "top": 879,
+      "width": 90,
+      "height": 262
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 101,
+    "series": 101,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-101.png",
+    "size": [
+      72,
+      257
+    ],
+    "file": "book-101-19.png",
+    "source": "generated-6.png",
+    "rect": {
+      "left": 1165,
+      "top": 879,
+      "width": 90,
+      "height": 262
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 102,
+    "series": 102,
+    "volume": 18,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-102.png",
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-102-18.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 98,
+      "top": 40,
+      "width": 72,
+      "height": 244
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 102,
+    "series": 102,
+    "volume": 19,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-102.png",
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-102-19.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 368,
+      "top": 40,
+      "width": 70,
+      "height": 245
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 103,
+    "series": 103,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-103.png",
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-103-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 636,
+      "top": 41,
+      "width": 71,
+      "height": 245
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 103,
+    "series": 103,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-103.png",
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-103-8.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 903,
+      "top": 40,
+      "width": 73,
+      "height": 246
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 104,
+    "series": 104,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-104.png",
+    "size": [
+      73,
+      258
+    ],
+    "file": "book-104-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 1170,
+      "top": 40,
+      "width": 73,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 104,
+    "series": 104,
+    "volume": 8,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-104.png",
+    "size": [
+      73,
+      258
+    ],
+    "file": "book-104-8.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 97,
+      "top": 316,
+      "width": 74,
+      "height": 242
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 105,
+    "series": 105,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-105.png",
+    "size": [
+      75,
+      258
+    ],
+    "file": "book-105-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 367,
+      "top": 315,
+      "width": 73,
+      "height": 243
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 107,
+    "series": 107,
+    "volume": 12,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-107.png",
+    "size": [
+      73,
+      252
+    ],
+    "file": "book-107-12.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 634,
+      "top": 315,
+      "width": 75,
+      "height": 243
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 107,
+    "series": 107,
+    "volume": 13,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-107.png",
+    "size": [
+      73,
+      252
+    ],
+    "file": "book-107-13.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 902,
+      "top": 315,
+      "width": 75,
+      "height": 243
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 107,
+    "series": 107,
+    "volume": 14,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-107.png",
+    "size": [
+      73,
+      252
+    ],
+    "file": "book-107-14.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 1169,
+      "top": 315,
+      "width": 76,
+      "height": 243
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 107,
+    "series": 107,
+    "volume": 15,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-107.png",
+    "size": [
+      73,
+      252
+    ],
+    "file": "book-107-15.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 96,
+      "top": 591,
+      "width": 76,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 108,
+    "series": 108,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-108.png",
+    "size": [
+      71,
+      252
+    ],
+    "file": "book-108-6.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 368,
+      "top": 591,
+      "width": 73,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 108,
+    "series": 108,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-108.png",
+    "size": [
+      71,
+      252
+    ],
+    "file": "book-108-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 634,
+      "top": 591,
+      "width": 74,
+      "height": 247
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 109,
+    "series": 109,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-109.png",
+    "size": [
+      74,
+      252
+    ],
+    "file": "book-109-6.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 902,
+      "top": 591,
+      "width": 76,
+      "height": 248
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 111,
+    "series": 111,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-111.png",
+    "size": [
+      74,
+      252
+    ],
+    "file": "book-111-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 1169,
+      "top": 591,
+      "width": 77,
+      "height": 249
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 112,
+    "series": 112,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-112.png",
+    "size": [
+      73,
+      258
+    ],
+    "file": "book-112-6.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 97,
+      "top": 879,
+      "width": 75,
+      "height": 238
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 113,
+    "series": 113,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-113.png",
+    "size": [
+      72,
+      258
+    ],
+    "file": "book-113-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 368,
+      "top": 879,
+      "width": 74,
+      "height": 238
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 114,
+    "series": 114,
+    "volume": 7,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-114.png",
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-114-7.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 633,
+      "top": 879,
+      "width": 77,
+      "height": 239
+    },
+    "wholeSpine": true
+  },
+  {
+    "art": 115,
+    "series": 115,
+    "volume": 6,
+    "master": "C:\\Users\\dmkra\\Documents\\Codex Apps\\QuietStacksFresh/design/shelf-fit-20260921/master-115.png",
+    "size": [
+      73,
+      258
+    ],
+    "file": "book-115-6.png",
+    "source": "generated-7.png",
+    "rect": {
+      "left": 902,
+      "top": 879,
+      "width": 76,
+      "height": 239
+    },
+    "wholeSpine": true
+  }
+]

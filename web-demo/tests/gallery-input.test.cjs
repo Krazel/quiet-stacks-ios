@@ -5,6 +5,7 @@ function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacke
   class Element{constructor(){this.listeners={};this.children=[];this.value='';this.textContent='';this.style={};this.classList={add(){},remove(){}};this.dataset={};this.tagName='CANVAS';this.clientWidth=width;this.clientHeight=height;this.sub=new Map();}getBoundingClientRect(){return {left:0,top:0,width,height};}getContext(){return ctx;}setPointerCapture(){}addEventListener(k,f){this.listeners[k]=f;}setAttribute(k,v){this[k]=v;}replaceChildren(){this.children=[];this.value='';}append(x){this.children.push(x);if(!this.value)this.value=x.value;}querySelector(k){if(!this.sub.has(k))this.sub.set(k,new Element());return this.sub.get(k);}click(){this.onclick?.();}showModal(){this.open=true;}close(){this.open=false;}}
   const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
   const soundCalls=[];const sandbox={GalleryAudio:{effect:kind=>soundCalls.push(kind)},console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
+  sandbox.GalleryShelfFit=require('../web/js/gallery-shelf-fit.js');
   sandbox.GalleryExpanded=require('../web/js/gallery-expanded.js');sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={volumeMarks:()=>({_src:'volume-marks',width:1024,height:48}),compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};if(usePacked)sandbox.GalleryPacked=require('../web/js/gallery-packed.js');sandbox.window=sandbox;sandbox.GalleryLayout=require("../web/js/gallery-layout.js");vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
   const Base=sandbox.GalleryModel.Gallery;sandbox.GalleryModel.Gallery=class extends Base{constructor(){super();live=this;}};
   get('demo-actions').hidden=true;vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery.js'),'utf8'),sandbox);
@@ -17,7 +18,7 @@ function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacke
 }
 
 
-test('manual gallery loads the full catalogue and paints visible books at desktop and touch dimensions',()=>{for(const [w,h] of [[1440,810],[390,844]]){const t=harness(w,h);t.advance();assert.equal(t.get('loading').hidden,true);assert.equal(t.state().books.length,960);const count=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length;assert.ok(count>0&&count<=960);assert.equal(t.get('selection').hidden,true);}});
+test('manual gallery loads the full catalogue and paints visible books at desktop and touch dimensions',()=>{for(const [w,h] of [[1440,810],[390,844]]){const t=harness(w,h);t.advance();assert.equal(t.get('loading').hidden,true);assert.equal(t.state().books.length,1119);const count=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length;assert.ok(count>0&&count<=1119);assert.equal(t.get('selection').hidden,true);}});
 
 test('the painted room covers every viewport at home, after extreme pan and after restoring an edge camera',()=>{
  for(const [w,h] of [[812,375],[568,320],[390,844],[1024,768],[1366,1024]]){
@@ -41,15 +42,15 @@ test('idle has no canvas work, while zoom, demo and pageshow each invalidate the
 
 test('zoom culls offscreen books and returning home restores the complete visible shelf catalogue',()=>{
   const t=harness(1440,810,undefined,undefined,true);t.get('demo-sort').click();t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();
-  assert.equal(t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length,960);t.draws.length=0;
+  assert.equal(t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length,1119);t.draws.length=0;
   for(let i=0;i<5;i++)t.events.get('keydown')({key:'+',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();const visible=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length;
-  assert.ok(visible>0&&visible<250);t.draws.length=0;t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();assert.equal(t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length,960);
+  assert.ok(visible>0&&visible<250);t.draws.length=0;t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.tick();assert.equal(t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length,1119);
 });
 
 test('every shelf book renders its own numbered artwork after changing bays',()=>{
  const {SERIES}=require('../web/js/gallery-model.js'),{atlases,bindings}=require('../web/js/gallery-volumes.js'),t=harness();t.live.demoArrange('sort');
  t.live.move(524,'floor',-1,{x:860,y:250});t.live.move(0,'shelf',524);t.live.move(524,'shelf',0);t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.draws.length=0;t.advance();
- const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,960);
+ const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,1119);
  for(const b of t.state().books){const s=t.slots[b.slot],v=bindings[SERIES[b.series].art]?.[b.volume-1],d=rendered.find(d=>Math.abs(d[5]+d[7]/2-s.x)<1e-8&&Math.abs(d[6]+d[8]-s.y)<1e-8);assert.ok(d);if(v){assert.ok(d[0]._src.startsWith(atlases[v.atlas].file));assert.deepEqual(d.slice(1,5),v.source);}else assert.ok(t.draws.some(mark=>mark[0]._src==='volume-marks'&&mark[1]===(b.volume-1)*48&&Math.abs(mark[5]-(d[5]+d[7]*.125))<1e-8&&Math.abs(mark[6]-(d[6]+d[8]*.65))<1e-8));}
  assert.deepEqual(t.texts,[]);assert.equal(t.strokes.length,0);t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
 });
@@ -61,7 +62,7 @@ test('engraved volumes follow only Moon Phases identities and never appear on lo
   assert.equal(spines.length,4);assert.equal(new Set(spines.map(d=>d[1])).size,4);
   assert.equal(numbered().length,t.draws.filter(d=>d.length===5).length*4);
   t.live.move(3,'floor',-1,{x:860,y:250});t.live.move(0,'shelf',3);
-  t.draws.length=0;t.advance();const moved=numbered().find(d=>d[5]===t.slots[3].x-4.5);
+  t.draws.length=0;t.advance();const moved=numbered().find(d=>Math.abs(d[5]+d[7]/2-t.slots[3].x)<1e-8);
   assert.equal(moved[1],spines[0][1]);assert.deepEqual(t.texts,[]);assert.equal(t.strokes.length,0);
   t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
 });
@@ -99,11 +100,11 @@ test('removed aids and orientation controls have no callbacks or keyboard action
 test('new binding remains the same on shelf and in book information',()=>{const t=harness(),b=t.state().books.find(b=>t.slots[b.id].series===1);t.live.move(b.id,'shelf',b.id);const slot=t.slots[b.id];t.tap(t.screen([slot.x,slot.y-14]));assert.match(t.get('inspect-edition').textContent,/Sun binding/);assert.equal(t.get('inspect-category').textContent,'Astral Charts '+b.volume);const cover=t.draws.at(-1);assert.ok(cover[0]._src.includes('bindings-b-v9'));assert.equal(cover[2],983);});
 test('no horizontal shelf assets are rendered and floor art keeps proportions',()=>{const t=harness();t.live.move(0,'shelf',0);t.advance();const books=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks');for(const d of books){assert.ok(!(d[0]._src.includes('books-varied')&&d[2]>620&&d[2]<725));assert.ok(!(d[0]._src.includes('bindings-')&&d[2]>860&&d[2]<930));}const floor=books.filter(d=>!d[0]._src.includes('books-varied')&&!d[0]._src.includes('moon-volumes-v15'));for(const d of floor)assert.ok(Math.abs(d[7]/d[8]-d[3]/d[4])<1e-10);assert.deepEqual(t.rotations,[]);});
 
-test('all 960 shelf books share one size and every collection still fits its bay',()=>{
+test('all 1119 shelf books keep the original proportions and each collection fits its measured bay',()=>{
   const {SERIES}=require('../web/js/gallery-model.js'),t=harness();
   for(const b of t.state().books)assert.ok(t.live.move(b.id,'shelf',b.id));
-  t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,960);
-  assert.equal(rendered.length,960);for(const d of rendered)assert.deepEqual(d.slice(7),[9,27]);
+  t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,1119);
+  assert.equal(rendered.length,1119);for(const d of rendered){assert.ok(Math.abs(d[8]/d[7]-3)<1e-8);assert.ok(d[7]>=8.1&&d[7]<=9.7);}
   for(const collection of SERIES){
     const slots=collection.slotIds.map(id=>t.slots[id]);
     const images=slots.map(slot=>rendered.find(d=>Math.abs(d[5]+d[7]/2-slot.x)<1e-8&&Math.abs(d[6]+d[8]-slot.y)<1e-8));
@@ -114,11 +115,13 @@ test('all 960 shelf books share one size and every collection still fits its bay
     for(let i=1;i<images.length;i++)assert.ok(images[i-1][5]+images[i-1][7]<=images[i][5]+1e-8);
   }
 });
-test('book proportions belong to the collection even in another bay or the trolley',()=>{
+test('book keeps its aspect ratio and fits the destination even in a narrower bay or trolley',()=>{
   const t=harness(),spine=()=>{t.draws.length=0;t.advance();return t.draws.find(d=>d.length===9&&d[0]._src!=='volume-marks'&&d[0]._src.includes('moon-volumes-v15'));};
   t.live.move(0,'shelf',0);const own=spine();
   t.live.move(0,'shelf',524);const elsewhere=spine();
-  assert.deepEqual(own.slice(7),elsewhere.slice(7));
+  const {SERIES,SLOTS}=require('../web/js/gallery-model.js'),destination=SERIES[SLOTS[524].series];
+  assert.deepEqual(elsewhere.slice(7),[destination.bookWidth,destination.bookHeight]);
+  assert.ok(Math.abs(own[7]/own[8]-elsewhere[7]/elsewhere[8])<1e-10);
   t.live.move(0,'cart');const cart=spine();
   assert.ok(Math.abs(cart[7]/cart[8]-own[7]/own[8])<1e-10);
 });
@@ -186,7 +189,7 @@ test('asynchronous texture imports run one at a time and only unlock after all a
  assert.equal(t.get('loading').hidden,false);
  for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
  assert.equal(t.get('loading').hidden,true);assert.equal(peak,1);assert.equal(loaded,expected);
- t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();assert.ok(t.draws.length>=960);
+ t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();assert.ok(t.draws.length>=1119);
  t.get('retry').click();assert.equal(closed,expected);
  for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
  assert.equal(t.get('loading').hidden,true);assert.equal(loaded,expected*2);assert.equal(peak,1);
@@ -200,16 +203,16 @@ test('retry ignores an obsolete in-flight bitmap and starts a complete new galle
  });
  t.get('retry').click();release();
  for(let n=0;n<100&&!t.get('loading').hidden;n++)await new Promise(setImmediate);
- assert.equal(obsoleteClosed,1);assert.equal(t.get('loading').hidden,true);t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();assert.ok(t.draws.length>=960);
+ assert.equal(obsoleteClosed,1);assert.equal(t.get('loading').hidden,true);t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();assert.ok(t.draws.length>=1119);
 });
 
 
 test('packed runtime renders every numbered volume without runtime atlas processing',()=>{
  const packed=require('../web/js/gallery-packed.js'),volumes=require('../web/js/gallery-volumes.js'),{SERIES}=require('../web/js/gallery-model.js');
  const t=harness(1672,941,undefined,()=>{throw Error('Runtime texture processing must not run');},true);t.events.get('keydown')({key:'Home',target:{tagName:'CANVAS'},preventDefault(){}});t.advance();assert.equal(t.get('loading').hidden,true);
- t.live.demoArrange('sort');t.draws.length=0;t.advance();const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,960);
+ t.live.demoArrange('sort');t.draws.length=0;t.advance();const rendered=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').slice(0,1119);
  for(const b of t.state().books){const slot=t.slots[b.slot],v=volumes.bindings[SERIES[b.series].art]?.[b.volume-1],d=rendered.find(d=>Math.abs(d[5]+d[7]/2-slot.x)<1e-8&&Math.abs(d[6]+d[8]-slot.y)<1e-8);assert.ok(d);assert.ok(d[0]._src.includes('packed-'));if(v){const crop=packed.sprites[volumes.atlases[v.atlas].file+'|'+v.source.join(',')];assert.ok(d[0]._src.startsWith(packed.pages[crop.page].file));assert.deepEqual(d.slice(1,5),crop.source);}else assert.ok(t.draws.some(mark=>mark[0]._src==='volume-marks'&&mark[1]===(b.volume-1)*48&&Math.abs(mark[5]-(d[5]+d[7]*.125))<1e-8&&Math.abs(mark[6]-(d[6]+d[8]*.65))<1e-8));}
- t.get('demo-scatter').click();t.advance();assert.equal(t.state().books.filter(b=>b.place==='floor').length,960);
+ t.get('demo-scatter').click();t.advance();assert.equal(t.state().books.filter(b=>b.place==='floor').length,1119);
 });
 
 test('overview is modest, centers fitting axes, preserves books and restores below 100 percent',()=>{
