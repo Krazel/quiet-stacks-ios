@@ -5,7 +5,7 @@ function create(canvas,invalidate){
  if(!gl)return null;
  const maxTextures=Math.min(8,gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS)),capacity=8192,data=new Float32Array(capacity*5);
  const derivatives=!!gl.getExtension('OES_standard_derivatives');
- let program,buffer,position,uv,slot,transform,smoothing,brightness,saturation,samplers,resources=new Map(),batch=[],count=0,nearest=false,light=1,chroma=1,lost=false,uploads=0,textureBytes=0,drawCalls=0;
+ let program,buffer,position,uv,slot,transform,smoothing,brightness,saturation,samplers,resources=new Map(),batch=[],count=0,nearest=false,minified=false,light=1,chroma=1,lost=false,uploads=0,textureBytes=0,drawCalls=0;
  const vertex='attribute vec2 a_position;attribute vec2 a_uv;attribute float a_slot;uniform vec4 u_transform;varying vec2 v_uv;varying float v_slot;void main(){gl_Position=vec4(a_position*u_transform.xy+u_transform.zw,0.,1.);v_uv=a_uv;v_slot=a_slot;}';
  // Four subpixel samples reduce shimmer when detailed book art is minified,
  // without a second atlas or the memory overhead of padded mipmap textures.
@@ -31,9 +31,9 @@ function create(canvas,invalidate){
  function flush(){if(!count||lost)return;batch.forEach((r,i)=>{gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,r.texture);const filter=nearest?gl.NEAREST:gl.LINEAR;gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,filter);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,filter);});
   // Bind unused sampler slots too: WebGL validates every active sampler.
   for(let i=batch.length;i<maxTextures;i++){gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,batch[0].texture);}
-  gl.uniform1f(smoothing,nearest?0:1);gl.uniform1f(brightness,light);gl.uniform1f(saturation,chroma);gl.bufferSubData(gl.ARRAY_BUFFER,0,data.subarray(0,count*5));gl.drawArrays(gl.TRIANGLES,0,count);drawCalls++;count=0;batch=[];
+  gl.uniform1f(smoothing,!nearest&&minified?1:0);gl.uniform1f(brightness,light);gl.uniform1f(saturation,chroma);gl.bufferSubData(gl.ARRAY_BUFFER,0,data.subarray(0,count*5));gl.drawArrays(gl.TRIANGLES,0,count);drawCalls++;count=0;batch=[];
  }
- function begin(width,height,dpr,scale,camera){drawCalls=0;if(lost)return false;gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(23/255,18/255,14/255,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform4f(transform,2*scale/width,-2*scale/height,-2*camera.x*scale/width,2*camera.y*scale/height);return true;}
+ function begin(width,height,dpr,scale,camera){drawCalls=0;minified=scale<1;if(lost)return false;gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(23/255,18/255,14/255,1);gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform4f(transform,2*scale/width,-2*scale/height,-2*camera.x*scale/width,2*camera.y*scale/height);return true;}
  function draw(image,source,rect,sharp=false,cut=0,gain=1,vivid=1){if(lost)return;const r=resource(image);let index=batch.indexOf(r);if(count&&(nearest!==sharp||light!==gain||chroma!==vivid||(index<0&&batch.length===maxTextures)||count+30>capacity)){flush();index=-1;}nearest=sharp;light=gain;chroma=vivid;if(index<0){index=batch.length;batch.push(r);}
   const [sx,sy,sw,sh]=source,{x,y,w,h}=rect;
   function emit(px,py){const i=count++*5;data[i]=px;data[i+1]=py;data[i+2]=(sx+(px-x)/w*sw)/r.w;data[i+3]=(sy+(py-y)/h*sh)/r.h;data[i+4]=index;}
