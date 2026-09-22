@@ -1,0 +1,36 @@
+name: Quiet Stacks App Store screenshots
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  capture:
+    if: github.actor == github.repository_owner && github.ref == 'refs/heads/main'
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 11f9503543db4f5413f38efce152fd18b0338bab
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Capture exact release source without simulator hardware mask
+        working-directory: web-demo
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const source=fs.readFileSync('scripts/simulator-qa.mjs','utf8');
+          const prefix=source.slice(0,source.indexOf('const phone='));
+          const helper=fs.readFileSync('scripts/store-screenshots.mjs','utf8');
+          fs.writeFileSync('scripts/store-screenshots.mjs',helper.replace("'screenshot',path.join(folder,name)","'screenshot','--mask=ignored',path.join(folder,name)"));
+          fs.writeFileSync('scripts/store-capture-runner.mjs',"process.env.GITHUB_SHA='11f9503543db4f5413f38efce152fd18b0338bab';\n"+prefix+"\nconst {captureStore}=await import('./store-screenshots.mjs');await captureStore({run,available,runtime,derived,out});\n");
+          NODE
+          node scripts/store-capture-runner.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QuietStacks-1.0-AppStore-screenshots
+          path: web-demo/artifacts/native-qa/
+          retention-days: 7
