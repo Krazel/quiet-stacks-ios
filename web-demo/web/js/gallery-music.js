@@ -7,7 +7,7 @@
   const audio=new Audio(); audio.preload='metadata'; audio.loop=false;
   try{const s=JSON.parse(localStorage.getItem(KEY));if(Number.isFinite(s?.effects))settings.effects=Math.max(0,Math.min(1,s.effects));}catch{}
   let context, gain, master, source, unlocked=false, background=false, loading, objectURL, pending=false;
-  const groups={pickup:['handleSmallLeather','handleSmallLeather2'],place:['bookPlace1','bookPlace2','bookPlace3'],inspect:['bookFlip3','bookFlip2'],correct:['confirmation_001']},buffers=new Map(),last={},voices=[];
+  const groups={pickup:['handleSmallLeather','handleSmallLeather2'],place:['bookPlace1','bookPlace2','bookPlace3'],floor:['impactPlank_medium_000'],inspect:['bookFlip3','bookFlip2'],correct:['confirmation_001']},buffers=new Map(),last={},voices=[];
   let effectsLoading=false;
   function loadEffects(){if(effectsLoading)return;effectsLoading=true;for(const name of Object.values(groups).flat())fetch('assets/sfx-'+name+'.wav').then(r=>{if(!r.ok)throw Error('Effect unavailable');return r.arrayBuffer();}).then(data=>context.decodeAudioData(data)).then(buffer=>buffers.set(name,buffer)).catch(()=>{effectsLoading=false;});}
   function effect(kind){

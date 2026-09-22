@@ -1,5 +1,5 @@
 {
-  "version": "0.17.8",
+  "version": "0.17.9",
   "files": [
     "index.html",
     "gallery.css",
@@ -38,6 +38,7 @@
     "assets/sfx-bookFlip3.wav",
     "assets/sfx-bookFlip2.wav",
     "assets/sfx-confirmation_001.wav",
+    "assets/sfx-impactPlank_medium_000.wav",
     "js/gallery-room-artwork.js",
     "js/gallery-shelf-fit.js",
     "assets/library-complete-3x-0-0.png",

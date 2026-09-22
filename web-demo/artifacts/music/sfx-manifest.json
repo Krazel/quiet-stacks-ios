@@ -1,0 +1,86 @@
+[
+  {
+    "file": "sfx-handleSmallLeather.wav",
+    "original": "rpg/Audio/handleSmallLeather.ogg",
+    "originalSha256": "ae3cbf695aa0a8b98b5a80a835be5a3ccbd5446a24db2235cd4c3cd6fc92ed96",
+    "gain": 0.9572410632184097,
+    "peak": 0.25115966796875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-handleSmallLeather2.wav",
+    "original": "rpg/Audio/handleSmallLeather2.ogg",
+    "originalSha256": "a66f6db5918ad016c28a9f2768f127a7f39b5fa04481e5a3b4e78ebe2a1c282d",
+    "gain": 1,
+    "peak": 0.150115966796875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-bookPlace1.wav",
+    "original": "rpg/Audio/bookPlace1.ogg",
+    "originalSha256": "26f3ce60fbde85b678b0ad7f6624d80535fe540d88232ad1e38e47a96662d977",
+    "gain": 0.23002007634269478,
+    "peak": 0.251190185546875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-bookPlace2.wav",
+    "original": "rpg/Audio/bookPlace2.ogg",
+    "originalSha256": "831874e8fd142d4d0a03ff009f1f83966338a7878c0f6f38c613ae5b80dd731e",
+    "gain": 0.2328451195712266,
+    "peak": 0.25115966796875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-bookPlace3.wav",
+    "original": "rpg/Audio/bookPlace3.ogg",
+    "originalSha256": "b1afa711e1cabfe5b2c56e20e20e0f9d82142d067727447fa992ddc43dbdb06e",
+    "gain": 0.22364068331402248,
+    "peak": 0.25115966796875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-bookFlip3.wav",
+    "original": "rpg/Audio/bookFlip3.ogg",
+    "originalSha256": "c85db5dceb3f1df073e960630277eaa88a5afda0477c1ddd68dad707621767be",
+    "gain": 0.42480602577360965,
+    "peak": 0.25115966796875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-bookFlip2.wav",
+    "original": "rpg/Audio/bookFlip2.ogg",
+    "originalSha256": "3409042acbfaebc24c1a6327dc073e36f9250841712e96c5040da566a97df73c",
+    "gain": 0.6511902066481869,
+    "peak": 0.25115966796875,
+    "license": "CC0 1.0",
+    "author": "Kenney"
+  },
+  {
+    "file": "sfx-impactPlank_medium_000.wav",
+    "original": "impact/Audio/impactPlank_medium_000.ogg",
+    "originalSha256": "8403cd7a043f0391574c88c55dd205743725b5363d2407f6de145f201690b68f",
+    "gain": 0.2889816195994172,
+    "license": "CC0 1.0",
+    "author": "Kenney",
+    "approvedOption": "G",
+    "event": "floor"
+  },
+  {
+    "file": "sfx-confirmation_001.wav",
+    "original": "correct/A-confirmation_001.wav",
+    "originalSha256": "9203dee5c1df64da360d13730bec56415e274c400553035f51a9d7275b5216a8",
+    "license": "CC0 1.0",
+    "author": "Kenney",
+    "pitchSemitones": [
+      -1,
+      1
+    ]
+  }
+]
