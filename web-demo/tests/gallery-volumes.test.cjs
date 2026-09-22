@@ -6,14 +6,18 @@ test('all 1119 volumes have distinct complete painted spines within real atlas d
  for(const s of SERIES){assert.equal(bindings[s.art].length,s.count);for(const v of bindings[s.art]){assert.ok(v);const [x,y,w,h]=v.source,[aw,ah]=sizes[v.atlas];assert.ok([x,y,w,h].every(Number.isInteger));assert.ok(x>=0&&y>=0&&w>15&&h>70&&x+w<=aw&&y+h<=ah);const key=JSON.stringify(v);assert.ok(!used.has(key),s.name+' has repeated artwork');used.add(key);}}
  assert.equal(used.size,TOTAL);assert.equal(atlases[bindings[0][0].atlas].file,'assets/moon-volumes-v15.png');
 });
-test('442 coherent spines preserve the 518 unaffected originals and exist in packed textures',()=>{
+test('coherent spines preserve every unaffected original and include the 55 approved master corrections in packed textures',()=>{
  const original=require('../design/volume-redraw-20260920/original-volume-manifest.cjs');
- const packed=require('../web/js/gallery-packed.js');let preserved=0,redrawn=0,repairs=0,added=0;
+ const selected=require('../design/volume-selected-20260922/composed.json'),selectedKeys=new Set(selected.map(x=>x.art+':'+x.volume));
+ const packed=require('../web/js/gallery-packed.js');let preserved=0,redrawn=0,repairs=0,added=0,masterCorrected=0;
  const repairKeys=new Set(['42:11','43:11','46:11','57:9','59:9','61:12','13:4']);
  for(const s of SERIES)for(let i=0;i<s.count;i++){
   const v=bindings[s.art][i],old=original.bindings[s.art]?.[i];
-  if(v.shelfFit){assert.equal(v.coherent,true);added++;}else if(old&&!repairKeys.has(s.art+':'+(i+1))){assert.deepEqual(v,old);preserved++;}else{assert.equal(v.redrawn,true);assert.equal(v.coherent,true);if(old)repairs++;else redrawn++;}
+  const key=s.art+':'+(i+1);
+  if(selectedKeys.has(key)){assert.equal(v.masterCorrected,true);assert.equal(v.selectedRepair,true);assert.equal(v.coherent,true);masterCorrected++;}
+  else if(v.shelfFit){assert.equal(v.coherent,true);added++;}else if(old&&!repairKeys.has(key)){assert.deepEqual(v,old);preserved++;}else{assert.equal(v.redrawn,true);assert.equal(v.coherent,true);if(old)repairs++;else redrawn++;}
   assert(packed.sprites[atlases[v.atlas].file+'|'+v.source.join(',')],`${s.name} volume ${i+1}`);
  }
- assert.equal(preserved,518);assert.equal(redrawn,435);assert.equal(repairs,7);assert.equal(added,159);
+ assert.equal(masterCorrected,55);assert.equal(preserved+redrawn+repairs+added+masterCorrected,TOTAL);
+ for(const item of selected){const v=bindings[item.art][item.volume-1];assert.deepEqual(v.source.slice(2),item.size);assert.equal(item.outsideChanges,0);assert.equal(item.alphaChanges,0);}
 });

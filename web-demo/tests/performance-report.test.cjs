@@ -14,3 +14,7 @@ test('diagnostic version matches the package delivered to testers',()=>{
  const version=JSON.parse(fs.readFileSync('package.json')).version;
  assert.ok(fs.readFileSync('web/js/gallery-performance.js','utf8').includes("version:'"+version+"'"));
 });
+test('short submissions still report long gaps between frames',()=>{
+ const s=summarize({name:'shelves',started:0,frames:[{at:10,total:2,room:0,books:2,count:790},{at:62,total:3,room:0,books:3,count:790},{at:97,total:2,room:0,books:2,count:790}],ticks:[0,52,87],inputs:[],drops:[],events:{},graphicsAtEnd:{backend:'webgl',drawCalls:3}},100);
+ assert.equal(s.framesOver33ms,0);assert.equal(s.framesOver50ms,0);assert.equal(s.renderIntervalsOver33ms,2);assert.equal(s.renderIntervalsOver50ms,1);assert.equal(s.graphicsAtEnd.drawCalls,3);
+});

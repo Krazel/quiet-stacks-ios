@@ -7,12 +7,14 @@
     return {count:a.length,median:round(a[Math.floor(a.length*.5)]),p95:round(a[Math.min(a.length-1,Math.floor(a.length*.95))]),max:round(a[a.length-1])};
   }
   function summarize(s,ended){
-    const duration=ended-s.started,frames=s.frames;
+    const duration=ended-s.started,frames=s.frames,intervals=frames.slice(1).map((f,i)=>f.at-frames[i].at);
     return {name:s.name,durationMs:round(duration),renderedFrames:frames.length,renderFPS:duration?round(frames.length*1000/duration):null,
       drawMainThreadMs:distribution(frames.map(f=>f.total)),roomDrawMs:distribution(frames.map(f=>f.room)),bookDrawMs:distribution(frames.map(f=>f.books)),
-      visibleBooks:distribution(frames.map(f=>f.count)),renderIntervalMs:distribution(frames.slice(1).map((f,i)=>f.at-frames[i].at)),
+      visibleBooks:distribution(frames.map(f=>f.count)),renderIntervalMs:distribution(intervals),
       schedulerIntervalMs:distribution(s.ticks.slice(1).map((t,i)=>t-s.ticks[i])),inputToRenderMs:distribution(s.inputs),dropMs:distribution(s.drops),
-      framesOver33ms:frames.filter(f=>f.total>33.34).length,framesOver50ms:frames.filter(f=>f.total>50).length,events:s.events};
+      framesOver33ms:frames.filter(f=>f.total>33.34).length,framesOver50ms:frames.filter(f=>f.total>50).length,
+      renderIntervalsOver33ms:intervals.filter(ms=>ms>33.34).length,renderIntervalsOver50ms:intervals.filter(ms=>ms>50).length,
+      graphicsAtEnd:s.graphicsAtEnd||null,events:s.events};
   }
   let controller;
   function attach(adapter){
@@ -23,7 +25,7 @@
     function nativeContext(){return new Promise(resolve=>{const id=++contextId;if(!root.webkit?.messageHandlers?.galleryStatus){resolve(null);return;}const timer=root.setTimeout(()=>{contexts.delete(id);resolve(null);},2000);contexts.set(id,data=>{root.clearTimeout(timer);resolve(data);});bridge({type:'performance-context',requestId:id});});}
     function nextFrame(){return new Promise(resolve=>{const done=t=>{waiters.delete(done);resolve(t);};waiters.add(done);root.requestAnimationFrame(done);});}
     function stage(name){current={name,started:now(),frames:[],ticks:[],inputs:[],drops:[],events:{}};inputAt=null;}
-    function endStage(){if(current){completed.push(summarize(current,now()));current=null;}}
+    function endStage(){if(current){current.graphicsAtEnd=adapter.environment().graphics;completed.push(summarize(current,now()));current=null;}}
     function display(){
       $('performance-running').hidden=true;$('performance-panel').hidden=false;$('performance-copy').disabled=!result;$('performance-share').disabled=!result;
       $('performance-report').value=result?JSON.stringify(result,null,2):'';
@@ -52,8 +54,8 @@
     async function start(requestedMode){
       if(active||!adapter.ready())return;
       mode=requestedMode;active=true;const id=++epoch;started=now();completed.length=0;dropCases.length=0;inputAt=null;
-      result={type:'quiet-stacks-performance',schema:1,version:'0.17.7',build:'1',mode,createdAt:new Date().toISOString(),environment:adapter.environment(),
-        timingNotes:'Render timings and render FPS measure main-thread draw submissions, not GPU presentation. Graphics identifies WebGL or the Canvas fallback; textureMiB estimates uploaded RGBA textures, not total process memory. Render FPS during idle is expected to be zero. Input latency starts when the JS listener receives an event. WebContent process memory is unavailable through the public bridge. No saved layout or book identities are included.'};
+      result={type:'quiet-stacks-performance',schema:1,version:'0.17.8',build:'1',mode,createdAt:new Date().toISOString(),environment:adapter.environment(),
+        timingNotes:'Render timings and render FPS measure main-thread draw submissions, not GPU presentation. framesOver33ms/50ms count slow draw submissions; renderIntervalsOver33ms/50ms count gaps between submissions, including scheduling delays. Graphics identifies WebGL or the Canvas fallback; graphicsAtEnd is sampled separately for each stage. textureMiB estimates uploaded RGBA textures, not total process memory. Render FPS during idle is expected to be zero. Automatic drag animates a book without touch events; input latency requires a manual recording. Input latency starts when the JS listener receives an event. WebContent process memory is unavailable through the public bridge. No saved layout or book identities are included.'};
       $('performance-panel').hidden=true;$('performance-running').hidden=false;$('performance-phase').textContent='Preparing test…';$('performance-copy').disabled=true;$('performance-share').disabled=true;
       try{
         if(mode==='automatic')snapshot=adapter.begin();

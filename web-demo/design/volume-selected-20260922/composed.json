@@ -1,0 +1,2367 @@
+[
+  {
+    "series": 42,
+    "art": 50,
+    "category": "Arcane Studies",
+    "collection": "Protective Wards",
+    "volume": 6,
+    "id": 1013,
+    "baseVolume": 1,
+    "baseId": 254,
+    "file": "book-s042-a050-v06-id1013.png",
+    "size": [
+      72,
+      154
+    ],
+    "numberBox": [
+      13,
+      111,
+      59,
+      148
+    ],
+    "sourceCrop": [
+      261,
+      60,
+      315,
+      175
+    ],
+    "changedPixels": 1539,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 42,
+    "art": 50,
+    "category": "Arcane Studies",
+    "collection": "Protective Wards",
+    "volume": 7,
+    "id": 1014,
+    "baseVolume": 1,
+    "baseId": 254,
+    "file": "book-s042-a050-v07-id1014.png",
+    "size": [
+      72,
+      154
+    ],
+    "numberBox": [
+      13,
+      111,
+      59,
+      148
+    ],
+    "sourceCrop": [
+      448,
+      60,
+      502,
+      175
+    ],
+    "changedPixels": 1540,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 43,
+    "art": 51,
+    "category": "Arcane Studies",
+    "collection": "Clockwork Devices",
+    "volume": 8,
+    "id": 1015,
+    "baseVolume": 1,
+    "baseId": 255,
+    "file": "book-s043-a051-v08-id1015.png",
+    "size": [
+      70,
+      152
+    ],
+    "numberBox": [
+      13,
+      108,
+      57,
+      144
+    ],
+    "sourceCrop": [
+      262,
+      256,
+      314,
+      370
+    ],
+    "changedPixels": 1427,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 44,
+    "art": 52,
+    "category": "Arcane Studies",
+    "collection": "Enchanted Metals",
+    "volume": 7,
+    "id": 1016,
+    "baseVolume": 1,
+    "baseId": 260,
+    "file": "book-s044-a052-v07-id1016.png",
+    "size": [
+      70,
+      130
+    ],
+    "numberBox": [
+      13,
+      91,
+      57,
+      122
+    ],
+    "sourceCrop": [
+      262,
+      467,
+      314,
+      564
+    ],
+    "changedPixels": 1217,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 45,
+    "art": 53,
+    "category": "Arcane Studies",
+    "collection": "Runic Notation",
+    "volume": 6,
+    "id": 1017,
+    "baseVolume": 1,
+    "baseId": 262,
+    "file": "book-s045-a053-v06-id1017.png",
+    "size": [
+      70,
+      142
+    ],
+    "numberBox": [
+      13,
+      104,
+      57,
+      138
+    ],
+    "sourceCrop": [
+      262,
+      652,
+      314,
+      759
+    ],
+    "changedPixels": 1344,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 45,
+    "art": 53,
+    "category": "Arcane Studies",
+    "collection": "Runic Notation",
+    "volume": 7,
+    "id": 1018,
+    "baseVolume": 1,
+    "baseId": 262,
+    "file": "book-s045-a053-v07-id1018.png",
+    "size": [
+      70,
+      142
+    ],
+    "numberBox": [
+      13,
+      104,
+      57,
+      138
+    ],
+    "sourceCrop": [
+      449,
+      652,
+      501,
+      759
+    ],
+    "changedPixels": 1344,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 79,
+    "art": 79,
+    "category": "Botanical Folios",
+    "collection": "Rare Fungi",
+    "volume": 6,
+    "id": 1072,
+    "baseVolume": 1,
+    "baseId": 451,
+    "file": "book-s079-a079-v06-id1072.png",
+    "size": [
+      67,
+      167
+    ],
+    "numberBox": [
+      12,
+      124,
+      55,
+      163
+    ],
+    "sourceCrop": [
+      263,
+      828,
+      313,
+      953
+    ],
+    "changedPixels": 1516,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 79,
+    "art": 79,
+    "category": "Botanical Folios",
+    "collection": "Rare Fungi",
+    "volume": 7,
+    "id": 1073,
+    "baseVolume": 1,
+    "baseId": 451,
+    "file": "book-s079-a079-v07-id1073.png",
+    "size": [
+      67,
+      167
+    ],
+    "numberBox": [
+      12,
+      124,
+      55,
+      163
+    ],
+    "sourceCrop": [
+      450,
+      828,
+      500,
+      953
+    ],
+    "changedPixels": 1516,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 82,
+    "art": 82,
+    "category": "Celestial Records",
+    "collection": "Moon Phases",
+    "volume": 7,
+    "id": 1076,
+    "baseVolume": 1,
+    "baseId": 464,
+    "file": "book-s082-a082-v07-id1076.png",
+    "size": [
+      64,
+      147
+    ],
+    "numberBox": [
+      12,
+      110,
+      52,
+      145
+    ],
+    "sourceCrop": [
+      264,
+      1038,
+      312,
+      1148
+    ],
+    "changedPixels": 1241,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 84,
+    "art": 84,
+    "category": "Celestial Records",
+    "collection": "Comet Paths",
+    "volume": 7,
+    "id": 1078,
+    "baseVolume": 1,
+    "baseId": 471,
+    "file": "book-s084-a084-v07-id1078.png",
+    "size": [
+      77,
+      173
+    ],
+    "numberBox": [
+      14,
+      111,
+      63,
+      152
+    ],
+    "sourceCrop": [
+      259,
+      46,
+      317,
+      175
+    ],
+    "changedPixels": 1833,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 85,
+    "art": 85,
+    "category": "Celestial Records",
+    "collection": "Eclipses",
+    "volume": 7,
+    "id": 1079,
+    "baseVolume": 1,
+    "baseId": 476,
+    "file": "book-s085-a085-v07-id1079.png",
+    "size": [
+      78,
+      172
+    ],
+    "numberBox": [
+      14,
+      112,
+      64,
+      153
+    ],
+    "sourceCrop": [
+      259,
+      241,
+      317,
+      370
+    ],
+    "changedPixels": 1872,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 112,
+    "art": 112,
+    "category": "Celestial Records",
+    "collection": "Celestial Instruments / Archive Edition",
+    "volume": 6,
+    "id": 1115,
+    "baseVolume": 1,
+    "baseId": 908,
+    "file": "book-s112-a112-v06-id1115.png",
+    "size": [
+      73,
+      258
+    ],
+    "numberBox": [
+      13,
+      181,
+      60,
+      242
+    ],
+    "sourceCrop": [
+      268,
+      422,
+      308,
+      564
+    ],
+    "changedPixels": 2588,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "category": "Clockwork Lore",
+    "collection": "Crystal Studies",
+    "volume": 14,
+    "id": 995,
+    "baseVolume": 1,
+    "baseId": 178,
+    "file": "book-s031-a014-v14-id995.png",
+    "size": [
+      47,
+      154
+    ],
+    "numberBox": [
+      8,
+      103,
+      39,
+      140
+    ],
+    "sourceCrop": [
+      270,
+      643,
+      305,
+      759
+    ],
+    "changedPixels": 1014,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "category": "Clockwork Lore",
+    "collection": "Crystal Studies",
+    "volume": 15,
+    "id": 996,
+    "baseVolume": 1,
+    "baseId": 178,
+    "file": "book-s031-a014-v15-id996.png",
+    "size": [
+      47,
+      154
+    ],
+    "numberBox": [
+      8,
+      103,
+      39,
+      140
+    ],
+    "sourceCrop": [
+      457,
+      643,
+      492,
+      759
+    ],
+    "changedPixels": 1015,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "category": "Clockwork Lore",
+    "collection": "Crystal Studies",
+    "volume": 16,
+    "id": 997,
+    "baseVolume": 1,
+    "baseId": 178,
+    "file": "book-s031-a014-v16-id997.png",
+    "size": [
+      47,
+      154
+    ],
+    "numberBox": [
+      8,
+      103,
+      39,
+      140
+    ],
+    "sourceCrop": [
+      644,
+      643,
+      679,
+      759
+    ],
+    "changedPixels": 1015,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 35,
+    "art": 43,
+    "category": "Clockwork Lore",
+    "collection": "Enchanted Metals",
+    "volume": 16,
+    "id": 1003,
+    "baseVolume": 1,
+    "baseId": 211,
+    "file": "book-s035-a043-v16-id1003.png",
+    "size": [
+      68,
+      179
+    ],
+    "numberBox": [
+      12,
+      117,
+      56,
+      159
+    ],
+    "sourceCrop": [
+      263,
+      819,
+      314,
+      953
+    ],
+    "changedPixels": 1680,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 35,
+    "art": 43,
+    "category": "Clockwork Lore",
+    "collection": "Enchanted Metals",
+    "volume": 17,
+    "id": 1004,
+    "baseVolume": 1,
+    "baseId": 211,
+    "file": "book-s035-a043-v17-id1004.png",
+    "size": [
+      68,
+      179
+    ],
+    "numberBox": [
+      12,
+      117,
+      56,
+      159
+    ],
+    "sourceCrop": [
+      450,
+      819,
+      501,
+      953
+    ],
+    "changedPixels": 1679,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "category": "Clockwork Lore",
+    "collection": "Practical Charms",
+    "volume": 14,
+    "id": 1005,
+    "baseVolume": 1,
+    "baseId": 226,
+    "file": "book-s037-a045-v14-id1005.png",
+    "size": [
+      65,
+      152
+    ],
+    "numberBox": [
+      12,
+      104,
+      53,
+      140
+    ],
+    "sourceCrop": [
+      263,
+      1034,
+      312,
+      1148
+    ],
+    "changedPixels": 1326,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "category": "Clockwork Lore",
+    "collection": "Practical Charms",
+    "volume": 15,
+    "id": 1006,
+    "baseVolume": 1,
+    "baseId": 226,
+    "file": "book-s037-a045-v15-id1006.png",
+    "size": [
+      65,
+      152
+    ],
+    "numberBox": [
+      12,
+      104,
+      53,
+      140
+    ],
+    "sourceCrop": [
+      450,
+      1034,
+      499,
+      1148
+    ],
+    "changedPixels": 1325,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 69,
+    "art": 69,
+    "category": "East Alcove",
+    "collection": "Sea Voyages",
+    "volume": 18,
+    "id": 1051,
+    "baseVolume": 1,
+    "baseId": 405,
+    "file": "book-s069-a069-v18-id1051.png",
+    "size": [
+      81,
+      155
+    ],
+    "numberBox": [
+      15,
+      107,
+      66,
+      144
+    ],
+    "sourceCrop": [
+      257,
+      59,
+      318,
+      175
+    ],
+    "changedPixels": 1715,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 69,
+    "art": 69,
+    "category": "East Alcove",
+    "collection": "Sea Voyages",
+    "volume": 19,
+    "id": 1052,
+    "baseVolume": 1,
+    "baseId": 405,
+    "file": "book-s069-a069-v19-id1052.png",
+    "size": [
+      81,
+      155
+    ],
+    "numberBox": [
+      15,
+      107,
+      66,
+      144
+    ],
+    "sourceCrop": [
+      445,
+      59,
+      505,
+      175
+    ],
+    "changedPixels": 1715,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 69,
+    "art": 69,
+    "category": "East Alcove",
+    "collection": "Sea Voyages",
+    "volume": 20,
+    "id": 1053,
+    "baseVolume": 1,
+    "baseId": 405,
+    "file": "book-s069-a069-v20-id1053.png",
+    "size": [
+      81,
+      155
+    ],
+    "numberBox": [
+      15,
+      107,
+      66,
+      144
+    ],
+    "sourceCrop": [
+      632,
+      59,
+      692,
+      175
+    ],
+    "changedPixels": 1714,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 70,
+    "art": 70,
+    "category": "East Alcove",
+    "collection": "Mountain Routes",
+    "volume": 19,
+    "id": 1055,
+    "baseVolume": 1,
+    "baseId": 408,
+    "file": "book-s070-a070-v19-id1055.png",
+    "size": [
+      82,
+      149
+    ],
+    "numberBox": [
+      15,
+      109,
+      67,
+      144
+    ],
+    "sourceCrop": [
+      257,
+      258,
+      319,
+      370
+    ],
+    "changedPixels": 1649,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 70,
+    "art": 70,
+    "category": "East Alcove",
+    "collection": "Mountain Routes",
+    "volume": 20,
+    "id": 1056,
+    "baseVolume": 1,
+    "baseId": 408,
+    "file": "book-s070-a070-v20-id1056.png",
+    "size": [
+      82,
+      149
+    ],
+    "numberBox": [
+      15,
+      109,
+      67,
+      144
+    ],
+    "sourceCrop": [
+      445,
+      258,
+      506,
+      370
+    ],
+    "changedPixels": 1650,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "category": "East Alcove",
+    "collection": "Desert Crossings",
+    "volume": 18,
+    "id": 1057,
+    "baseVolume": 1,
+    "baseId": 411,
+    "file": "book-s071-a071-v18-id1057.png",
+    "size": [
+      83,
+      155
+    ],
+    "numberBox": [
+      15,
+      103,
+      68,
+      139
+    ],
+    "sourceCrop": [
+      257,
+      448,
+      319,
+      564
+    ],
+    "changedPixels": 1734,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "category": "East Alcove",
+    "collection": "Desert Crossings",
+    "volume": 19,
+    "id": 1058,
+    "baseVolume": 1,
+    "baseId": 411,
+    "file": "book-s071-a071-v19-id1058.png",
+    "size": [
+      83,
+      155
+    ],
+    "numberBox": [
+      15,
+      103,
+      68,
+      139
+    ],
+    "sourceCrop": [
+      444,
+      448,
+      506,
+      564
+    ],
+    "changedPixels": 1734,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "category": "East Alcove",
+    "collection": "Desert Crossings",
+    "volume": 20,
+    "id": 1059,
+    "baseVolume": 1,
+    "baseId": 411,
+    "file": "book-s071-a071-v20-id1059.png",
+    "size": [
+      83,
+      155
+    ],
+    "numberBox": [
+      15,
+      103,
+      68,
+      139
+    ],
+    "sourceCrop": [
+      631,
+      448,
+      693,
+      564
+    ],
+    "changedPixels": 1733,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 90,
+    "art": 90,
+    "category": "Eastern Records",
+    "collection": "Desert Crossings",
+    "volume": 7,
+    "id": 1084,
+    "baseVolume": 1,
+    "baseId": 496,
+    "file": "book-s090-a090-v07-id1084.png",
+    "size": [
+      67,
+      172
+    ],
+    "numberBox": [
+      12,
+      122,
+      55,
+      163
+    ],
+    "sourceCrop": [
+      263,
+      630,
+      313,
+      759
+    ],
+    "changedPixels": 1599,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 114,
+    "art": 114,
+    "category": "Eastern Records",
+    "collection": "Northern Expeditions / Archive Edition",
+    "volume": 7,
+    "id": 1117,
+    "baseVolume": 1,
+    "baseId": 927,
+    "file": "book-s114-a114-v07-id1117.png",
+    "size": [
+      71,
+      258
+    ],
+    "numberBox": [
+      13,
+      181,
+      58,
+      242
+    ],
+    "sourceCrop": [
+      269,
+      811,
+      308,
+      953
+    ],
+    "changedPixels": 2537,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 115,
+    "art": 115,
+    "category": "Eastern Records",
+    "collection": "Trade Routes / Archive Edition",
+    "volume": 6,
+    "id": 1118,
+    "baseVolume": 1,
+    "baseId": 933,
+    "file": "book-s115-a115-v06-id1118.png",
+    "size": [
+      73,
+      258
+    ],
+    "numberBox": [
+      13,
+      181,
+      60,
+      242
+    ],
+    "sourceCrop": [
+      268,
+      1005,
+      308,
+      1148
+    ],
+    "changedPixels": 2655,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 18,
+    "art": 15,
+    "category": "Forgotten Realms",
+    "collection": "Lost Kingdoms",
+    "volume": 8,
+    "id": 977,
+    "baseVolume": 1,
+    "baseId": 111,
+    "file": "book-s018-a015-v08-id977.png",
+    "size": [
+      47,
+      138
+    ],
+    "numberBox": [
+      8,
+      97,
+      39,
+      130
+    ],
+    "sourceCrop": [
+      270,
+      72,
+      305,
+      175
+    ],
+    "changedPixels": 898,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 19,
+    "art": 9,
+    "category": "Forgotten Realms",
+    "collection": "Royal Histories",
+    "volume": 7,
+    "id": 978,
+    "baseVolume": 1,
+    "baseId": 114,
+    "file": "book-s019-a009-v07-id978.png",
+    "size": [
+      64,
+      142
+    ],
+    "numberBox": [
+      12,
+      84,
+      52,
+      118
+    ],
+    "sourceCrop": [
+      264,
+      263,
+      312,
+      370
+    ],
+    "changedPixels": 1202,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 20,
+    "art": 3,
+    "category": "Forgotten Realms",
+    "collection": "Legendary Creatures",
+    "volume": 12,
+    "id": 553,
+    "baseVolume": 1,
+    "baseId": 117,
+    "file": "book-s020-a003-v12-id553.png",
+    "size": [
+      64,
+      150
+    ],
+    "numberBox": [
+      12,
+      104,
+      52,
+      139
+    ],
+    "sourceCrop": [
+      264,
+      452,
+      312,
+      564
+    ],
+    "changedPixels": 1254,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 20,
+    "art": 3,
+    "category": "Forgotten Realms",
+    "collection": "Legendary Creatures",
+    "volume": 13,
+    "id": 979,
+    "baseVolume": 1,
+    "baseId": 117,
+    "file": "book-s020-a003-v13-id979.png",
+    "size": [
+      64,
+      150
+    ],
+    "numberBox": [
+      12,
+      104,
+      52,
+      139
+    ],
+    "sourceCrop": [
+      451,
+      452,
+      499,
+      564
+    ],
+    "changedPixels": 1254,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 20,
+    "art": 3,
+    "category": "Forgotten Realms",
+    "collection": "Legendary Creatures",
+    "volume": 14,
+    "id": 980,
+    "baseVolume": 1,
+    "baseId": 117,
+    "file": "book-s020-a003-v14-id980.png",
+    "size": [
+      64,
+      150
+    ],
+    "numberBox": [
+      12,
+      104,
+      52,
+      139
+    ],
+    "sourceCrop": [
+      638,
+      452,
+      686,
+      564
+    ],
+    "changedPixels": 1253,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 20,
+    "art": 3,
+    "category": "Forgotten Realms",
+    "collection": "Legendary Creatures",
+    "volume": 15,
+    "id": 981,
+    "baseVolume": 1,
+    "baseId": 117,
+    "file": "book-s020-a003-v15-id981.png",
+    "size": [
+      64,
+      150
+    ],
+    "numberBox": [
+      12,
+      104,
+      52,
+      139
+    ],
+    "sourceCrop": [
+      825,
+      452,
+      873,
+      564
+    ],
+    "changedPixels": 1254,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 24,
+    "art": 36,
+    "category": "Forgotten Realms",
+    "collection": "Myths & Fables",
+    "volume": 13,
+    "id": 985,
+    "baseVolume": 1,
+    "baseId": 138,
+    "file": "book-s024-a036-v13-id985.png",
+    "size": [
+      66,
+      200
+    ],
+    "numberBox": [
+      12,
+      137,
+      54,
+      183
+    ],
+    "sourceCrop": [
+      264,
+      616,
+      311,
+      759
+    ],
+    "changedPixels": 1760,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 24,
+    "art": 36,
+    "category": "Forgotten Realms",
+    "collection": "Myths & Fables",
+    "volume": 14,
+    "id": 986,
+    "baseVolume": 1,
+    "baseId": 138,
+    "file": "book-s024-a036-v14-id986.png",
+    "size": [
+      66,
+      200
+    ],
+    "numberBox": [
+      12,
+      137,
+      54,
+      183
+    ],
+    "sourceCrop": [
+      451,
+      616,
+      498,
+      759
+    ],
+    "changedPixels": 1760,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 24,
+    "art": 36,
+    "category": "Forgotten Realms",
+    "collection": "Myths & Fables",
+    "volume": 15,
+    "id": 987,
+    "baseVolume": 1,
+    "baseId": 138,
+    "file": "book-s024-a036-v15-id987.png",
+    "size": [
+      66,
+      200
+    ],
+    "numberBox": [
+      12,
+      137,
+      54,
+      183
+    ],
+    "sourceCrop": [
+      638,
+      616,
+      685,
+      759
+    ],
+    "changedPixels": 1760,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 49,
+    "art": 57,
+    "category": "History & Myth",
+    "collection": "Royal Histories",
+    "volume": 17,
+    "id": 1023,
+    "baseVolume": 1,
+    "baseId": 275,
+    "file": "book-s049-a057-v17-id1023.png",
+    "size": [
+      63,
+      148
+    ],
+    "numberBox": [
+      11,
+      93,
+      52,
+      129
+    ],
+    "sourceCrop": [
+      264,
+      842,
+      311,
+      953
+    ],
+    "changedPixels": 1326,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 49,
+    "art": 57,
+    "category": "History & Myth",
+    "collection": "Royal Histories",
+    "volume": 18,
+    "id": 1024,
+    "baseVolume": 1,
+    "baseId": 275,
+    "file": "book-s049-a057-v18-id1024.png",
+    "size": [
+      63,
+      148
+    ],
+    "numberBox": [
+      11,
+      93,
+      52,
+      129
+    ],
+    "sourceCrop": [
+      451,
+      842,
+      498,
+      953
+    ],
+    "changedPixels": 1326,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 48,
+    "art": 56,
+    "category": "History & Myth",
+    "collection": "Lost Kingdoms",
+    "volume": 6,
+    "id": 642,
+    "baseVolume": 1,
+    "baseId": 270,
+    "file": "book-s048-a056-v06-id642.png",
+    "size": [
+      62,
+      167
+    ],
+    "numberBox": [
+      11,
+      107,
+      51,
+      147
+    ],
+    "sourceCrop": [
+      265,
+      1023,
+      311,
+      1148
+    ],
+    "changedPixels": 1439,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 48,
+    "art": 56,
+    "category": "History & Myth",
+    "collection": "Lost Kingdoms",
+    "volume": 7,
+    "id": 1021,
+    "baseVolume": 1,
+    "baseId": 270,
+    "file": "book-s048-a056-v07-id1021.png",
+    "size": [
+      62,
+      167
+    ],
+    "numberBox": [
+      11,
+      107,
+      51,
+      147
+    ],
+    "sourceCrop": [
+      452,
+      1023,
+      498,
+      1148
+    ],
+    "changedPixels": 1441,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 48,
+    "art": 56,
+    "category": "History & Myth",
+    "collection": "Lost Kingdoms",
+    "volume": 8,
+    "id": 1022,
+    "baseVolume": 1,
+    "baseId": 270,
+    "file": "book-s048-a056-v08-id1022.png",
+    "size": [
+      62,
+      167
+    ],
+    "numberBox": [
+      11,
+      107,
+      51,
+      147
+    ],
+    "sourceCrop": [
+      639,
+      1023,
+      685,
+      1148
+    ],
+    "changedPixels": 1441,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 11,
+    "art": 10,
+    "category": "Luminara Tales",
+    "collection": "Epic Tales",
+    "volume": 4,
+    "id": 970,
+    "baseVolume": 1,
+    "baseId": 72,
+    "file": "book-s011-a010-v04-id970.png",
+    "size": [
+      60,
+      123
+    ],
+    "numberBox": [
+      11,
+      75,
+      49,
+      104
+    ],
+    "sourceCrop": [
+      266,
+      83,
+      311,
+      175
+    ],
+    "changedPixels": 972,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 11,
+    "art": 10,
+    "category": "Luminara Tales",
+    "collection": "Epic Tales",
+    "volume": 5,
+    "id": 971,
+    "baseVolume": 1,
+    "baseId": 72,
+    "file": "book-s011-a010-v05-id971.png",
+    "size": [
+      60,
+      123
+    ],
+    "numberBox": [
+      11,
+      75,
+      49,
+      104
+    ],
+    "sourceCrop": [
+      453,
+      83,
+      498,
+      175
+    ],
+    "changedPixels": 972,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 57,
+    "art": 7,
+    "category": "Natural Philosophy",
+    "collection": "Rare Fungi",
+    "volume": 18,
+    "id": 1037,
+    "baseVolume": 1,
+    "baseId": 345,
+    "file": "book-s057-a007-v18-id1037.png",
+    "size": [
+      64,
+      176
+    ],
+    "numberBox": [
+      12,
+      106,
+      52,
+      147
+    ],
+    "sourceCrop": [
+      264,
+      238,
+      312,
+      370
+    ],
+    "changedPixels": 1482,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 57,
+    "art": 7,
+    "category": "Natural Philosophy",
+    "collection": "Rare Fungi",
+    "volume": 19,
+    "id": 1038,
+    "baseVolume": 1,
+    "baseId": 345,
+    "file": "book-s057-a007-v19-id1038.png",
+    "size": [
+      64,
+      176
+    ],
+    "numberBox": [
+      12,
+      106,
+      52,
+      147
+    ],
+    "sourceCrop": [
+      451,
+      238,
+      499,
+      370
+    ],
+    "changedPixels": 1482,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 58,
+    "art": 62,
+    "category": "Natural Philosophy",
+    "collection": "Ancient Trees",
+    "volume": 7,
+    "id": 1039,
+    "baseVolume": 1,
+    "baseId": 356,
+    "file": "book-s058-a062-v07-id1039.png",
+    "size": [
+      61,
+      165
+    ],
+    "numberBox": [
+      11,
+      111,
+      50,
+      150
+    ],
+    "sourceCrop": [
+      265,
+      441,
+      311,
+      564
+    ],
+    "changedPixels": 1369,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 65,
+    "art": 65,
+    "category": "Voyager Chronicles",
+    "collection": "River Journeys",
+    "volume": 13,
+    "id": 1049,
+    "baseVolume": 1,
+    "baseId": 396,
+    "file": "book-s065-a065-v13-id1049.png",
+    "size": [
+      63,
+      146
+    ],
+    "numberBox": [
+      11,
+      94,
+      52,
+      128
+    ],
+    "sourceCrop": [
+      264,
+      649,
+      311,
+      759
+    ],
+    "changedPixels": 1202,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 65,
+    "art": 65,
+    "category": "Voyager Chronicles",
+    "collection": "River Journeys",
+    "volume": 14,
+    "id": 1050,
+    "baseVolume": 1,
+    "baseId": 396,
+    "file": "book-s065-a065-v14-id1050.png",
+    "size": [
+      63,
+      146
+    ],
+    "numberBox": [
+      11,
+      94,
+      52,
+      128
+    ],
+    "sourceCrop": [
+      451,
+      649,
+      498,
+      759
+    ],
+    "changedPixels": 1203,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 100,
+    "art": 100,
+    "category": "West Alcove",
+    "collection": "Pastoral Poetry / Archive Edition",
+    "volume": 18,
+    "id": 1096,
+    "baseVolume": 1,
+    "baseId": 711,
+    "file": "book-s100-a100-v18-id1096.png",
+    "size": [
+      69,
+      258
+    ],
+    "numberBox": [
+      5,
+      167,
+      64,
+      246
+    ],
+    "sourceCrop": [
+      565,
+      75,
+      642,
+      361
+    ],
+    "changedPixels": 4389,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 100,
+    "art": 100,
+    "category": "West Alcove",
+    "collection": "Pastoral Poetry / Archive Edition",
+    "volume": 19,
+    "id": 1097,
+    "baseVolume": 1,
+    "baseId": 711,
+    "file": "book-s100-a100-v19-id1097.png",
+    "size": [
+      69,
+      258
+    ],
+    "numberBox": [
+      5,
+      167,
+      64,
+      246
+    ],
+    "sourceCrop": [
+      965,
+      75,
+      1041,
+      361
+    ],
+    "changedPixels": 4387,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 101,
+    "art": 101,
+    "category": "West Alcove",
+    "collection": "Letters & Diaries / Archive Edition",
+    "volume": 18,
+    "id": 1098,
+    "baseVolume": 1,
+    "baseId": 734,
+    "file": "book-s101-a101-v18-id1098.png",
+    "size": [
+      72,
+      257
+    ],
+    "numberBox": [
+      5,
+      167,
+      67,
+      245
+    ],
+    "sourceCrop": [
+      564,
+      519,
+      644,
+      804
+    ],
+    "changedPixels": 3927,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  },
+  {
+    "series": 101,
+    "art": 101,
+    "category": "West Alcove",
+    "collection": "Letters & Diaries / Archive Edition",
+    "volume": 19,
+    "id": 1099,
+    "baseVolume": 1,
+    "baseId": 734,
+    "file": "book-s101-a101-v19-id1099.png",
+    "size": [
+      72,
+      257
+    ],
+    "numberBox": [
+      5,
+      167,
+      67,
+      245
+    ],
+    "sourceCrop": [
+      964,
+      519,
+      1043,
+      804
+    ],
+    "changedPixels": 3924,
+    "alignmentCorrelation": null,
+    "alignmentWarp": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0
+  }
+]
