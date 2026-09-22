@@ -1,0 +1,16 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createRequire} from 'node:module';
+const require=createRequire(import.meta.url),{Gallery,SERIES}=require('../web/js/gallery-model.js');
+// Deterministic, valid saved games reached using the same placement model as play.
+export async function captureStore({run,available,runtime,derived,out}){
+ const folder=path.join(out,'store');fs.mkdirSync(folder,{recursive:true});const manifest={version:JSON.parse(fs.readFileSync('package.json')).version,build:1,commit:process.env.GITHUB_SHA,run:process.env.GITHUB_RUN_ID,source:'Native simulator captures; valid saved-game fixtures; no composited interface',screenshots:[]};
+ const devices=[['iphone',available[runtime].find(d=>/iPhone.*Pro Max/.test(d.name))],['ipad',available[runtime].find(d=>/iPad Pro.*13-inch/.test(d.name))]];
+ for(const [label,device]of devices){assert(device,'Required store device unavailable');try{run('xcrun',['simctl','shutdown',device.udid]);}catch{}run('xcrun',['simctl','boot',device.udid]);run('xcrun',['simctl','bootstatus',device.udid,'-b']);run('xcrun',['simctl','install',device.udid,path.join(derived,'Build/Products/Release-iphonesimulator/QuietStacks.app')]);const data=run('xcrun',['simctl','get_app_container',device.udid,'com.krazel.quietstacks','data']),documents=path.join(data,'Documents');fs.mkdirSync(documents,{recursive:true});
+  for(const scene of ['gallery','collections','trolley']){
+   const g=new Gallery();for(let id=0;id<960;id++)g.move(id,'shelf',id);for(let i=0;i<8;i++)g.move(SERIES[i+8].slotIds[0],'cart',i);
+   for(const [id,x,y]of [[32,865,350],[33,885,345],[34,860,363],[40,746,348],[41,768,353],[42,759,375],[43,900,593],[44,923,602]])assert(g.move(id,'floor',-1,{x,y}));
+   Object.assign(g.state.camera,scene==='gallery'?{x:836,y:470,zoom:1.12}:scene==='collections'?{x:510,y:270,zoom:2.5}:{x:856,y:545,zoom:4});assert(Gallery.valid(g.state));
+   try{run('xcrun',['simctl','terminate',device.udid,'com.krazel.quietstacks']);}catch{}fs.rmSync(path.join(documents,'gallery-store-ready.json'),{force:true});fs.writeFileSync(path.join(documents,'gallery-store-seed.json'),JSON.stringify(g.state));
+   run('xcrun',['simctl','launch',device.udid,'com.krazel.quietstacks','--gallery-store-shot']);let probe;for(let n=0;n<90;n++){await new Promise(r=>setTimeout(r,500));try{probe=JSON.parse(fs.readFileSync(path.join(documents,'gallery-store-ready.json')));break;}catch{}}assert(probe?.ready&&probe.demoHidden&&probe.books===1119);await new Promise(r=>setTimeout(r,1500));const name=label+'-'+scene+'.png';run('xcrun',['simctl','io',device.udid,'screenshot',path.join(folder,name)]);manifest.screenshots.push({file:name,device:device.name,scene,probe,camera:g.state.camera});
+  }run('xcrun',['simctl','shutdown',device.udid]);
+ }fs.writeFileSync(path.join(folder,'manifest.json'),JSON.stringify(manifest,null,2));
+}

@@ -14,7 +14,7 @@
   const ambience=window.GalleryAmbience?.create(document.getElementById('playfield'));
   const pointers=new Map();
   const story=window.GalleryStory?.create({books:()=>model.state.books,total:TOTAL,onOpen(){gesture=null;dragPoint=null;pinch=null;pointers.clear();selected=null;$('inspection').hidden=true;$('demo-actions').hidden=true;$('demo-toggle').setAttribute('aria-expanded','false');canvas.classList.remove('grabbing');update();},onClose(){canvas.focus?.({preventScroll:true});}});window.__galleryStory=story;
-  for(const kind of ['opening','ending'])if(story)$('story-'+kind).onclick=()=>story.preview(kind);let profiler=null,autoTesting=false,perfMeasuring=false,perfBookCount=0;
+  for(const kind of ['opening','ending'])if(story)$('story-'+kind).onclick=()=>{$('music-panel')?.close?.();story.preview(kind);};let profiler=null,autoTesting=false,perfMeasuring=false,perfBookCount=0;
   const packed=window.GalleryPacked,packedImages=packed?packed.pages.map(()=>new Image()):[];
   let expectedImages=10+GalleryModel.COLLECTION_ATLASES.length+GalleryVolumes.atlases.length;
   const volumeImages=GalleryVolumes.atlases.map(()=>new Image()),volumeAtlases=[...volumeImages];

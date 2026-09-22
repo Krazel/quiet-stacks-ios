@@ -59,6 +59,11 @@
     if(!failureBridge)failureBridge=@"window.webkit.messageHandlers.galleryStatus.postMessage({type:'diagnostic',kind:'resource-error',asset:'js/gallery-diagnostics.js',message:'Diagnostic bridge missing from app bundle'});";
     [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:failureBridge injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
 #if TARGET_OS_SIMULATOR
+    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-store-shot"]){
+        NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+        NSData *seed=[NSData dataWithContentsOfFile:[documents stringByAppendingPathComponent:@"gallery-store-seed.json"]];
+        if(seed){NSString *json=[[NSString alloc] initWithData:seed encoding:NSUTF8StringEncoding];NSString *script=[NSString stringWithFormat:@"localStorage.setItem('quiet-stacks.gallery.v4',JSON.stringify(%@));localStorage.setItem('quiet-stacks.story.v1',JSON.stringify({started:true,earned:false,seen:false,pending:false}));localStorage.setItem('quiet-stacks.music.v1',JSON.stringify({muted:true,effects:0}));",json];[configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:script injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];}
+    }
     if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-canvas-baseline"]){
         [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:@"Object.defineProperty(window,'GalleryGpu',{get:()=>undefined,set:()=>{}});" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
     }
@@ -214,6 +219,11 @@
 #if TARGET_OS_SIMULATOR
         BOOL qaLaunch=NO;for(NSString *argument in NSProcessInfo.processInfo.arguments)if([argument hasPrefix:@"--gallery-"])qaLaunch=YES;
         if(qaLaunch)[self.webView evaluateJavaScript:@"if(document.getElementById('story')?.open)document.getElementById('story-action').click();" completionHandler:nil];
+        if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-store-shot"]){
+            [self.webView evaluateJavaScript:@"JSON.stringify({ready:document.getElementById('loading').hidden,books:GalleryModel.TOTAL,demoHidden:getComputedStyle(document.querySelector('.demo-controls')).display==='none',settings:document.getElementById('music-open').textContent,graphics:window.__galleryGraphics})" completionHandler:^(id value,NSError *error){
+                if(error||![value isKindOfClass:NSString.class])return;NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;[value writeToFile:[documents stringByAppendingPathComponent:@"gallery-store-ready.json"] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }];
+        }
         if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-ui-smoke"])[self.webView evaluateJavaScript:@"setTimeout(()=>{const c=document.getElementById('scene');window.dispatchEvent(new KeyboardEvent('keydown',{key:'Home'}));let s;try{s=JSON.parse(localStorage.getItem('quiet-stacks.gallery.v4'));}catch{}s=s||new GalleryModel.Gallery().state;const r=c.getBoundingClientRect(),W=GalleryModel.W,H=GalleryModel.H,scale=Math.max(r.width/W,r.height/H),point=b=>b.place==='shelf'?GalleryModel.SLOTS[b.slot]:b;const b=s.books.filter(b=>b.place==='floor'||b.place==='shelf').sort((a,b)=>Math.hypot(point(a).x-W/2,point(a).y-H/2)-Math.hypot(point(b).x-W/2,point(b).y-H/2))[0],position=point(b);c.setPointerCapture=()=>{};for(const type of ['pointerdown','pointerup'])c.dispatchEvent(new PointerEvent(type,{pointerId:73,button:0,clientX:r.x+r.width/2+(position.x-W/2)*scale,clientY:r.y+r.height/2+(position.y-10-H/2)*scale}));const box=id=>{const a=document.getElementById(id).getBoundingClientRect();return {x:a.x,y:a.y,width:a.width,height:a.height,bottom:a.bottom};};const send=view=>webkit.messageHandlers.galleryStatus.postMessage({type:'ui-probe',view,width:innerWidth,height:innerHeight,selectionDisabled:getComputedStyle(document.getElementById('inspect-title')).webkitUserSelect==='none'&&getComputedStyle(c).webkitTouchCallout==='none',removed:!document.querySelector('.brand,.map-panel,#home,#plus,#minus'),inspection:box('inspection'),close:box('inspect-close'),action:box('inspect-pickup'),summary:box('selection'),scene:box('scene'),interaction:window.__galleryInteraction,title:document.getElementById('inspect-title').textContent,summaryHidden:document.getElementById('selection').hidden,storyOpen:document.getElementById('story').open,storyBox:box('story'),storyAction:box('story-action'),storyTitle:document.getElementById('story-title').textContent,storyScrolls:document.getElementById('story').scrollHeight>document.getElementById('story').clientHeight+2});send('details');setTimeout(()=>{document.getElementById('inspect-close').click();send('summary');setTimeout(()=>{window.__galleryStory.preview('opening');send('opening');setTimeout(()=>{document.getElementById('story-action').click();window.__galleryStory.preview('ending');send('ending');},7000);},7000);},7000);},700);" completionHandler:nil];
         if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-diagnostic-smoke"])[self.webView evaluateJavaScript:@"setTimeout(function(){throw new Error('QUIET_STACKS_DIAGNOSTIC_PROBE');},0)" completionHandler:nil];
         if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-performance-smoke"])[self.webView evaluateJavaScript:@"setTimeout(()=>{document.getElementById('performance-open').click();document.getElementById('performance-start').click();const timer=setInterval(()=>{const button=document.getElementById('performance-copy');if(!button.disabled){clearInterval(timer);button.click();}},500);},500)" completionHandler:nil];
@@ -246,6 +256,10 @@
 - (BOOL)prefersStatusBarHidden { return YES; }
 - (BOOL)prefersHomeIndicatorAutoHidden { return YES; }
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)action decisionHandler:(void (^)(WKNavigationActionPolicy))handler {
+    NSURL *url=action.request.URL;
+    if(action.navigationType==WKNavigationTypeLinkActivated&&[url.scheme isEqualToString:@"https"]&&[url.host isEqualToString:@"krazel.github.io"]&&[@[@"/quiet-stacks/support/",@"/quiet-stacks/privacy/"] containsObject:url.path]){
+        handler(WKNavigationActionPolicyCancel);[UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];return;
+    }
     handler([action.request.URL.scheme isEqualToString:@"quietstacks"] && [action.request.URL.host isEqualToString:@"localhost"] ? WKNavigationActionPolicyAllow : WKNavigationActionPolicyCancel);
 }
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
