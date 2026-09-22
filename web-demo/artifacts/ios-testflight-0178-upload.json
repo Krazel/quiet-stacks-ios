@@ -1,0 +1,21 @@
+{
+  "app": "Quiet Stacks",
+  "appId": "6809193192",
+  "bundleId": "com.krazel.quietstacks",
+  "bundleResourceId": "VH4L3APTLV",
+  "teamId": "B2X6D3A9J9",
+  "marketingVersion": "0.17.8",
+  "buildNumber": 1,
+  "purpose": "TestFlight",
+  "commit": "a79cebe6512c3b0d93e9949e86b5f2e536425069",
+  "run": "35733741966",
+  "ipa": "QuietStacks-0.17.8-build1-a79cebe-TestFlight.ipa",
+  "sha256": "1280aef9690c85673e6beed488c21d9db383867b744d1d4f428dbd5db4061a9b",
+  "signatureVerified": true,
+  "downloadHashVerified": true,
+  "zipVerified": true,
+  "exactCommitResources": 43,
+  "minimumOS": "16.0",
+  "arm64DeviceBinary": true,
+  "simulatorFaultProbeAbsent": true
+}
