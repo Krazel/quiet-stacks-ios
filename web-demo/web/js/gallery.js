@@ -1,13 +1,13 @@
 (() => {
   'use strict';
-  const {Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,details,BINDINGS}=GalleryModel, model=new Gallery();
+  const {Gallery,SERIES,SLOTS,RACKS,TOTAL,CART_CAPACITY,details}=GalleryModel, model=new Gallery();
   const $=id=>document.getElementById(id);let canvas=$('scene'),gpu;
   try{gpu=window.GalleryGpu?.create(canvas,requestDraw);}catch(error){const replacement=canvas.cloneNode(false);canvas.replaceWith(replacement);canvas=replacement;console.warn('Using Canvas fallback:',error.message);}
   const ctx=gpu?null:canvas.getContext('2d');
   const W=1672,H=941,KEY='quiet-stacks.gallery.v4',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   let safeLeft=0,safeRight=0,safeBottom=0,width=1,height=1,dpr=1,base=1,selected=null,series=0,ready=false,restored=false,noticeTimer,saveTimer,storageWarning=false;
   let gesture=null,pinch=null,suppressTap=false,dragPoint=null,framePending=false;
-  const visualCache=new Map();let cachedState,cachedOrder=-1,sortedBooks=[],cartBooks=[];
+  const visualCache=new Map();let cachedState,cachedOrder=-1,sortedBooks=[];
   function requestDraw(){if(!framePending){framePending=true;requestAnimationFrame(frame);}}
   const feedback=window.GalleryFeedback?.create(document.getElementById('playfield'));
   const bookMotion=window.GalleryBookMotion?.create();
@@ -43,7 +43,7 @@
   const screen=p=>({x:(p.x-camera().x)*scale()+width/2,y:(p.y-camera().y)*scale()+height/2});
   const local=e=>{const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};};
   const slotPoint=i=>({x:SLOTS[i].x,y:SLOTS[i].y});
-  function pointFor(b){if(b.place==='shelf')return slotPoint(b.slot);if(b.place==='cart'){refreshOrder();const i=cartBooks.indexOf(b);return GalleryModel.cartPoint(i);}return {x:b.x,y:b.y};}
+  function pointFor(b){if(b.place==='shelf')return slotPoint(b.slot);if(b.place==='cart')return GalleryModel.cartPoint(b.cartSlot);return {x:b.x,y:b.y};}
   // Allow a modest overview; center axes that fit, clamp axes that still need panning.
   const minZoom=()=>Math.max(.8,Math.min(width/1992,height/H)/base);
   function constrain(){requestDraw();const c=camera();c.zoom=clamp(c.zoom,minZoom(),8);const s=scale(),hx=width/(2*s),hy=height/(2*s);c.x=hx>=996?866:clamp(c.x,hx-130,W+190-hx);c.y=hy>=H/2?H/2:clamp(c.y,hy,H-hy);}
@@ -52,11 +52,11 @@
   function save(){if(autoTesting)return;clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{const data=JSON.stringify(model.state),previous=localStorage.getItem(KEY);if(previous){try{if(Gallery.valid(JSON.parse(previous)))localStorage.setItem(KEY+'.backup',previous);}catch{}}localStorage.setItem(KEY,data);}catch{if(!storageWarning){storageWarning=true;say('Storage is unavailable. You can still play in this session.');}}},200);}
   function select(id,inspect=true){selected=id;const b=model.book(id);if(b)series=b.series;update();if(inspect&&b)showInspection(b);}
   function update(){requestDraw();const b=model.book(selected);$('selection').hidden=!b||!$('inspection').hidden;const info=SERIES[b?b.series:series];$('selected-title').textContent=b?details(b.id).title:'';$('selected-detail').textContent=b?info.category+' '+b.volume+' · '+info.name:'';if(b&&ready){const icon=$('cover'),ic=icon.getContext('2d'),v=bookVisual(b,2),r=v.source,f=Math.min(96/r[2],136/r[3]);ic.clearRect(0,0,100,140);ic.drawImage(v.image,...r,(100-r[2]*f)/2,(140-r[3]*f)/2,r[2]*f,r[3]*f);}
-    const trolley=model.cart();$('cart-section').hidden=!trolley.length;$('cart-label').textContent='On the trolley · '+trolley.length+(trolley.length===1?' book':' books');const items=$('cart-items');items.replaceChildren();for(const item of model.cart()){const button=document.createElement('button');button.textContent=BINDINGS[SERIES[item.series].art].icon;button.style.background=SERIES[item.series].color;button.title=details(item.id).title;button.setAttribute('aria-label','On the trolley: '+button.title+' · Volume '+item.volume);button.setAttribute('aria-pressed',String(selected===item.id));button.onclick=()=>select(item.id);items.append(button);}}
+  }
   function zoom(factor,anchor={x:width/2,y:height/2}){if(autoTesting)return;const before=world(anchor),c=camera();c.zoom=clamp(c.zoom*factor,minZoom(),8);c.x=before.x-(anchor.x-width/2)/scale();c.y=before.y-(anchor.y-height/2)/scale();constrain();save();}
   function bookRect(b,p=pointFor(b),held=false){
     const floor=b.place==='floor'||held,source=bookVisual(b,floor?0:1).source;
-    const collection=SERIES[b.place==='shelf'?SLOTS[b.slot].series:b.series],factor=b.place==='cart'?25/collection.bookHeight:1;
+    const collection=SERIES[b.place==='shelf'?SLOTS[b.slot].series:b.series],factor=b.place==='cart'?GalleryModel.CART_BOOK_HEIGHT/collection.bookHeight:1;
     const w=floor?details(b.id).width*(floorVariant(b)===3?1.45:1):collection.bookWidth*factor;
     const h=floor?w*source[3]/source[2]:collection.bookHeight*factor;
     return {x:p.x-w/2,y:p.y-h,w,h,view:floor?0:1};
@@ -65,14 +65,13 @@
   function visibleDrop(id,target){
     const b={...model.book(id),place:target.place,slot:target.slot??-1};let p=target.point;
     if(target.place==='shelf')p=slotPoint(target.slot);
-    if(target.place==='cart'){const cart=model.cart(),old=cart.findIndex(b=>b.id===id);p=GalleryModel.cartPoint(old<0?cart.length:old);}
+    if(target.place==='cart')p=GalleryModel.cartPoint(target.slot);
     const r=bookRect(b,p),a=screen(r),s=scale();return a.x>=3&&a.y>=3&&a.x+r.w*s<=width-3&&a.y+r.h*s<=height-safeBottom-(safeBottom?6:3);
   }
   function aboveGesture(r){return !safeBottom||screen({x:r.x,y:r.y+r.h}).y<=height-safeBottom-6+.001;}
   function refreshOrder(){
     if(cachedState===model.state&&cachedOrder===model.state.nextOrder)return;
     cachedState=model.state;cachedOrder=model.state.nextOrder;
-    cartBooks=model.cart();
     sortedBooks=[...model.state.books].sort((a,b)=>{
       if(a.place==='floor'&&b.place==='floor')return a.order-b.order;
       return (a.place==='floor'?1:0)-(b.place==='floor'?1:0)||pointFor(a).y-pointFor(b).y||a.order-b.order;
@@ -83,10 +82,8 @@
     const chosen=model.book(selected);if(chosen){const r=bookRect(chosen),q=p;if(q.x>=r.x&&q.x<=r.x+r.w&&q.y>=r.y&&q.y<=r.y+r.h)return chosen;}
     for(const b of books){const r=bookRect(b);const q=p,dx=Math.max(r.x-q.x,0,q.x-r.x-r.w),dy=Math.max(r.y-q.y,0,q.y-r.y-r.h);
       if(!dx&&!dy)return b;const d=Math.hypot(dx,dy);if(d<margin&&d<dist){nearest=b;dist=d;}}return nearest;}
-  const onCart=GalleryModel.cartHit;
   function tap(p){const b=hitBook(p);
     if(b){select(b.id);return;}
-    if(onCart(p)&&model.cart().length){select(model.cart()[0].id);return;}
     selected=null;$('inspection').hidden=true;update();
   }
   function pinchStart(){if(gesture?.id!==undefined)bookMotion?.release(gesture.id,true);const [a,b]=[...pointers.values()];pinch={distance:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)),anchor:world({x:(a.x+b.x)/2,y:(a.y+b.y)/2}),zoom:camera().zoom};gesture=null;dragPoint=null;suppressTap=true;}

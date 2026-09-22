@@ -90,9 +90,10 @@ test('a book can be dragged onto and off the trolley without tap placement',()=>
  const t=harness();t.get('demo-sort').click();t.live.move(524,'floor',-1,{x:870,y:250});t.advance();
  const drag=(from,to)=>{t.pointer('pointerdown',t.screen(from));t.pointer('pointermove',t.screen(to));t.pointer('pointerup',t.screen(to));};
  drag([870,240],[848,520]);assert.equal(t.state().books[524].place,'cart');assert(t.soundCalls.includes('place'));assert(!t.soundCalls.includes('floor'));
- t.tap(t.screen([824,527]));assert.equal(t.get('inspection').hidden,false);t.get('inspect-close').click();
+ const cp=require('../web/js/gallery-model.js').cartPoint(t.live.book(524).cartSlot),bookCenter=[cp.x,cp.y-9];
+ t.tap(t.screen(bookCenter));assert.equal(t.get('inspection').hidden,false);t.get('inspect-close').click();
  const before=t.state().books;t.tap(t.screen([870,350]));assert.deepEqual(t.state().books,before);
- drag([824,527],[870,350]);assert.equal(t.state().books[524].place,'floor');assert.equal(t.state().books[524].x,870);assert.equal(t.soundCalls.filter(x=>x==='floor').length,1);
+ drag(bookCenter,[870,350]);assert.equal(t.state().books[524].place,'floor');assert.equal(t.state().books[524].x,870);assert.equal(t.soundCalls.filter(x=>x==='floor').length,1);
 });
 test('pinch on a book changes camera without moving the book',()=>{const t=harness(390,844),b=t.state().books.at(-1),p=t.screen([b.x,b.y-14]),before=t.state();t.pointer('pointerdown',p,1);t.pointer('pointerdown',[p[0]+80,p[1]],2);t.pointer('pointermove',[p[0]+120,p[1]],2);t.pointer('pointerup',[p[0]+120,p[1]],2);t.pointer('pointerup',p,1);assert.deepEqual(t.state().books,before.books);assert.ok(t.state().camera.zoom>before.camera.zoom);});
 test('painted scene labels do not draw overlaid text or targets',()=>{const t=harness();t.live.state.camera.zoom=8;t.advance();assert.deepEqual(t.texts,[]);assert.ok(t.signDraws.length>=8);assert.ok(t.signDraws.every(d=>d[3]===704&&d[3]>d[7]*3));assert.equal(t.strokes.length,0);const b=t.state().books.at(-1);t.tap(t.screen([b.x,b.y-14]));t.strokes.length=0;t.advance();assert.equal(t.strokes.length,0);assert.equal(t.get('notice').textContent,'');});
@@ -162,10 +163,11 @@ test('demo controls sort and scatter the whole room and save the result',()=>{
  t.get('demo-scatter').click();assert.ok(t.state().books.every(b=>b.place==='floor'));assert.equal(t.live.cart().length,0);
  t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
 });
-test('the selectable icons are explicitly labeled as books on the trolley',()=>{
- const t=harness();t.live.move(0,'cart');t.live.move(1,'cart');const b=t.state().books.at(-1);t.tap(t.screen([b.x,b.y-14]));
- assert.equal(t.get('cart-section').hidden,false);assert.equal(t.get('cart-label').textContent,'On the trolley · 2 books');
- assert.equal(t.get('cart-items').children.length,2);assert.match(t.get('cart-items').children[0]['aria-label'],/^On the trolley:/);
+test('cart books swap by dragging without changing other bays and survive reload',()=>{
+ const t=harness(),{cartPoint}=require('../web/js/gallery-model.js');t.get('demo-sort').click();t.live.move(0,'cart',0);t.live.move(1,'cart',11);t.live.move(2,'cart',5);t.advance();
+ const a=cartPoint(0),b=cartPoint(11);t.pointer('pointerdown',t.screen([a.x,a.y-9]));t.pointer('pointermove',t.screen([b.x,b.y-9]));t.pointer('pointerup',t.screen([b.x,b.y-9]));
+ assert.equal(t.live.book(0).cartSlot,11);assert.equal(t.live.book(1).cartSlot,0);assert.equal(t.live.book(2).cartSlot,5);
+ t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
 });
 test('open books use the new spread atlas and preserve its aspect ratio',()=>{
  const t=harness();t.advance();const open=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks'&&d[0]._src.includes('books-open-v12'));

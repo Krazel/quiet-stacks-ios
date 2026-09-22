@@ -1,0 +1,58 @@
+[
+  {
+    "id": "I",
+    "file": "I-madera-amortiguada.wav",
+    "base": "G-tablon.wav",
+    "cutoff": 1100,
+    "peakDb": -23,
+    "decay": 0.18,
+    "seconds": 0.7790022675736962,
+    "actualPeakDb": -23,
+    "processing": "Two-pole low-pass, 6ms softened attack, exponential decay, 35ms end fade; no pitch change",
+    "author": "Kenney",
+    "license": "CC0",
+    "status": "Audition only, not integrated"
+  },
+  {
+    "id": "J",
+    "file": "J-cuero-suave.wav",
+    "base": "A-cuero.wav",
+    "cutoff": 1800,
+    "peakDb": -24,
+    "decay": 0.24,
+    "seconds": 0.41508333333333336,
+    "actualPeakDb": -24,
+    "processing": "Two-pole low-pass, 6ms softened attack, exponential decay, 35ms end fade; no pitch change",
+    "author": "Kenney",
+    "license": "CC0",
+    "status": "Audition only, not integrated"
+  },
+  {
+    "id": "K",
+    "file": "K-toque-acolchado.wav",
+    "base": "D-amortiguado.wav",
+    "cutoff": 1500,
+    "peakDb": -25,
+    "decay": 0.15,
+    "seconds": 0.11800453514739229,
+    "actualPeakDb": -25,
+    "processing": "Two-pole low-pass, 6ms softened attack, exponential decay, 35ms end fade; no pitch change",
+    "author": "Kenney",
+    "license": "CC0",
+    "status": "Audition only, not integrated"
+  },
+  {
+    "id": "L",
+    "file": "L-tapa-suave.wav",
+    "base": "C-tapa.wav",
+    "cutoff": 1250,
+    "peakDb": -24,
+    "decay": 0.16,
+    "seconds": 0.23060416666666667,
+    "actualPeakDb": -24,
+    "processing": "Two-pole low-pass, 6ms softened attack, exponential decay, 35ms end fade; no pitch change",
+    "author": "Kenney",
+    "license": "CC0",
+    "status": "Audition only, not integrated"
+  }
+]

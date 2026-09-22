@@ -17,12 +17,10 @@ for item in manifest['files']:
     rendered,_=sf.read(dest); assert np.max(np.abs(rendered))<.252
     records.append({'file':dest.name,'original':item['filename'],'originalSha256':hashlib.sha256(src.read_bytes()).hexdigest(),'gain':gain,'peak':float(np.max(np.abs(rendered))),'license':'CC0 1.0','author':'Kenney'})
 import shutil
-floor=source/'impact/Audio/impactPlank_medium_000.ogg'
-data,sr=sf.read(floor,always_2d=True)
-gain=min(1,10**(-12/20)/float(np.max(np.abs(data))))
-dest=root/'web/assets/sfx-impactPlank_medium_000.wav'
-sf.write(dest,data*gain,sr,subtype='PCM_16')
-records.append({'file':dest.name,'original':'impact/Audio/impactPlank_medium_000.ogg','originalSha256':hashlib.sha256(floor.read_bytes()).hexdigest(),'gain':gain,'license':'CC0 1.0','author':'Kenney','approvedOption':'G','event':'floor'})
+floor=root/'design/audio-floor-L/approved-L.wav'
+dest=root/'web/assets/sfx-bookCloseSoftL.wav'
+shutil.copyfile(floor,dest)
+records.append({'file':dest.name,'original':'design/audio-floor-L/approved-L.wav','originalSha256':hashlib.sha256(floor.read_bytes()).hexdigest(),'license':'CC0 1.0','author':'Kenney','approvedOption':'L','event':'floor','pitchSemitones':[-1.5,1.5],'processing':'Approved softened bookClose: 1250Hz two-pole low-pass, 6ms attack, 160ms decay, 35ms fade, -24dBFS peak. No additional normalization.'})
 confirmation=source/'correct/A-confirmation_001.wav'
 shutil.copyfile(confirmation,root/'web/assets/sfx-confirmation_001.wav')
 records.append({'file':'sfx-confirmation_001.wav','original':'correct/A-confirmation_001.wav','originalSha256':hashlib.sha256(confirmation.read_bytes()).hexdigest(),'license':'CC0 1.0','author':'Kenney','pitchSemitones':[-1,1]})

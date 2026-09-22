@@ -63,14 +63,18 @@
     "author": "Kenney"
   },
   {
-    "file": "sfx-impactPlank_medium_000.wav",
-    "original": "impact/Audio/impactPlank_medium_000.ogg",
-    "originalSha256": "8403cd7a043f0391574c88c55dd205743725b5363d2407f6de145f201690b68f",
-    "gain": 0.2889816195994172,
+    "file": "sfx-bookCloseSoftL.wav",
+    "original": "design/audio-floor-L/approved-L.wav",
+    "originalSha256": "654c86c30d1e4978282f39fccc7e182e4b7d71f53056ba8a1a53256e10e70e1b",
     "license": "CC0 1.0",
     "author": "Kenney",
-    "approvedOption": "G",
-    "event": "floor"
+    "approvedOption": "L",
+    "event": "floor",
+    "pitchSemitones": [
+      -1.5,
+      1.5
+    ],
+    "processing": "Approved softened bookClose: 1250Hz two-pole low-pass, 6ms attack, 160ms decay, 35ms fade, -24dBFS peak. No additional normalization."
   },
   {
     "file": "sfx-confirmation_001.wav",
