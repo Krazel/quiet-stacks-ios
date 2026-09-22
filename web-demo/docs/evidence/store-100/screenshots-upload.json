@@ -1,0 +1,68 @@
+[
+  {
+    "file": "iphone-gallery.png",
+    "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
+    "id": "ee0ecebd-4e9d-43d4-93d9-b0d9422343bf",
+    "md5": "e60ac9805578d3c1d5ec02b7e42a22b0",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "iphone-collections.png",
+    "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
+    "id": "00de70de-b735-44c3-b420-1319269515d5",
+    "md5": "9c96dba0c5ab6f5151c9049bd8feb999",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "iphone-trolley.png",
+    "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
+    "id": "e57ea1ab-c0ee-4310-af79-d8c4dd2dda14",
+    "md5": "b9e1cf8f376f8cf6ac0d866cce28be10",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "ipad-gallery.png",
+    "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
+    "id": "e9b68408-7e76-4099-bf80-03d49438d5e2",
+    "md5": "85b814ca45c3a647a5d2bbdc9448e4a2",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "ipad-collections.png",
+    "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
+    "id": "6c62b2c4-d122-4403-a623-19e0afec8b65",
+    "md5": "4c16cf05323398eb5c49910bf0319e29",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "ipad-trolley.png",
+    "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
+    "id": "2f614115-fcd2-4dae-b0fb-e956e934b8a7",
+    "md5": "b6956e95a212244a2f998a2d865a09aa",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  }
+]

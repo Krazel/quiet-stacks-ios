@@ -1,0 +1,189 @@
+{
+  "version": "1.0",
+  "build": 1,
+  "commit": "11f9503543db4f5413f38efce152fd18b0338bab",
+  "run": "35798414358",
+  "source": "Native simulator captures; valid saved-game fixtures; no composited interface",
+  "screenshots": [
+    {
+      "file": "iphone-gallery.png",
+      "device": "Quiet Stacks iPhone 13 Pro Max",
+      "scene": "gallery",
+      "probe": {
+        "ready": true,
+        "books": 1119,
+        "demoHidden": true,
+        "settings": "Settings",
+        "graphics": {
+          "backend": "webgl",
+          "drawCalls": 3,
+          "textureUploads": 13,
+          "textureMiB": 199.8,
+          "contextLost": false
+        }
+      },
+      "camera": {
+        "x": 836,
+        "y": 470,
+        "zoom": 1.12
+      },
+      "sourceSHA256": "c6f15d175ccfc562c5c2a7a1a0f3b965b099df11d56b08edc5dcc36e1166a80a",
+      "sha256": "2667d626a502e5cde0e75e796f6dd36a8989650c9ef83f7211762d0d4c1a39dc",
+      "size": [
+        2778,
+        1284
+      ],
+      "processing": "Landscape orientation only; RGB without alpha. No compositing or scaling."
+    },
+    {
+      "file": "iphone-collections.png",
+      "device": "Quiet Stacks iPhone 13 Pro Max",
+      "scene": "collections",
+      "probe": {
+        "ready": true,
+        "books": 1119,
+        "demoHidden": true,
+        "settings": "Settings",
+        "graphics": {
+          "backend": "webgl",
+          "drawCalls": 2,
+          "textureUploads": 13,
+          "textureMiB": 199.8,
+          "contextLost": false
+        }
+      },
+      "camera": {
+        "x": 510,
+        "y": 270,
+        "zoom": 2.5
+      },
+      "sourceSHA256": "10d1a5a95a5a7e7296ad6fbd7680f7f73a1e8d6305f3fc9588e6d435f478bc66",
+      "sha256": "2674f5f052508c0ca69e3bcdd9cafa0a9c8c00f191781885ac9c9cd30825ee91",
+      "size": [
+        2778,
+        1284
+      ],
+      "processing": "Landscape orientation only; RGB without alpha. No compositing or scaling."
+    },
+    {
+      "file": "iphone-trolley.png",
+      "device": "Quiet Stacks iPhone 13 Pro Max",
+      "scene": "trolley",
+      "probe": {
+        "ready": true,
+        "books": 1119,
+        "demoHidden": true,
+        "settings": "Settings",
+        "graphics": {
+          "backend": "webgl",
+          "drawCalls": 2,
+          "textureUploads": 13,
+          "textureMiB": 199.8,
+          "contextLost": false
+        }
+      },
+      "camera": {
+        "x": 856,
+        "y": 545,
+        "zoom": 4
+      },
+      "sourceSHA256": "e3fa46a0faeb4d162a1ead05205cec3822d42535ad9479b71887e6ab7c9a04a0",
+      "sha256": "1f4cb24d8917a7728b94edc81ce4b2415db67a754205de8c1ba5794edd29f8f4",
+      "size": [
+        2778,
+        1284
+      ],
+      "processing": "Landscape orientation only; RGB without alpha. No compositing or scaling."
+    },
+    {
+      "file": "ipad-gallery.png",
+      "device": "iPad Pro 13-inch (M4)",
+      "scene": "gallery",
+      "probe": {
+        "ready": true,
+        "books": 1119,
+        "demoHidden": true,
+        "settings": "Settings",
+        "graphics": {
+          "backend": "webgl",
+          "drawCalls": 3,
+          "textureUploads": 13,
+          "textureMiB": 199.8,
+          "contextLost": false
+        }
+      },
+      "camera": {
+        "x": 836,
+        "y": 470,
+        "zoom": 1.12
+      },
+      "sourceSHA256": "f874c9db885c285b6351006b72e65d24b08731fc09b82f282cf7c319ea947a36",
+      "sha256": "528232efc1e97bd478b5a88ecf3837ea7f5693bdbb8ec01b193346e4586c8f30",
+      "size": [
+        2752,
+        2064
+      ],
+      "processing": "Landscape orientation only; RGB without alpha. No compositing or scaling."
+    },
+    {
+      "file": "ipad-collections.png",
+      "device": "iPad Pro 13-inch (M4)",
+      "scene": "collections",
+      "probe": {
+        "ready": true,
+        "books": 1119,
+        "demoHidden": true,
+        "settings": "Settings",
+        "graphics": {
+          "backend": "webgl",
+          "drawCalls": 3,
+          "textureUploads": 13,
+          "textureMiB": 199.8,
+          "contextLost": false
+        }
+      },
+      "camera": {
+        "x": 510,
+        "y": 270,
+        "zoom": 2.5
+      },
+      "sourceSHA256": "5628f23f255db0eb789f8829bde9722618cc7a0b52686f0bd69754064b1533c9",
+      "sha256": "3aa9c0a683ed23757778c10a7600976d108cec8bbe14fc26a091a8f30648cbf2",
+      "size": [
+        2752,
+        2064
+      ],
+      "processing": "Landscape orientation only; RGB without alpha. No compositing or scaling."
+    },
+    {
+      "file": "ipad-trolley.png",
+      "device": "iPad Pro 13-inch (M4)",
+      "scene": "trolley",
+      "probe": {
+        "ready": true,
+        "books": 1119,
+        "demoHidden": true,
+        "settings": "Settings",
+        "graphics": {
+          "backend": "webgl",
+          "drawCalls": 2,
+          "textureUploads": 13,
+          "textureMiB": 199.8,
+          "contextLost": false
+        }
+      },
+      "camera": {
+        "x": 856,
+        "y": 545,
+        "zoom": 4
+      },
+      "sourceSHA256": "14fe827eda5fde32b00592134caff6608faa463179069f60c93575873a1dcc81",
+      "sha256": "ba9af09075bcad00a3e1131d2c386edf92c4e91d6ebe90ac83a582be86b66846",
+      "size": [
+        2752,
+        2064
+      ],
+      "processing": "Landscape orientation only; RGB without alpha. No compositing or scaling."
+    }
+  ]
+}

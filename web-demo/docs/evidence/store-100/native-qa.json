@@ -1,0 +1,258 @@
+{
+  "version": "1.0",
+  "build": 1,
+  "commit": "11f9503543db4f5413f38efce152fd18b0338bab",
+  "run": "35795897927",
+  "simulatorOnly": true,
+  "device": "iPhone 16 Pro",
+  "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "books": 1119,
+  "sortedAndScattered": true,
+  "savedGameRestored": true,
+  "performanceReportShared": true,
+  "diagnosticCopied": true,
+  "idleBookFrames": 0,
+  "preparedTextures": 13,
+  "comparison": [
+    {
+      "name": "pan-wide",
+      "canvasFPS": 1.34,
+      "webglFPS": 57.86,
+      "ratio": 43.179104477611936
+    },
+    {
+      "name": "zoom",
+      "canvasFPS": 1.54,
+      "webglFPS": 58.4,
+      "ratio": 37.92207792207792
+    },
+    {
+      "name": "drag",
+      "canvasFPS": 1.9,
+      "webglFPS": 58.88,
+      "ratio": 30.98947368421053
+    },
+    {
+      "name": "shelves",
+      "canvasFPS": 4.53,
+      "webglFPS": 55.38,
+      "ratio": 12.225165562913908
+    }
+  ],
+  "ui": {
+    "iphone": {
+      "details": {
+        "fillsView": true,
+        "safeArea": {
+          "bottom": 21,
+          "top": 0,
+          "left": 62,
+          "right": 62
+        },
+        "playfield": {
+          "y": 0,
+          "bottom": 402,
+          "x": 0,
+          "width": 874,
+          "height": 402
+        },
+        "interaction": {
+          "extraLeft": 133.48363636363638,
+          "selectionOutline": false,
+          "selectionGain": 1,
+          "selectionSaturation": 1,
+          "bottomClearance": 27,
+          "extraRight": 91.3309090909091
+        },
+        "title": "The Illustrated Book of Deep Sky / Archive Edition · Celestial Records",
+        "pageZoom": 1,
+        "panel": {
+          "y": 8,
+          "bottom": 373,
+          "x": 97,
+          "width": 680,
+          "height": 365
+        }
+      },
+      "summary": {
+        "fillsView": true,
+        "safeArea": {
+          "bottom": 21,
+          "top": 0,
+          "left": 62,
+          "right": 62
+        },
+        "playfield": {
+          "y": 0,
+          "bottom": 402,
+          "x": 0,
+          "width": 874,
+          "height": 402
+        },
+        "interaction": {
+          "extraLeft": 99.31818181818181,
+          "selectionOutline": false,
+          "selectionGain": 1.4,
+          "selectionSaturation": 1.35,
+          "bottomClearance": 27,
+          "extraRight": 67.95454545454545
+        },
+        "title": "The Illustrated Book of Deep Sky / Archive Edition · Celestial Records",
+        "pageZoom": 1,
+        "panel": {
+          "y": 309,
+          "bottom": 371,
+          "x": 72,
+          "width": 300,
+          "height": 62
+        }
+      }
+    },
+    "ipad": {
+      "details": {
+        "fillsView": true,
+        "safeArea": {
+          "bottom": 25,
+          "top": 0,
+          "left": 0,
+          "right": 0
+        },
+        "playfield": {
+          "y": 0,
+          "bottom": 744,
+          "x": 0,
+          "width": 1133,
+          "height": 744
+        },
+        "interaction": {
+          "extraLeft": 168.24994686503723,
+          "selectionOutline": false,
+          "selectionGain": 1,
+          "selectionSaturation": 1,
+          "bottomClearance": 31,
+          "extraRight": 115.11838469713072
+        },
+        "title": "The Collected Writings on Mountain Routes · Voyager Chronicles",
+        "pageZoom": 1,
+        "panel": {
+          "y": 40,
+          "bottom": 679,
+          "x": 775,
+          "width": 340,
+          "height": 639
+        }
+      },
+      "summary": {
+        "fillsView": true,
+        "safeArea": {
+          "bottom": 25,
+          "top": 0,
+          "left": 0,
+          "right": 0
+        },
+        "playfield": {
+          "y": 0,
+          "bottom": 744,
+          "x": 0,
+          "width": 1133,
+          "height": 744
+        },
+        "interaction": {
+          "extraLeft": 150.22316684378322,
+          "selectionOutline": false,
+          "selectionGain": 1.4,
+          "selectionSaturation": 1.35,
+          "bottomClearance": 31,
+          "extraRight": 102.78427205100957
+        },
+        "title": "The Collected Writings on Mountain Routes · Voyager Chronicles",
+        "pageZoom": 1,
+        "panel": {
+          "y": 589,
+          "bottom": 701,
+          "x": 18,
+          "width": 462,
+          "height": 112
+        }
+      }
+    }
+  },
+  "story": {
+    "iphone": {
+      "opening": {
+        "title": "A place among the stories",
+        "panel": {
+          "y": 24.5,
+          "bottom": 377.5,
+          "x": 82,
+          "width": 710,
+          "height": 353
+        },
+        "action": {
+          "y": 271.5,
+          "bottom": 315.5,
+          "x": 202,
+          "width": 167.0625,
+          "height": 44
+        },
+        "scrolls": false
+      },
+      "ending": {
+        "title": "The keys are yours",
+        "panel": {
+          "y": 24.5,
+          "bottom": 377.5,
+          "x": 82,
+          "width": 710,
+          "height": 353
+        },
+        "action": {
+          "y": 271.5,
+          "bottom": 315.5,
+          "x": 202,
+          "width": 190.546875,
+          "height": 44
+        },
+        "scrolls": false
+      }
+    },
+    "ipad": {
+      "opening": {
+        "title": "A place among the stories",
+        "panel": {
+          "y": 26.5,
+          "bottom": 717.5,
+          "x": 176.5,
+          "width": 780,
+          "height": 691
+        },
+        "action": {
+          "y": 474,
+          "bottom": 521,
+          "x": 350.5,
+          "width": 209.765625,
+          "height": 47
+        },
+        "scrolls": false
+      },
+      "ending": {
+        "title": "The keys are yours",
+        "panel": {
+          "y": 26.5,
+          "bottom": 717.5,
+          "x": 176.5,
+          "width": 780,
+          "height": 691
+        },
+        "action": {
+          "y": 474,
+          "bottom": 521,
+          "x": 350.5,
+          "width": 238.65625,
+          "height": 47
+        },
+        "scrolls": false
+      }
+    }
+  }
+}

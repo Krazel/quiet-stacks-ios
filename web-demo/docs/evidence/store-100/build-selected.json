@@ -1,0 +1,35 @@
+{
+  "at": "2026-09-22T23:35:53.224Z",
+  "version": "1.0",
+  "build": 1,
+  "buildId": "e6d171d9-d0f5-45c8-98f8-448c5dc76616",
+  "attributes": {
+    "version": "1",
+    "uploadedDate": "2026-09-22T16:32:00-07:00",
+    "expirationDate": "2026-12-21T15:32:00-08:00",
+    "expired": false,
+    "minOsVersion": "16.0",
+    "lsMinimumSystemVersion": null,
+    "computedMinMacOsVersion": "13.0",
+    "computedMinVisionOsVersion": "1.0",
+    "iconAssetToken": {
+      "templateUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5d/d0/d8/5dd0d8ab-cb50-a091-c77f-8f17aacc9c77/AppIcon-0-0-2x_U007epad-0-6-0-85-220.png/{w}x{h}bb.{f}",
+      "width": 167,
+      "height": 167
+    },
+    "processingState": "VALID",
+    "buildAudienceType": "APP_STORE_ELIGIBLE",
+    "usesNonExemptEncryption": false
+  },
+  "versionId": "0d38f274-c8f1-4560-8d6e-62db8ebeb33c",
+  "versionState": "PREPARE_FOR_SUBMISSION",
+  "releaseType": "MANUAL",
+  "beta": {
+    "autoNotifyEnabled": true,
+    "internalBuildState": "IN_BETA_TESTING",
+    "externalBuildState": "READY_FOR_BETA_SUBMISSION"
+  },
+  "group": "2de05410-3476-48a4-b3b9-b8d3a56d6cfb",
+  "notes": "App Store 1.0 candidate: complete library, free trolley placement and exchanges with books from outside the trolley, softened floor sound L with subtle randomized pitch. Public Settings contains audio, support/privacy, Alden’s letter and optional local diagnostics. Developer sorting and ending-preview controls are hidden. Saved progress is preserved.",
+  "noReviewSubmission": true
+}

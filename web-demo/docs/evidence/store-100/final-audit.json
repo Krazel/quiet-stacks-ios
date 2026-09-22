@@ -1,0 +1,106 @@
+{
+  "checkedAt": "2026-09-22T23:51:04.661Z",
+  "readyForUserSubmission": true,
+  "version": {
+    "platform": "IOS",
+    "versionString": "1.0",
+    "appStoreState": "PREPARE_FOR_SUBMISSION",
+    "appVersionState": "PREPARE_FOR_SUBMISSION",
+    "copyright": "2026 Krazel Games",
+    "reviewType": "APP_STORE",
+    "releaseType": "MANUAL",
+    "earliestReleaseDate": null,
+    "usesIdfa": null,
+    "downloadable": true,
+    "createdDate": "2026-09-06T08:36:15-07:00"
+  },
+  "build": {
+    "id": "e6d171d9-d0f5-45c8-98f8-448c5dc76616",
+    "version": "1",
+    "uploadedDate": "2026-09-22T16:32:00-07:00",
+    "expirationDate": "2026-12-21T15:32:00-08:00",
+    "expired": false,
+    "minOsVersion": "16.0",
+    "lsMinimumSystemVersion": null,
+    "computedMinMacOsVersion": "13.0",
+    "computedMinVisionOsVersion": "1.0",
+    "iconAssetToken": {
+      "templateUrl": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/5d/d0/d8/5dd0d8ab-cb50-a091-c77f-8f17aacc9c77/AppIcon-0-0-2x_U007epad-0-6-0-85-220.png/{w}x{h}bb.{f}",
+      "width": 167,
+      "height": 167
+    },
+    "processingState": "VALID",
+    "buildAudienceType": "APP_STORE_ELIGIBLE",
+    "usesNonExemptEncryption": false
+  },
+  "metadataVerified": true,
+  "reviewContactComplete": true,
+  "loginRequired": false,
+  "categories": [
+    "GAMES",
+    "GAMES_PUZZLE",
+    "GAMES_CASUAL"
+  ],
+  "ageRating": "FOUR_PLUS",
+  "screenshots": [
+    {
+      "id": "e9b68408-7e76-4099-bf80-03d49438d5e2",
+      "file": "ipad-gallery.png",
+      "type": "APP_IPAD_PRO_3GEN_129",
+      "state": "COMPLETE"
+    },
+    {
+      "id": "6c62b2c4-d122-4403-a623-19e0afec8b65",
+      "file": "ipad-collections.png",
+      "type": "APP_IPAD_PRO_3GEN_129",
+      "state": "COMPLETE"
+    },
+    {
+      "id": "2f614115-fcd2-4dae-b0fb-e956e934b8a7",
+      "file": "ipad-trolley.png",
+      "type": "APP_IPAD_PRO_3GEN_129",
+      "state": "COMPLETE"
+    },
+    {
+      "id": "ee0ecebd-4e9d-43d4-93d9-b0d9422343bf",
+      "file": "iphone-gallery.png",
+      "type": "APP_IPHONE_65",
+      "state": "COMPLETE"
+    },
+    {
+      "id": "00de70de-b735-44c3-b420-1319269515d5",
+      "file": "iphone-collections.png",
+      "type": "APP_IPHONE_65",
+      "state": "COMPLETE"
+    },
+    {
+      "id": "e57ea1ab-c0ee-4310-af79-d8c4dd2dda14",
+      "file": "iphone-trolley.png",
+      "type": "APP_IPHONE_65",
+      "state": "COMPLETE"
+    }
+  ],
+  "price": {
+    "territory": "ESP",
+    "currency": "EUR",
+    "amount": "3.99"
+  },
+  "availability": {
+    "count": 173,
+    "excluded": [
+      "CHN",
+      "VNM"
+    ]
+  },
+  "privacy": {
+    "checkedAt": "2026-09-23",
+    "method": "Chrome UI; absent from official App Store Connect API 4.4.1",
+    "declaration": "No se recopilan datos",
+    "published": true,
+    "publishButtonDisabledAfterSave": true,
+    "policyUrl": "https://krazel.github.io/quiet-stacks/privacy/",
+    "appSubmitted": false
+  },
+  "reviewSubmissions": 0,
+  "appPublished": false
+}
