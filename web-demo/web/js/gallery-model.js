@@ -115,11 +115,11 @@ constructor(){this.state={version:4,mapRevision:2,artRevision:174,catalogRevisio
 book(id){return Number.isInteger(id)?this.state.books[id]:undefined;}
 placement(id){const b=this.book(id);if(!b||b.place!=='shelf')return null;if(b.slot===b.id)return 'exact';return SERIES[SLOTS[b.slot].series].rack===SERIES[b.series].rack?'rack':null;}
 canPlace(id,place,slot=-1,point){const b=this.book(id);if(!b||!['floor','cart','shelf'].includes(place))return false;
-if(place==='cart'){const target=slot===-1?(b.place==='cart'?b.cartSlot:CART_SLOTS.find(s=>!this.state.books.some(o=>o.place==='cart'&&o.cartSlot===s.id))?.id):slot;if(!Number.isInteger(target)||!CART_SLOTS[target])return false;return b.place==='cart'||!this.state.books.some(o=>o.id!==id&&o.place==='cart'&&o.cartSlot===target);}
+if(place==='cart'){const target=slot===-1?(b.place==='cart'?b.cartSlot:CART_SLOTS.find(s=>!this.state.books.some(o=>o.place==='cart'&&o.cartSlot===s.id))?.id):slot;return Number.isInteger(target)&&!!CART_SLOTS[target];}
 if(place==='floor')return floorAllowed(point);
 return Number.isInteger(slot)&&!!SLOTS[slot]&&!this.state.books.some(o=>o.id!==id&&o.place==='shelf'&&o.slot===slot);}
 move(id,place,slot=-1,point){const b=this.book(id);if(!this.canPlace(id,place,slot,point))return false;
-if(place==='cart'){if(slot===-1)slot=b.place==='cart'?b.cartSlot:CART_SLOTS.find(s=>!this.state.books.some(o=>o.place==='cart'&&o.cartSlot===s.id)).id;if(b.place==='cart'&&b.cartSlot===slot)return false;const other=this.state.books.find(o=>o.id!==id&&o.place==='cart'&&o.cartSlot===slot);if(other){other.cartSlot=b.cartSlot;other.order=this.state.nextOrder++;}b.cartSlot=slot;}else{if(b.place===place&&place==='shelf'&&b.slot===slot)return false;delete b.cartSlot;}
+if(place==='cart'){if(slot===-1)slot=b.place==='cart'?b.cartSlot:CART_SLOTS.find(s=>!this.state.books.some(o=>o.place==='cart'&&o.cartSlot===s.id)).id;if(b.place==='cart'&&b.cartSlot===slot)return false;const other=this.state.books.find(o=>o.id!==id&&o.place==='cart'&&o.cartSlot===slot);if(other){Object.assign(other,{place:b.place,slot:b.slot,x:b.x,y:b.y,pose:b.pose,order:this.state.nextOrder++});if(b.place==='cart')other.cartSlot=b.cartSlot;else delete other.cartSlot;}b.cartSlot=slot;}else{if(b.place===place&&place==='shelf'&&b.slot===slot)return false;delete b.cartSlot;}
 b.place=place;b.slot=place==='shelf'?slot:-1;b.pose='upright';b.order=this.state.nextOrder++;if(place==='floor'){b.x=point.x;b.y=point.y;}return true;}
 demoArrange(mode){if(!['sort','scatter'].includes(mode))return false;
 const points=SCATTER.map(p=>({...p}));let seed=this.state.nextOrder>>>0;

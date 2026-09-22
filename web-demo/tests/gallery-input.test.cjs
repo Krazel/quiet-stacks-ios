@@ -169,6 +169,18 @@ test('cart books swap by dragging without changing other bays and survive reload
  assert.equal(t.live.book(0).cartSlot,11);assert.equal(t.live.book(1).cartSlot,0);assert.equal(t.live.book(2).cartSlot,5);
  t.events.get('pagehide')();assert.deepEqual(harness(1440,810,t.data).state().books,t.state().books);
 });
+test('dragging an outside book onto an occupied cart bay exchanges both and persists',()=>{
+ const {cartPoint}=require('../web/js/gallery-model.js');
+ for(const [w,h] of [[1440,810],[750,381]])for(const place of ['floor','shelf']){
+  const t=harness(w,h);t.get('demo-sort').click();t.live.move(0,'cart',7);if(place==='floor')t.live.move(524,'floor',-1,{x:870,y:350});t.advance();
+  const before=t.state().books[524],origin=place==='floor'?{x:before.x,y:before.y}:t.slots[before.slot],target=cartPoint(7),start=t.screen([origin.x,origin.y-14]),end=t.screen([target.x,target.y-9]);
+  t.pointer('pointerdown',start);t.pointer('pointermove',end);t.pointer('pointercancel',end);assert.equal(t.live.book(0).cartSlot,7);assert.equal(t.live.book(524).place,place);
+  t.pointer('pointerdown',start);t.pointer('pointermove',end);t.pointer('pointerup',end);
+  assert.equal(t.live.book(524).cartSlot,7);assert.equal(t.live.book(0).place,place);assert.equal(t.live.book(0).slot,before.slot);assert.equal(t.live.book(0).cartSlot,undefined);if(place==='floor'){assert.equal(t.live.book(0).x,before.x);assert.equal(t.live.book(0).y,before.y);}
+  assert.equal(t.live.cart().length,1);t.events.get('pagehide')();assert.deepEqual(harness(w,h,t.data).state().books,t.state().books);
+ }
+});
+
 test('open books use the new spread atlas and preserve its aspect ratio',()=>{
  const t=harness();t.advance();const open=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks'&&d[0]._src.includes('books-open-v12'));
  assert.ok(open.length>0);for(const d of open)assert.ok(Math.abs(d[7]/d[8]-d[3]/d[4])<1e-10);
