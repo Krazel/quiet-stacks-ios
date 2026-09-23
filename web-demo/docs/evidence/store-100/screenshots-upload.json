@@ -1,9 +1,10 @@
 [
   {
-    "file": "iphone-gallery.png",
+    "file": "iphone-gallery-disordered.png",
+    "localFile": "iphone-gallery.png",
     "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
-    "id": "ee0ecebd-4e9d-43d4-93d9-b0d9422343bf",
-    "md5": "e60ac9805578d3c1d5ec02b7e42a22b0",
+    "id": "8dfb4088-bbfd-4b9d-9f7b-241b148c1230",
+    "md5": "211486c0e9b272af0594e0077c67b97b",
     "state": {
       "errors": [],
       "warnings": null,
@@ -11,10 +12,11 @@
     }
   },
   {
-    "file": "iphone-collections.png",
+    "file": "iphone-collections-disordered.png",
+    "localFile": "iphone-collections.png",
     "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
-    "id": "00de70de-b735-44c3-b420-1319269515d5",
-    "md5": "9c96dba0c5ab6f5151c9049bd8feb999",
+    "id": "d5e33d7a-00b1-45f1-a319-ff919104c811",
+    "md5": "a5739ebf32d63fa18f9daf696ec26be6",
     "state": {
       "errors": [],
       "warnings": null,
@@ -22,10 +24,11 @@
     }
   },
   {
-    "file": "iphone-trolley.png",
+    "file": "iphone-trolley-disordered.png",
+    "localFile": "iphone-trolley.png",
     "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
-    "id": "e57ea1ab-c0ee-4310-af79-d8c4dd2dda14",
-    "md5": "b9e1cf8f376f8cf6ac0d866cce28be10",
+    "id": "f881ee6e-10f2-49c5-af79-fee21f833fed",
+    "md5": "bc3102fd1c1abc0f51dee120275dbebd",
     "state": {
       "errors": [],
       "warnings": null,
@@ -33,10 +36,11 @@
     }
   },
   {
-    "file": "ipad-gallery.png",
+    "file": "ipad-gallery-disordered.png",
+    "localFile": "ipad-gallery.png",
     "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
-    "id": "e9b68408-7e76-4099-bf80-03d49438d5e2",
-    "md5": "85b814ca45c3a647a5d2bbdc9448e4a2",
+    "id": "019b2f8b-9de4-42ea-ad79-9c15e56c451a",
+    "md5": "d509431d09b8f760986433d93019bcc2",
     "state": {
       "errors": [],
       "warnings": null,
@@ -44,10 +48,11 @@
     }
   },
   {
-    "file": "ipad-collections.png",
+    "file": "ipad-collections-disordered.png",
+    "localFile": "ipad-collections.png",
     "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
-    "id": "6c62b2c4-d122-4403-a623-19e0afec8b65",
-    "md5": "4c16cf05323398eb5c49910bf0319e29",
+    "id": "015fb341-035e-4700-98a9-263a59c5ffef",
+    "md5": "ff7e21dc6070ad50822ecb720272242e",
     "state": {
       "errors": [],
       "warnings": null,
@@ -55,10 +60,11 @@
     }
   },
   {
-    "file": "ipad-trolley.png",
+    "file": "ipad-trolley-disordered.png",
+    "localFile": "ipad-trolley.png",
     "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
-    "id": "2f614115-fcd2-4dae-b0fb-e956e934b8a7",
-    "md5": "b6956e95a212244a2f998a2d865a09aa",
+    "id": "1fe2dc98-9b35-4d95-87a7-15b8ea49d5d0",
+    "md5": "468c2219ec5dbd3f79903b9951062847",
     "state": {
       "errors": [],
       "warnings": null,

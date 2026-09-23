@@ -86,3 +86,22 @@ and artifacts/ios-testflight-100-upload.json.
 Prepared version: https://appstoreconnect.apple.com/apps/6809193192/distribution/ios/version/inflight
 Support: https://krazel.github.io/quiet-stacks/support/
 Privacy: https://krazel.github.io/quiet-stacks/privacy/
+
+## Current screenshots — mostly disordered, 23 September 2026
+
+Explicit user correction supersedes the initially sorted screenshot fixture.
+Only five Lost Kingdoms / Old Archives volumes (audited collection 72) are placed
+on shelves, four books are in the trolley, and 1,110 remain scattered on the floor.
+The collections close-up now frames Old Archives. All six native images were
+visually reviewed, uploaded by API, checked COMPLETE and ordered gallery,
+collections, trolley on each device. Previous images and API receipts are kept
+in artifacts/store-100/history/mostly-sorted-20260923/.
+
+Current files: artifacts/store-100/disordered/{iphone,ipad}-{gallery,collections,trolley}.png
+Capture run: 35845358487; capture tooling: f15720bac893c6a23a6caa5178aca2c8ab969557.
+Runtime remains 11f9503543db4f5413f38efce152fd18b0338bab, App Store 1.0 (1),
+Apple build e6d171d9-d0f5-45c8-98f8-448c5dc76616. No new product build uploaded;
+no review submission or publication. Price and all other metadata unchanged.
+PR-014 revision 141 saved and re-read, preserving existing tracking
+and marketing context. API evidence: artifacts/store-100/disordered/upload.json,
+artifacts/store-100/final-audit.json and disordered/library.json.

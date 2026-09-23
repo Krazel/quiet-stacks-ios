@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-22T23:51:04.661Z",
+  "checkedAt": "2026-09-23T10:20:22.439Z",
   "readyForUserSubmission": true,
   "version": {
     "platform": "IOS",
@@ -44,38 +44,38 @@
   "ageRating": "FOUR_PLUS",
   "screenshots": [
     {
-      "id": "e9b68408-7e76-4099-bf80-03d49438d5e2",
-      "file": "ipad-gallery.png",
+      "id": "019b2f8b-9de4-42ea-ad79-9c15e56c451a",
+      "file": "ipad-gallery-disordered.png",
       "type": "APP_IPAD_PRO_3GEN_129",
       "state": "COMPLETE"
     },
     {
-      "id": "6c62b2c4-d122-4403-a623-19e0afec8b65",
-      "file": "ipad-collections.png",
+      "id": "015fb341-035e-4700-98a9-263a59c5ffef",
+      "file": "ipad-collections-disordered.png",
       "type": "APP_IPAD_PRO_3GEN_129",
       "state": "COMPLETE"
     },
     {
-      "id": "2f614115-fcd2-4dae-b0fb-e956e934b8a7",
-      "file": "ipad-trolley.png",
+      "id": "1fe2dc98-9b35-4d95-87a7-15b8ea49d5d0",
+      "file": "ipad-trolley-disordered.png",
       "type": "APP_IPAD_PRO_3GEN_129",
       "state": "COMPLETE"
     },
     {
-      "id": "ee0ecebd-4e9d-43d4-93d9-b0d9422343bf",
-      "file": "iphone-gallery.png",
+      "id": "8dfb4088-bbfd-4b9d-9f7b-241b148c1230",
+      "file": "iphone-gallery-disordered.png",
       "type": "APP_IPHONE_65",
       "state": "COMPLETE"
     },
     {
-      "id": "00de70de-b735-44c3-b420-1319269515d5",
-      "file": "iphone-collections.png",
+      "id": "d5e33d7a-00b1-45f1-a319-ff919104c811",
+      "file": "iphone-collections-disordered.png",
       "type": "APP_IPHONE_65",
       "state": "COMPLETE"
     },
     {
-      "id": "e57ea1ab-c0ee-4310-af79-d8c4dd2dda14",
-      "file": "iphone-trolley.png",
+      "id": "f881ee6e-10f2-49c5-af79-fee21f833fed",
+      "file": "iphone-trolley-disordered.png",
       "type": "APP_IPHONE_65",
       "state": "COMPLETE"
     }
