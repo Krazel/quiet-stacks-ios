@@ -11,27 +11,32 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+          path: capture-tools
+          sparse-checkout: web-demo/scripts/store-screenshots.mjs
+          sparse-checkout-cone-mode: false
+      - uses: actions/checkout@v6
+        with:
           ref: 11f9503543db4f5413f38efce152fd18b0338bab
+          path: release
       - uses: actions/setup-node@v6
         with:
           node-version: '24'
           package-manager-cache: false
       - name: Capture exact release source without simulator hardware mask
-        working-directory: web-demo
+        working-directory: release/web-demo
         run: |
           xcrun simctl create 'Quiet Stacks iPhone 13 Pro Max' com.apple.CoreSimulator.SimDeviceType.iPhone-13-Pro-Max com.apple.CoreSimulator.SimRuntime.iOS-18-5
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const source=fs.readFileSync('scripts/simulator-qa.mjs','utf8');
           const prefix=source.slice(0,source.indexOf('const phone='));
-          const helper=fs.readFileSync('scripts/store-screenshots.mjs','utf8');
-          fs.writeFileSync('scripts/store-screenshots.mjs',helper.replace("'screenshot',path.join(folder,name)","'screenshot','--mask=ignored',path.join(folder,name)").replace('/iPhone.*Pro Max/', '/Quiet Stacks iPhone 13 Pro Max/'));
-          fs.writeFileSync('scripts/store-capture-runner.mjs',"process.env.GITHUB_SHA='11f9503543db4f5413f38efce152fd18b0338bab';\n"+prefix+"\nconst {captureStore}=await import('./store-screenshots.mjs');await captureStore({run,available,runtime,derived,out});\n");
+          fs.copyFileSync('../../capture-tools/web-demo/scripts/store-screenshots.mjs','scripts/store-screenshots.mjs');
+          fs.writeFileSync('scripts/store-capture-runner.mjs',"process.env.CAPTURE_TOOLS_COMMIT=process.env.GITHUB_SHA;process.env.GITHUB_SHA='11f9503543db4f5413f38efce152fd18b0338bab';\n"+prefix+"\nconst {captureStore}=await import('./store-screenshots.mjs');await captureStore({run,available,runtime,derived,out});\n");
           NODE
           node scripts/store-capture-runner.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: QuietStacks-1.0-AppStore-screenshots
-          path: web-demo/artifacts/native-qa/
+          path: release/web-demo/artifacts/native-qa/
           retention-days: 7
