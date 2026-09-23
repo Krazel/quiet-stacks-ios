@@ -160,19 +160,20 @@
     $('loading').querySelector('h2').textContent='Opening the gallery…';
     $('loading').querySelector('p').textContent='A quiet moment among the books.';
     for(const resource of [atlas,floorAtlas,directionsAtlas,turnAtlas,openAtlas,...bindingAtlases,...collectionAtlases,...volumeAtlases])resource?.close?.();
-    const watch=(img,file,assign,black=false)=>{
+    const watch=(img,file,assign,black=false,prepared=false)=>{
       img.assetFile=file;
       if(packed&&assign)return;
       if(packed){pending.push({img,file});return;}
       img.onerror=error=>{if(generation===loadGeneration)imageError(error);};
       img.onload=()=>{
         if(generation!==loadGeneration)return;
-        if(assign){textureQueue.push({image:img,assign,black,generation});nextTexture();}
+        if(assign&&prepared){assign(img);imageLoaded();}
+        else if(assign){textureQueue.push({image:img,assign,black,generation});nextTexture();}
         else imageLoaded();
       };
       img.crossOrigin='anonymous';img.src=file+'?v=162';
     };
-    volumeImages.forEach((img,i)=>watch(img,GalleryVolumes.atlases[i].file,value=>volumeAtlases[i]=value,true));
+    volumeImages.forEach((img,i)=>watch(img,GalleryVolumes.atlases[i].file,value=>volumeAtlases[i]=value,false,!!GalleryVolumes.atlases[i].preprocessedAlpha));
     if(!roomArt?.embeddedTitles)watch(nameplateImage,'assets/nameplates-v14.png');
     collectionImages.forEach((img,i)=>watch(img,GalleryModel.COLLECTION_ATLASES[i].file,value=>collectionAtlases[i]=value,true));
     watch(openImage,'assets/books-open-v12.png',value=>openAtlas=value);

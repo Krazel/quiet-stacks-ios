@@ -1,0 +1,1458 @@
+[
+  {
+    "series": 3,
+    "art": 24,
+    "name": "Eclipses",
+    "category": "Astral Charts",
+    "baseVolume": 1,
+    "baseId": 18,
+    "volumes": [
+      5,
+      6,
+      7
+    ],
+    "ids": [
+      528,
+      529,
+      963
+    ],
+    "size": [
+      64,
+      170
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          398
+        ]
+      },
+      {
+        "volume": 5,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          398
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          398
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          398
+        ]
+      }
+    ],
+    "master": "master-3.png",
+    "reference": "reference-3.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 6,
+    "art": 26,
+    "name": "Night Navigation",
+    "category": "Astral Charts",
+    "baseVolume": 1,
+    "baseId": 36,
+    "volumes": [
+      5,
+      6,
+      7
+    ],
+    "ids": [
+      531,
+      532,
+      966
+    ],
+    "size": [
+      66,
+      172
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          391
+        ]
+      },
+      {
+        "volume": 5,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          391
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          391
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          391
+        ]
+      }
+    ],
+    "master": "master-6.png",
+    "reference": "reference-6.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 8,
+    "art": 28,
+    "name": "Deep Sky",
+    "category": "Astral Charts",
+    "baseVolume": 1,
+    "baseId": 49,
+    "volumes": [
+      6,
+      7
+    ],
+    "ids": [
+      533,
+      968
+    ],
+    "size": [
+      67,
+      158
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          354
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          354
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          354
+        ]
+      }
+    ],
+    "master": "master-8.png",
+    "reference": "reference-8.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 18,
+    "art": 15,
+    "name": "Lost Kingdoms",
+    "category": "Forgotten Realms",
+    "baseVolume": 1,
+    "baseId": 111,
+    "volumes": [
+      8
+    ],
+    "ids": [
+      977
+    ],
+    "size": [
+      47,
+      138
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          440
+        ]
+      },
+      {
+        "volume": 8,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          440
+        ]
+      }
+    ],
+    "master": "master-18.png",
+    "reference": "reference-18.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 21,
+    "art": 21,
+    "name": "Border Wars",
+    "category": "Forgotten Realms",
+    "baseVolume": 1,
+    "baseId": 128,
+    "volumes": [
+      8
+    ],
+    "ids": [
+      982
+    ],
+    "size": [
+      68,
+      149
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          329
+        ]
+      },
+      {
+        "volume": 8,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          329
+        ]
+      }
+    ],
+    "master": "master-21.png",
+    "reference": "reference-21.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 30,
+    "art": 2,
+    "name": "Elemental Reactions",
+    "category": "Clockwork Lore",
+    "baseVolume": 1,
+    "baseId": 174,
+    "volumes": [
+      5,
+      6,
+      7
+    ],
+    "ids": [
+      579,
+      580,
+      581
+    ],
+    "size": [
+      64,
+      159
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          373
+        ]
+      },
+      {
+        "volume": 5,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          373
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          373
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          373
+        ]
+      }
+    ],
+    "master": "master-30.png",
+    "reference": "reference-30.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "name": "Crystal Studies",
+    "category": "Clockwork Lore",
+    "baseVolume": 1,
+    "baseId": 178,
+    "volumes": [
+      14,
+      15,
+      16
+    ],
+    "ids": [
+      995,
+      996,
+      997
+    ],
+    "size": [
+      47,
+      154
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          491
+        ]
+      },
+      {
+        "volume": 14,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          491
+        ]
+      },
+      {
+        "volume": 15,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          491
+        ]
+      },
+      {
+        "volume": 16,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          491
+        ]
+      }
+    ],
+    "master": "master-31.png",
+    "reference": "reference-31.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 33,
+    "art": 20,
+    "name": "Protective Wards",
+    "category": "Clockwork Lore",
+    "baseVolume": 1,
+    "baseId": 198,
+    "volumes": [
+      5,
+      6,
+      7
+    ],
+    "ids": [
+      590,
+      591,
+      592
+    ],
+    "size": [
+      73,
+      150
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          308
+        ]
+      },
+      {
+        "volume": 5,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          308
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          308
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          308
+        ]
+      }
+    ],
+    "master": "master-33.png",
+    "reference": "reference-33.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "name": "Practical Charms",
+    "category": "Clockwork Lore",
+    "baseVolume": 1,
+    "baseId": 226,
+    "volumes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "ids": [
+      604,
+      605,
+      606,
+      607,
+      1005,
+      1006
+    ],
+    "size": [
+      65,
+      152
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          351
+        ]
+      },
+      {
+        "volume": 10,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          351
+        ]
+      },
+      {
+        "volume": 11,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          351
+        ]
+      },
+      {
+        "volume": 12,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          351
+        ]
+      },
+      {
+        "volume": 13,
+        "keep": false,
+        "box": [
+          800,
+          95,
+          150,
+          351
+        ]
+      },
+      {
+        "volume": 14,
+        "keep": false,
+        "box": [
+          990,
+          95,
+          150,
+          351
+        ]
+      },
+      {
+        "volume": 15,
+        "keep": false,
+        "box": [
+          1180,
+          95,
+          150,
+          351
+        ]
+      }
+    ],
+    "master": "master-37.png",
+    "reference": "reference-37.png",
+    "canvas": [
+      1370,
+      900
+    ]
+  },
+  {
+    "series": 44,
+    "art": 52,
+    "name": "Enchanted Metals",
+    "category": "Arcane Studies",
+    "baseVolume": 1,
+    "baseId": 260,
+    "volumes": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "ids": [
+      628,
+      629,
+      630,
+      631
+    ],
+    "size": [
+      70,
+      130
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          279
+        ]
+      },
+      {
+        "volume": 3,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          279
+        ]
+      },
+      {
+        "volume": 4,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          279
+        ]
+      },
+      {
+        "volume": 5,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          279
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          800,
+          95,
+          150,
+          279
+        ]
+      }
+    ],
+    "master": "master-44.png",
+    "reference": "reference-44.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 46,
+    "art": 54,
+    "name": "Practical Charms",
+    "category": "Arcane Studies",
+    "baseVolume": 1,
+    "baseId": 263,
+    "volumes": [
+      5,
+      6
+    ],
+    "ids": [
+      267,
+      636
+    ],
+    "size": [
+      63,
+      185
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          440
+        ]
+      },
+      {
+        "volume": 5,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          440
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          440
+        ]
+      }
+    ],
+    "master": "master-46.png",
+    "reference": "reference-46.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 49,
+    "art": 57,
+    "name": "Royal Histories",
+    "category": "History & Myth",
+    "baseVolume": 1,
+    "baseId": 275,
+    "volumes": [
+      17,
+      18
+    ],
+    "ids": [
+      1023,
+      1024
+    ],
+    "size": [
+      63,
+      148
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          352
+        ]
+      },
+      {
+        "volume": 17,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          352
+        ]
+      },
+      {
+        "volume": 18,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          352
+        ]
+      }
+    ],
+    "master": "master-49.png",
+    "reference": "reference-49.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "name": "Medicinal Roots",
+    "category": "Natural Philosophy",
+    "baseVolume": 1,
+    "baseId": 329,
+    "volumes": [
+      4,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "ids": [
+      332,
+      655,
+      656,
+      657,
+      658,
+      659,
+      660,
+      1034,
+      1035
+    ],
+    "size": [
+      46,
+      171
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 4,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 12,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 13,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 14,
+        "keep": false,
+        "box": [
+          800,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 15,
+        "keep": false,
+        "box": [
+          990,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 16,
+        "keep": false,
+        "box": [
+          1180,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 17,
+        "keep": false,
+        "box": [
+          1370,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 18,
+        "keep": false,
+        "box": [
+          1560,
+          95,
+          150,
+          558
+        ]
+      },
+      {
+        "volume": 19,
+        "keep": false,
+        "box": [
+          1750,
+          95,
+          150,
+          558
+        ]
+      }
+    ],
+    "master": "master-55.png",
+    "reference": "reference-55.png",
+    "canvas": [
+      1940,
+      900
+    ]
+  },
+  {
+    "series": 70,
+    "art": 70,
+    "name": "Mountain Routes",
+    "category": "East Alcove",
+    "baseVolume": 1,
+    "baseId": 408,
+    "volumes": [
+      19,
+      20
+    ],
+    "ids": [
+      1055,
+      1056
+    ],
+    "size": [
+      82,
+      149
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          273
+        ]
+      },
+      {
+        "volume": 19,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          273
+        ]
+      },
+      {
+        "volume": 20,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          273
+        ]
+      }
+    ],
+    "master": "master-70.png",
+    "reference": "reference-70.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "name": "Desert Crossings",
+    "category": "East Alcove",
+    "baseVolume": 1,
+    "baseId": 411,
+    "volumes": [
+      18,
+      19,
+      20
+    ],
+    "ids": [
+      1057,
+      1058,
+      1059
+    ],
+    "size": [
+      83,
+      155
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          280
+        ]
+      },
+      {
+        "volume": 18,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          280
+        ]
+      },
+      {
+        "volume": 19,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          280
+        ]
+      },
+      {
+        "volume": 20,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          280
+        ]
+      }
+    ],
+    "master": "master-71.png",
+    "reference": "reference-71.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 76,
+    "art": 76,
+    "name": "Woodland Herbs",
+    "category": "Botanical Folios",
+    "baseVolume": 1,
+    "baseId": 438,
+    "volumes": [
+      6,
+      7
+    ],
+    "ids": [
+      1068,
+      1069
+    ],
+    "size": [
+      61,
+      136
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          334
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          334
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          334
+        ]
+      }
+    ],
+    "master": "master-76.png",
+    "reference": "reference-76.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 90,
+    "art": 90,
+    "name": "Desert Crossings",
+    "category": "Eastern Records",
+    "baseVolume": 1,
+    "baseId": 496,
+    "volumes": [
+      7
+    ],
+    "ids": [
+      1084
+    ],
+    "size": [
+      67,
+      172
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          385
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          385
+        ]
+      }
+    ],
+    "master": "master-90.png",
+    "reference": "reference-90.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 99,
+    "art": 99,
+    "name": "Potion Making",
+    "category": "Sun Tower",
+    "baseVolume": 1,
+    "baseId": 524,
+    "volumes": [
+      2,
+      3,
+      4
+    ],
+    "ids": [
+      957,
+      958,
+      959
+    ],
+    "size": [
+      71,
+      233
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          492
+        ]
+      },
+      {
+        "volume": 2,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          492
+        ]
+      },
+      {
+        "volume": 3,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          492
+        ]
+      },
+      {
+        "volume": 4,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          492
+        ]
+      }
+    ],
+    "master": "master-99.png",
+    "reference": "reference-99.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 102,
+    "art": 102,
+    "name": "Folk Songs / Archive Edition",
+    "category": "West Alcove",
+    "baseVolume": 2,
+    "baseId": 758,
+    "volumes": [
+      1,
+      18,
+      19
+    ],
+    "ids": [
+      757,
+      1100,
+      1101
+    ],
+    "size": [
+      71,
+      258
+    ],
+    "positions": [
+      {
+        "volume": 2,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          545
+        ]
+      },
+      {
+        "volume": 1,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          545
+        ]
+      },
+      {
+        "volume": 18,
+        "keep": false,
+        "box": [
+          420,
+          95,
+          150,
+          545
+        ]
+      },
+      {
+        "volume": 19,
+        "keep": false,
+        "box": [
+          610,
+          95,
+          150,
+          545
+        ]
+      }
+    ],
+    "master": "master-102.png",
+    "reference": "reference-102.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 112,
+    "art": 112,
+    "name": "Celestial Instruments / Archive Edition",
+    "category": "Celestial Records",
+    "baseVolume": 1,
+    "baseId": 908,
+    "volumes": [
+      6
+    ],
+    "ids": [
+      1115
+    ],
+    "size": [
+      73,
+      258
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          530
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          530
+        ]
+      }
+    ],
+    "master": "master-112.png",
+    "reference": "reference-112.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 114,
+    "art": 114,
+    "name": "Northern Expeditions / Archive Edition",
+    "category": "Eastern Records",
+    "baseVolume": 1,
+    "baseId": 927,
+    "volumes": [
+      7
+    ],
+    "ids": [
+      1117
+    ],
+    "size": [
+      71,
+      258
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          545
+        ]
+      },
+      {
+        "volume": 7,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          545
+        ]
+      }
+    ],
+    "master": "master-114.png",
+    "reference": "reference-114.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  },
+  {
+    "series": 115,
+    "art": 115,
+    "name": "Trade Routes / Archive Edition",
+    "category": "Eastern Records",
+    "baseVolume": 1,
+    "baseId": 933,
+    "volumes": [
+      6
+    ],
+    "ids": [
+      1118
+    ],
+    "size": [
+      73,
+      258
+    ],
+    "positions": [
+      {
+        "volume": 1,
+        "keep": true,
+        "box": [
+          40,
+          95,
+          150,
+          530
+        ]
+      },
+      {
+        "volume": 6,
+        "keep": false,
+        "box": [
+          230,
+          95,
+          150,
+          530
+        ]
+      }
+    ],
+    "master": "master-115.png",
+    "reference": "reference-115.png",
+    "canvas": [
+      1024,
+      900
+    ]
+  }
+]

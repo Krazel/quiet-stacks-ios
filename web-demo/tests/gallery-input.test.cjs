@@ -194,7 +194,7 @@ test('dragging to the highest shelf still targets its visible slot',()=>{
 
 
 test('asynchronous texture imports run one at a time and only unlock after all atlases',async()=>{
- const expected=8+require('../web/js/gallery-model.js').COLLECTION_ATLASES.length+require('../web/js/gallery-volumes.js').atlases.length;
+ const expected=8+require('../web/js/gallery-model.js').COLLECTION_ATLASES.length+require('../web/js/gallery-volumes.js').atlases.filter(a=>!a.preprocessedAlpha).length;
  let active=0,peak=0,loaded=0,closed=0;
  const t=harness(1672,941,undefined,image=>{
    active++;peak=Math.max(peak,active);const src=image._src;

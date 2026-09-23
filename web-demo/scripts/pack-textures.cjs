@@ -7,7 +7,8 @@ function add(file,rect,black=false,prepared=false){if(!groups.has(file))groups.s
 for(const [name,file] of [['SPRITES','books-varied-v9'],['FLOOR_SPRITES','books-floor-v6'],['DIRECTION_SPRITES','books-directions-v7'],['TURN_SPRITES','books-turn-v8'],['OPEN_SPRITES','books-open-v12']])for(const r of constants(name))add('assets/'+file+'.png',r);
 constants('BINDING_SPRITES').forEach((rows,i)=>rows.forEach(r=>add('assets/bindings-'+['b','c','d'][i]+'-v9.png',r)));
 for(const a of model.COLLECTION_ATLASES)for(const r of a.sprites)add(a.file,r,true);
-for(const rows of volumes.bindings)for(const v of rows){const a=volumes.atlases[v.atlas];add(a.file,v.source,true,!!a.preprocessedAlpha);}
+// Numbered sheets have a light matte. Black is part of the leather/ink outline.
+for(const rows of volumes.bindings)for(const v of rows){const a=volumes.atlases[v.atlas];add(a.file,v.source,false,!!a.preprocessedAlpha);}
 (async()=>{
  const sprites=[];let originalBytes=0;
  for(const [file,{black,prepared,rects}] of groups){const {data,info}=await sharp('web/'+file).ensureAlpha().raw().toBuffer({resolveWithObject:true});originalBytes+=data.length;if(!prepared)clearMatte(data,info.width,info.height,black);

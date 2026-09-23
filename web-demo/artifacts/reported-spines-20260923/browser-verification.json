@@ -1,0 +1,54 @@
+{
+  "isolatedStorage": true,
+  "nativeBuildTest": false,
+  "results": [
+    {
+      "device": "desktop",
+      "books": 1119,
+      "collectionsChecked": 22,
+      "inspection": true,
+      "reload": true,
+      "sortScatter": true,
+      "errors": [],
+      "graphics": {
+        "backend": "webgl",
+        "drawCalls": 1,
+        "textureUploads": 13,
+        "textureMiB": 199.8,
+        "contextLost": false
+      }
+    },
+    {
+      "device": "iphone",
+      "books": 1119,
+      "collectionsChecked": 22,
+      "inspection": true,
+      "reload": true,
+      "sortScatter": true,
+      "errors": [],
+      "graphics": {
+        "backend": "webgl",
+        "drawCalls": 1,
+        "textureUploads": 13,
+        "textureMiB": 199.8,
+        "contextLost": false
+      }
+    },
+    {
+      "device": "ipad",
+      "books": 1119,
+      "collectionsChecked": 22,
+      "inspection": true,
+      "reload": true,
+      "sortScatter": true,
+      "errors": [],
+      "graphics": {
+        "backend": "webgl",
+        "drawCalls": 1,
+        "textureUploads": 13,
+        "textureMiB": 199.8,
+        "contextLost": false
+      }
+    }
+  ]
+}

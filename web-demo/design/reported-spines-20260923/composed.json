@@ -1,0 +1,1477 @@
+[
+  {
+    "series": 3,
+    "art": 24,
+    "volume": 5,
+    "id": 528,
+    "baseVolume": 1,
+    "size": [
+      64,
+      170
+    ],
+    "file": "book-3-5.png",
+    "numberBox": [
+      10,
+      109,
+      54,
+      148
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.451851851851853,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 3,
+    "art": 24,
+    "volume": 6,
+    "id": 529,
+    "baseVolume": 1,
+    "size": [
+      64,
+      170
+    ],
+    "file": "book-3-6.png",
+    "numberBox": [
+      10,
+      109,
+      54,
+      148
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.159753086419753,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 3,
+    "art": 24,
+    "volume": 7,
+    "id": 963,
+    "baseVolume": 1,
+    "size": [
+      64,
+      170
+    ],
+    "file": "book-3-7.png",
+    "numberBox": [
+      10,
+      109,
+      54,
+      148
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.46395061728395,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 6,
+    "art": 26,
+    "volume": 5,
+    "id": 531,
+    "baseVolume": 1,
+    "size": [
+      66,
+      172
+    ],
+    "file": "book-6-5.png",
+    "numberBox": [
+      10,
+      112,
+      56,
+      151
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.785007072135786,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 6,
+    "art": 26,
+    "volume": 6,
+    "id": 532,
+    "baseVolume": 1,
+    "size": [
+      66,
+      172
+    ],
+    "file": "book-6-6.png",
+    "numberBox": [
+      10,
+      112,
+      56,
+      151
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.1006600660066,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 6,
+    "art": 26,
+    "volume": 7,
+    "id": 966,
+    "baseVolume": 1,
+    "size": [
+      66,
+      172
+    ],
+    "file": "book-6-7.png",
+    "numberBox": [
+      10,
+      112,
+      56,
+      151
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.644271570014144,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 8,
+    "art": 28,
+    "volume": 6,
+    "id": 533,
+    "baseVolume": 1,
+    "size": [
+      67,
+      158
+    ],
+    "file": "book-8-6.png",
+    "numberBox": [
+      10,
+      101,
+      57,
+      136
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.049475262368816,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 8,
+    "art": 28,
+    "volume": 7,
+    "id": 968,
+    "baseVolume": 1,
+    "size": [
+      67,
+      158
+    ],
+    "file": "book-8-7.png",
+    "numberBox": [
+      10,
+      101,
+      57,
+      136
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.51424287856072,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 18,
+    "art": 15,
+    "volume": 8,
+    "id": 977,
+    "baseVolume": 1,
+    "size": [
+      47,
+      138
+    ],
+    "file": "book-18-8.png",
+    "numberBox": [
+      7,
+      98,
+      40,
+      130
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 8.222368421052632,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 21,
+    "art": 21,
+    "volume": 8,
+    "id": 982,
+    "baseVolume": 1,
+    "size": [
+      68,
+      149
+    ],
+    "file": "book-21-8.png",
+    "numberBox": [
+      10,
+      111,
+      58,
+      144
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 8.372257053291536,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 30,
+    "art": 2,
+    "volume": 5,
+    "id": 579,
+    "baseVolume": 1,
+    "size": [
+      64,
+      159
+    ],
+    "file": "book-30-5.png",
+    "numberBox": [
+      10,
+      110,
+      54,
+      146
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.58628841607565,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 30,
+    "art": 2,
+    "volume": 6,
+    "id": 580,
+    "baseVolume": 1,
+    "size": [
+      64,
+      159
+    ],
+    "file": "book-30-6.png",
+    "numberBox": [
+      10,
+      110,
+      54,
+      146
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.783031258208563,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 30,
+    "art": 2,
+    "volume": 7,
+    "id": 581,
+    "baseVolume": 1,
+    "size": [
+      64,
+      159
+    ],
+    "file": "book-30-7.png",
+    "numberBox": [
+      10,
+      110,
+      54,
+      146
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.964801681113737,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "volume": 14,
+    "id": 995,
+    "baseVolume": 1,
+    "size": [
+      47,
+      154
+    ],
+    "file": "book-31-14.png",
+    "numberBox": [
+      7,
+      105,
+      40,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 14.123196881091618,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "volume": 15,
+    "id": 996,
+    "baseVolume": 1,
+    "size": [
+      47,
+      154
+    ],
+    "file": "book-31-15.png",
+    "numberBox": [
+      7,
+      105,
+      40,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 14.525925925925925,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 31,
+    "art": 14,
+    "volume": 16,
+    "id": 997,
+    "baseVolume": 1,
+    "size": [
+      47,
+      154
+    ],
+    "file": "book-31-16.png",
+    "numberBox": [
+      7,
+      105,
+      40,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 14.941910331384015,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 33,
+    "art": 20,
+    "volume": 5,
+    "id": 590,
+    "baseVolume": 1,
+    "size": [
+      73,
+      150
+    ],
+    "file": "book-33-5.png",
+    "numberBox": [
+      11,
+      113,
+      62,
+      147
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 14.838304924242424,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 33,
+    "art": 20,
+    "volume": 6,
+    "id": 591,
+    "baseVolume": 1,
+    "size": [
+      73,
+      150
+    ],
+    "file": "book-33-6.png",
+    "numberBox": [
+      11,
+      113,
+      62,
+      147
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 14.829782196969697,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 33,
+    "art": 20,
+    "volume": 7,
+    "id": 592,
+    "baseVolume": 1,
+    "size": [
+      73,
+      150
+    ],
+    "file": "book-33-7.png",
+    "numberBox": [
+      11,
+      113,
+      62,
+      147
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 16.207386363636363,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "volume": 10,
+    "id": 604,
+    "baseVolume": 1,
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-37-10.png",
+    "numberBox": [
+      10,
+      105,
+      55,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.22642015005359,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "volume": 11,
+    "id": 605,
+    "baseVolume": 1,
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-37-11.png",
+    "numberBox": [
+      10,
+      105,
+      55,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.65085744908896,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "volume": 12,
+    "id": 606,
+    "baseVolume": 1,
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-37-12.png",
+    "numberBox": [
+      10,
+      105,
+      55,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.981243301178992,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "volume": 13,
+    "id": 607,
+    "baseVolume": 1,
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-37-13.png",
+    "numberBox": [
+      10,
+      105,
+      55,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.112004287245444,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "volume": 14,
+    "id": 1005,
+    "baseVolume": 1,
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-37-14.png",
+    "numberBox": [
+      10,
+      105,
+      55,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.528670953912112,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 37,
+    "art": 45,
+    "volume": 15,
+    "id": 1006,
+    "baseVolume": 1,
+    "size": [
+      65,
+      152
+    ],
+    "file": "book-37-15.png",
+    "numberBox": [
+      10,
+      105,
+      55,
+      140
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 14.295016077170418,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 44,
+    "art": 52,
+    "volume": 3,
+    "id": 628,
+    "baseVolume": 1,
+    "size": [
+      70,
+      130
+    ],
+    "file": "book-44-3.png",
+    "numberBox": [
+      11,
+      92,
+      59,
+      122
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.469005847953216,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 44,
+    "art": 52,
+    "volume": 4,
+    "id": 629,
+    "baseVolume": 1,
+    "size": [
+      70,
+      130
+    ],
+    "file": "book-44-4.png",
+    "numberBox": [
+      11,
+      92,
+      59,
+      122
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.912865497076023,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 44,
+    "art": 52,
+    "volume": 5,
+    "id": 630,
+    "baseVolume": 1,
+    "size": [
+      70,
+      130
+    ],
+    "file": "book-44-5.png",
+    "numberBox": [
+      11,
+      92,
+      59,
+      122
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 15.015497076023392,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 44,
+    "art": 52,
+    "volume": 6,
+    "id": 631,
+    "baseVolume": 1,
+    "size": [
+      70,
+      130
+    ],
+    "file": "book-44-6.png",
+    "numberBox": [
+      11,
+      92,
+      59,
+      122
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 16.476608187134502,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 46,
+    "art": 54,
+    "volume": 5,
+    "id": 267,
+    "baseVolume": 1,
+    "size": [
+      63,
+      185
+    ],
+    "file": "book-46-5.png",
+    "numberBox": [
+      10,
+      126,
+      53,
+      168
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.959554646671211,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 46,
+    "art": 54,
+    "volume": 6,
+    "id": 636,
+    "baseVolume": 1,
+    "size": [
+      63,
+      185
+    ],
+    "file": "book-46-6.png",
+    "numberBox": [
+      10,
+      126,
+      53,
+      168
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.146103158373098,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 49,
+    "art": 57,
+    "volume": 17,
+    "id": 1023,
+    "baseVolume": 1,
+    "size": [
+      63,
+      148
+    ],
+    "file": "book-49-17.png",
+    "numberBox": [
+      10,
+      95,
+      53,
+      129
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 15.131495836922193,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 49,
+    "art": 57,
+    "volume": 18,
+    "id": 1024,
+    "baseVolume": 1,
+    "size": [
+      63,
+      148
+    ],
+    "file": "book-49-18.png",
+    "numberBox": [
+      10,
+      95,
+      53,
+      129
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 15.69279356876256,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 4,
+    "id": 332,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-4.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.698620188816268,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 12,
+    "id": 655,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-12.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.44553376906318,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 13,
+    "id": 656,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-13.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 9.378721859114016,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 14,
+    "id": 657,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-14.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.362018881626724,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 15,
+    "id": 658,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-15.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.062091503267974,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 16,
+    "id": 659,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-16.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.29048656499637,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 17,
+    "id": 660,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-17.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.109658678286129,
+      "dx": 1,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 18,
+    "id": 1034,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-18.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.735294117647058,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 55,
+    "art": 13,
+    "volume": 19,
+    "id": 1035,
+    "baseVolume": 1,
+    "size": [
+      46,
+      171
+    ],
+    "file": "book-55-19.png",
+    "numberBox": [
+      7,
+      129,
+      39,
+      167
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.382716049382717,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 70,
+    "art": 70,
+    "volume": 19,
+    "id": 1055,
+    "baseVolume": 1,
+    "size": [
+      82,
+      149
+    ],
+    "file": "book-70-19.png",
+    "numberBox": [
+      13,
+      102,
+      69,
+      135
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.43437566475218,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 70,
+    "art": 70,
+    "volume": 20,
+    "id": 1056,
+    "baseVolume": 1,
+    "size": [
+      82,
+      149
+    ],
+    "file": "book-70-20.png",
+    "numberBox": [
+      13,
+      102,
+      69,
+      135
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.117847266539034,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "volume": 18,
+    "id": 1057,
+    "baseVolume": 1,
+    "size": [
+      83,
+      155
+    ],
+    "file": "book-71-18.png",
+    "numberBox": [
+      13,
+      104,
+      70,
+      139
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.09870740305523,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "volume": 19,
+    "id": 1058,
+    "baseVolume": 1,
+    "size": [
+      83,
+      155
+    ],
+    "file": "book-71-19.png",
+    "numberBox": [
+      13,
+      104,
+      70,
+      139
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.469056012534274,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 71,
+    "art": 71,
+    "volume": 20,
+    "id": 1059,
+    "baseVolume": 1,
+    "size": [
+      83,
+      155
+    ],
+    "file": "book-71-20.png",
+    "numberBox": [
+      13,
+      104,
+      70,
+      139
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 13.191343517430473,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 76,
+    "art": 76,
+    "volume": 6,
+    "id": 1068,
+    "baseVolume": 1,
+    "size": [
+      61,
+      136
+    ],
+    "file": "book-76-6.png",
+    "numberBox": [
+      9,
+      95,
+      52,
+      126
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.025961538461539,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 76,
+    "art": 76,
+    "volume": 7,
+    "id": 1069,
+    "baseVolume": 1,
+    "size": [
+      61,
+      136
+    ],
+    "file": "book-76-7.png",
+    "numberBox": [
+      9,
+      95,
+      52,
+      126
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.31698717948718,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 90,
+    "art": 90,
+    "volume": 7,
+    "id": 1084,
+    "baseVolume": 1,
+    "size": [
+      67,
+      172
+    ],
+    "file": "book-90-7.png",
+    "numberBox": [
+      10,
+      107,
+      57,
+      146
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 9.953797610998423,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 99,
+    "art": 99,
+    "volume": 2,
+    "id": 957,
+    "baseVolume": 1,
+    "size": [
+      71,
+      233
+    ],
+    "file": "book-99-2.png",
+    "numberBox": [
+      11,
+      152,
+      60,
+      204
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.771274961597543,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 99,
+    "art": 99,
+    "volume": 3,
+    "id": 958,
+    "baseVolume": 1,
+    "size": [
+      71,
+      233
+    ],
+    "file": "book-99-3.png",
+    "numberBox": [
+      11,
+      152,
+      60,
+      204
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 11.921351766513057,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 99,
+    "art": 99,
+    "volume": 4,
+    "id": 959,
+    "baseVolume": 1,
+    "size": [
+      71,
+      233
+    ],
+    "file": "book-99-4.png",
+    "numberBox": [
+      11,
+      152,
+      60,
+      204
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 12.970814132104454,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 102,
+    "art": 102,
+    "volume": 1,
+    "id": 757,
+    "baseVolume": 2,
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-102-1.png",
+    "numberBox": [
+      11,
+      196,
+      60,
+      253
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 9.246345962821058,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 102,
+    "art": 102,
+    "volume": 18,
+    "id": 1100,
+    "baseVolume": 2,
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-102-18.png",
+    "numberBox": [
+      11,
+      196,
+      60,
+      253
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 9.705548460337733,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 102,
+    "art": 102,
+    "volume": 19,
+    "id": 1101,
+    "baseVolume": 2,
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-102-19.png",
+    "numberBox": [
+      11,
+      196,
+      60,
+      253
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.387256988789556,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 112,
+    "art": 112,
+    "volume": 6,
+    "id": 1115,
+    "baseVolume": 1,
+    "size": [
+      73,
+      258
+    ],
+    "file": "book-112-6.png",
+    "numberBox": [
+      11,
+      198,
+      62,
+      256
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 8.950378006872853,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 114,
+    "art": 114,
+    "volume": 7,
+    "id": 1117,
+    "baseVolume": 1,
+    "size": [
+      71,
+      258
+    ],
+    "file": "book-114-7.png",
+    "numberBox": [
+      11,
+      197,
+      60,
+      255
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 6.750637213254036,
+      "dx": 0,
+      "dy": 0
+    }
+  },
+  {
+    "series": 115,
+    "art": 115,
+    "volume": 6,
+    "id": 1118,
+    "baseVolume": 1,
+    "size": [
+      73,
+      258
+    ],
+    "file": "book-115-6.png",
+    "numberBox": [
+      11,
+      198,
+      62,
+      256
+    ],
+    "outsideChanges": 0,
+    "alphaChanges": 0,
+    "alignment": {
+      "score": 10.644270403957131,
+      "dx": 0,
+      "dy": 0
+    }
+  }
+]
