@@ -95,6 +95,6 @@ body:has(#inspection:not([hidden])) .music-open,body:has(#performance-panel:not(
 @media(max-width:620px){.story[open]{grid-template-columns:1fr;gap:0}.story-emblem{display:none}.story{padding:20px;width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)}}
 /* Public release keeps developer arrangements out of the player interface. */
 .store-release .demo-controls{display:none}
-.library-settings{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
-.library-settings #story-opening{grid-column:1/-1}
-.library-settings a{display:flex;align-items:center;justify-content:center;min-height:44px;color:#efd3a0;text-align:center;text-decoration:underline}
+.library-settings{display:grid;grid-template-columns:1fr;gap:8px;margin:18px 0}
+.about-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
+.about-links a{display:flex;align-items:center;justify-content:center;min-height:44px;color:#efd3a0;text-align:center;text-decoration:underline}

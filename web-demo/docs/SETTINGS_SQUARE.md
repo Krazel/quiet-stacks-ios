@@ -44,3 +44,16 @@ comparación visual específica, no realizada por petición del usuario.
 Validación: seis pruebas existentes aprobadas, empaquetado web y cuatro pruebas
 de interfaz con archivos reales, sin excepciones y con los dos enlaces presentes.
 Evidencias: artifacts/settings-cleanup-20260923/.
+
+## Acerca de / About
+
+Petición aprobada: agrupar soporte y privacidad detrás de un único acceso.
+Settings ahora muestra About, conservando el idioma inglés del producto.
+El diálogo About Quiet Stacks reúne los dos enlaces y los créditos completos
+de música/sonidos. Al cerrarlo o pulsar Escape se vuelve a Settings y a su botón
+About; los ajustes y la partida se conservan. Performance test sigue fuera del menú.
+
+Empaquetado web y comprobaciones de interfaz iPhone (ambos lados), iPad y PC.
+Se comprueba apertura, retorno/foco, enlaces y créditos, icono persistente,
+partida intacta y ausencia de errores JavaScript. Capturas web y recibo en
+artifacts/settings-about-20260923/. Sin cambios gráficos ni subida de build.

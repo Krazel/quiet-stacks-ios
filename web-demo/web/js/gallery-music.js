@@ -61,6 +61,10 @@
   document.addEventListener('keydown',interact);
   $('music-open').onclick=()=>{panel.showModal();interact();};
   $('music-close').onclick=()=>panel.close();
+  const about=$('about-panel');
+  $('about-open').onclick=()=>about.showModal();
+  $('about-close').onclick=()=>about.close();
+  about.addEventListener('keydown',event=>event.stopPropagation());
   panel.addEventListener('keydown',event=>event.stopPropagation());
   $('music-mute').onclick=()=>{settings.muted=!settings.muted;save();if(settings.muted){pause();status.textContent='Music muted.';}else interact();};
   $('effects-volume').oninput=event=>{settings.effects=Number(event.target.value)/100;save();if(!settings.effects)while(voices.length)voices.shift().stop();interact();};

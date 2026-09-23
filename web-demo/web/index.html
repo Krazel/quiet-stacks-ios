@@ -32,7 +32,14 @@
 <label for="music-volume">Music volume</label><input id="music-volume" type="range" min="0" max="100" step="1">
 <button id="music-mute" aria-pressed="false">Mute</button><p id="music-status" role="status">Music starts when you interact with the library.</p>
 <label for="effects-volume">Book sounds · 0 is silent</label><input id="effects-volume" type="range" min="0" max="100" step="1">
-<div class="library-settings"><button id="story-opening">Read Alden’s letter</button><a href="https://krazel.github.io/quiet-stacks/support/">Help &amp; support</a><a href="https://krazel.github.io/quiet-stacks/privacy/">Privacy policy</a></div>
+<div class="library-settings"><button id="story-opening">Read Alden’s letter</button><button id="about-open" type="button" aria-haspopup="dialog" aria-controls="about-panel">About</button></div>
+</dialog>
+<dialog id="about-panel" class="panel music-panel" aria-labelledby="about-title">
+<button id="about-close" class="inspect-close" type="button" aria-label="Back to Settings">×</button>
+<h2 id="about-title">About Quiet Stacks</h2>
+<p>A game by Krazel Games.</p>
+<div class="about-links"><a href="https://krazel.github.io/quiet-stacks/support/">Help &amp; support</a><a href="https://krazel.github.io/quiet-stacks/privacy/">Privacy policy</a></div>
+<h3>Credits</h3>
 <p>“Meditation Impromptu 01” — Kevin MacLeod (https://incompetech.com/).</p>
 <p>CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).</p>
 <p>Book sounds by Kenney (RPG Audio, Impact Sounds and Interface Sounds), CC0.</p>
