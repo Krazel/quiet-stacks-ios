@@ -70,7 +70,8 @@
         const nativeEnd=await nativeContext();if(active&&epoch===id)finish('complete',nativeEnd);
       }catch(error){if(active&&epoch===id){result.failure=String(error.message||error).slice(0,200);finish('failed',null);}}
     }
-    $('performance-open').onclick=()=>{if(active)return;$('music-panel')?.close?.();$('demo-actions').hidden=true;$('inspection').hidden=true;display();};
+    const openButton=$('performance-open');
+    if(openButton)openButton.onclick=()=>{if(active)return;$('music-panel')?.close?.();$('demo-actions').hidden=true;$('inspection').hidden=true;display();};
     $('performance-close').onclick=()=>{$('performance-panel').hidden=true;};
     $('performance-start').onclick=()=>start('automatic');$('performance-manual').onclick=()=>start('manual');$('performance-cancel').onclick=()=>cancel();
     $('performance-copy').onclick=async()=>{
