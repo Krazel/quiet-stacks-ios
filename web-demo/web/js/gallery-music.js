@@ -26,7 +26,6 @@
     $('music-mute').setAttribute('aria-pressed',String(settings.muted));
     $('music-volume').value=String(Math.round(settings.volume*100));
     $('effects-volume').value=String(Math.round(settings.effects*100));
-    $('music-open').textContent='Settings';
   }
   function save(){try{localStorage.setItem(KEY,JSON.stringify(settings));}catch{}display();}
   function level(fade){if(!gain)return;const now=context.currentTime;gain.gain.cancelScheduledValues(now);gain.gain.setValueAtTime(fade?0:gain.gain.value,now);gain.gain.linearRampToValueAtTime(settings.volume,now+(fade?2:.12));}

@@ -75,11 +75,16 @@ footer{left:calc(18px + var(--safe-left));right:calc(18px + var(--safe-right));b
 }
 
 .placement-feedback{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
-.music-open{position:fixed;z-index:5;top:calc(12px + var(--safe-top));right:calc(104px + var(--safe-right));font-size:12px;min-height:36px;padding:7px 12px}
+.music-open{position:fixed;z-index:5;top:calc(8px + var(--safe-top));right:calc(8px + var(--safe-right));width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center;background:none;border:0;border-radius:0;box-shadow:none;color:#edcb88;touch-action:manipulation}
+.music-open .settings-face{display:grid;place-items:center;width:32px;height:32px;background:linear-gradient(145deg,#44331e,#1b1710);border:1px solid #c39957;border-radius:4px;box-shadow:0 1px 2px #080500c0,inset 0 0 0 2px #251e14}
+.music-open svg{width:22px;height:22px;filter:drop-shadow(0 1px 1px #000) drop-shadow(0 0 2px #130c05)}
+.music-open:hover{background:none;color:#ffe2a5}
+.music-open:focus-visible{outline:2px solid #fff0b9;outline-offset:2px;border-radius:8px}
+body:not(.store-release) .demo-controls{right:calc(60px + var(--safe-right))}
 .music-panel{margin:auto;color:#f3e6ca;width:min(430px,calc(100vw - var(--safe-left) - var(--safe-right) - 32px));max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px);padding:24px;overflow:auto;touch-action:pan-y;font-size:13px;overflow-wrap:anywhere}
 .music-panel::backdrop{background:#0b0805b0}.music-panel h2{margin-top:0}.music-panel input{display:block;width:100%;margin:14px 0;touch-action:pan-x}.music-panel p{line-height:1.5}.music-panel .inspect-close{float:right}
 body:has(#inspection:not([hidden])) .music-open,body:has(#performance-panel:not([hidden])) .music-open{visibility:hidden}
-@media(max-height:500px),(max-width:600px){.music-open{top:calc(8px + var(--safe-top));right:calc(94px + var(--safe-right))}.music-panel{padding:16px}}
+@media(max-height:500px),(max-width:600px){.music-panel{padding:16px}}
 
 /* The letter and appointment are brief, readable scenes, outside the playfield. */
 .story{width:min(780px,calc(100vw - var(--safe-left) - var(--safe-right) - 40px));max-width:none;max-height:calc(100dvh - var(--safe-top) - var(--safe-bottom) - 28px);margin:auto;padding:32px;border:2px solid #b58a48;border-radius:8px;background:linear-gradient(130deg,#30231a,#181412 72%);color:#f3e6ca;box-shadow:inset 0 0 0 5px #17130f,inset 0 0 0 6px #71502e,0 15px 65px #000a;overflow:auto;touch-action:pan-y}
@@ -90,6 +95,5 @@ body:has(#inspection:not([hidden])) .music-open,body:has(#performance-panel:not(
 @media(max-width:620px){.story[open]{grid-template-columns:1fr;gap:0}.story-emblem{display:none}.story{padding:20px;width:calc(100vw - var(--safe-left) - var(--safe-right) - 24px)}}
 /* Public release keeps developer arrangements out of the player interface. */
 .store-release .demo-controls{display:none}
-.store-release .music-open{right:calc(12px + var(--safe-right));min-height:44px}
 .library-settings{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}
 .library-settings a{display:flex;align-items:center;justify-content:center;min-height:44px;color:#efd3a0;text-align:center;text-decoration:underline}
