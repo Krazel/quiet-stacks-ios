@@ -62,3 +62,20 @@ artifacts/settings-about-20260923/. Sin cambios gráficos ni subida de build.
 
 The approved Settings/About changes are now delivered as 1.0.1 (1), internal
 TestFlight and App Store candidate, without review submission. See RELEASE_101.md.
+
+## Ajuste de posición y controles temporales · 2026-09-23
+
+Icono desplazado 4 px a la derecha: margen 4 px + safe area. Objetivo táctil
+44×44 px conservado. El menú Demo vuelve temporalmente con Sort all y Scatter all,
+reutilizando los manejadores existentes; Preview ending permanece oculto.
+Para retirar los controles, quitar únicamente temporary-demo de la clase de body.
+No se modifica el modelo, catálogo, guardado, audio ni render. Ordenar/desordenar
+actualiza la distribución guardada por petición del usuario, sin perder libros.
+
+35 pruebas existentes aprobadas y 4 verificaciones de navegador (iPhone con cámara
+a cada lado, iPad, PC): ordenación de 1119 tomos a sus slots, dispersión completa,
+Settings/About, objetivo táctil y ausencia de solapamiento. Capturas revisadas
+de iPhone e iPad en artifacts/settings-position-demo-20260923/.
+Cambio local preparado para futura build; TestFlight/App Store mantienen 1.0.1 (1).
+La QA nativa de capturas de tienda exige Demo oculto: al preparar la siguiente
+build hay que distinguir esta herramienta temporal de la entrega definitiva.
