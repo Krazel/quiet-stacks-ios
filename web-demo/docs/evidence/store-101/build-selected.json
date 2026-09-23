@@ -1,0 +1,15 @@
+{
+  "at": "2026-09-23T14:32:15.478Z",
+  "version": "1.0.1",
+  "build": 1,
+  "buildId": "0fe48d49-b667-4252-84a0-2a0d69d0bc04",
+  "versionId": "0d38f274-c8f1-4560-8d6e-62db8ebeb33c",
+  "beta": {
+    "autoNotifyEnabled": true,
+    "internalBuildState": "IN_BETA_TESTING",
+    "externalBuildState": "READY_FOR_BETA_SUBMISSION"
+  },
+  "group": "2de05410-3476-48a4-b3b9-b8d3a56d6cfb",
+  "notes": "A compact square Settings icon now sits in the top-right corner. Support, privacy and credits are grouped under About. The performance test is removed from the player menu. All existing saved progress, artwork, book rendering, trolley exchanges and softened floor sounds are preserved.",
+  "reviewSubmitted": false
+}

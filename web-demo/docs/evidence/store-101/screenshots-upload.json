@@ -1,0 +1,74 @@
+[
+  {
+    "file": "iphone-gallery-settings101.png",
+    "localFile": "iphone-gallery.png",
+    "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
+    "id": "b859d1db-5cd7-4626-911a-a0bd7ea368d7",
+    "md5": "cd662140bf7f080d374cd25cf02e3b28",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "iphone-collections-settings101.png",
+    "localFile": "iphone-collections.png",
+    "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
+    "id": "573bffe5-a78f-4e48-8c6b-3ff00ce3ee63",
+    "md5": "5d8aec24bd8f7a507365e3eb20d68e27",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "iphone-trolley-settings101.png",
+    "localFile": "iphone-trolley.png",
+    "setId": "4e24b90a-6114-4e85-b8f6-fa03814e485d",
+    "id": "e3d76886-d279-4ba3-89f5-11a3ddd860ed",
+    "md5": "2b343362249ea039366f5d69ad6c0e49",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "ipad-gallery-settings101.png",
+    "localFile": "ipad-gallery.png",
+    "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
+    "id": "aad7fbd6-70ca-441c-8d03-75565aaff9c7",
+    "md5": "e4441f016a3617b92313180061d5e20d",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "ipad-collections-settings101.png",
+    "localFile": "ipad-collections.png",
+    "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
+    "id": "23add9b4-5aca-4db1-ac80-e9cd0cd8ba36",
+    "md5": "daf6c0d24c7923e222d3902ed1e01063",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  },
+  {
+    "file": "ipad-trolley-settings101.png",
+    "localFile": "ipad-trolley.png",
+    "setId": "371d18f1-d4a4-4f71-af61-715e15825290",
+    "id": "55dd8059-302a-45f1-92ca-e4524b2c78c5",
+    "md5": "b4a30d482db0a86ce0c728ef83879f19",
+    "state": {
+      "errors": [],
+      "warnings": null,
+      "state": "COMPLETE"
+    }
+  }
+]

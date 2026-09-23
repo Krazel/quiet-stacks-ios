@@ -1,0 +1,17 @@
+{
+  "version": "1.0.1",
+  "build": 1,
+  "commit": "9770c28b90d63681f81c6952279942c975f35193",
+  "run": "35873837845",
+  "sha256": "82cad51be75947565885e72302bc35558e4dd72f74333261262151f42a182090",
+  "deviceIPA": true,
+  "offlineFilesVerified": 44,
+  "windowsLineEndingDifferences": [
+    "index.html",
+    "gallery.css",
+    "js/gallery-textures.js",
+    "js/gallery-diagnostics.js"
+  ],
+  "simulatorCodeExcluded": true,
+  "aboutAndSettingsVerified": true
+}

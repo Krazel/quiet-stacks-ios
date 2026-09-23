@@ -1,0 +1,14 @@
+{
+  "reviewedAt": "2026-09-23T14:27:44.866Z",
+  "version": "1.0.1",
+  "qaRun": "35869749898",
+  "reviewed": [
+    "iphone-gallery.png",
+    "iphone-collections.png",
+    "iphone-trolley.png",
+    "ipad-gallery.png",
+    "ipad-collections.png",
+    "ipad-trolley.png"
+  ],
+  "result": "All six native captures visually reviewed: new square Settings icon, readable framing, original collection and trolley assets; no compositing or scaling."
+}

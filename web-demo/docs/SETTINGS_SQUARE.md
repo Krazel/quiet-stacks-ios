@@ -57,3 +57,8 @@ Empaquetado web y comprobaciones de interfaz iPhone (ambos lados), iPad y PC.
 Se comprueba apertura, retorno/foco, enlaces y créditos, icono persistente,
 partida intacta y ausencia de errores JavaScript. Capturas web y recibo en
 artifacts/settings-about-20260923/. Sin cambios gráficos ni subida de build.
+
+## Delivery
+
+The approved Settings/About changes are now delivered as 1.0.1 (1), internal
+TestFlight and App Store candidate, without review submission. See RELEASE_101.md.
