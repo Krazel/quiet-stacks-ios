@@ -54,7 +54,7 @@
     async function start(requestedMode){
       if(active||!adapter.ready())return;
       mode=requestedMode;active=true;const id=++epoch;started=now();completed.length=0;dropCases.length=0;inputAt=null;
-      result={type:'quiet-stacks-performance',schema:1,version:'1.0',build:'1',mode,createdAt:new Date().toISOString(),environment:adapter.environment(),
+      result={type:'quiet-stacks-performance',schema:1,version:'1.0.1',build:'1',mode,createdAt:new Date().toISOString(),environment:adapter.environment(),
         timingNotes:'Render timings and render FPS measure main-thread draw submissions, not GPU presentation. framesOver33ms/50ms count slow draw submissions; renderIntervalsOver33ms/50ms count gaps between submissions, including scheduling delays. Graphics identifies WebGL or the Canvas fallback; graphicsAtEnd is sampled separately for each stage. textureMiB estimates uploaded RGBA textures, not total process memory. Render FPS during idle is expected to be zero. Automatic drag animates a book without touch events; input latency requires a manual recording. Input latency starts when the JS listener receives an event. WebContent process memory is unavailable through the public bridge. No saved layout or book identities are included.'};
       $('performance-panel').hidden=true;$('performance-running').hidden=false;$('performance-phase').textContent='Preparing test…';$('performance-copy').disabled=true;$('performance-share').disabled=true;
       try{
