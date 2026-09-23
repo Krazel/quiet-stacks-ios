@@ -1,0 +1,64 @@
+name: Quiet Stacks 1.0.1 validated upload
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: quiet-stacks-testflight
+  cancel-in-progress: false
+jobs:
+  upload:
+    if: github.actor == github.repository_owner && github.ref == 'refs/heads/main'
+    runs-on: macos-26
+    environment: app-store-production
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: web-demo
+    env:
+      CANDIDATE_COMMIT: 9770c28b90d63681f81c6952279942c975f35193
+      QUIET_STACKS_DISTRIBUTION: testflight
+      ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+      ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+      ASC_PRIVATE_KEY_BASE64: ${{ secrets.ASC_PRIVATE_KEY_BASE64 }}
+      IOS_DISTRIBUTION_P12_BASE64: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
+      IOS_DISTRIBUTION_P12_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_P12_PASSWORD }}
+      IOS_APP_STORE_PROFILE_BASE64: ${{ secrets.IOS_APP_STORE_PROFILE_BASE64 }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: 9770c28b90d63681f81c6952279942c975f35193
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: QuietStacks-1.0.1-native-QA
+          run-id: 35869749898
+          github-token: ${{ github.token }}
+          path: web-demo/artifacts/validated-native
+      - name: Verify complete native evidence from the exact candidate
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';import assert from 'node:assert/strict';
+          const root='artifacts/validated-native/',read=f=>JSON.parse(fs.readFileSync(root+f));
+          const manifest=read('store/manifest.json');assert.equal(manifest.commit,process.env.CANDIDATE_COMMIT);assert.equal(manifest.run,'35869749898');assert.equal(manifest.version,'1.0.1');assert.equal(manifest.screenshots.length,6);
+          assert(read('asset-path.json').passed);const launch=read('launch.json');assert(launch.nativeReady&&launch.sorted&&launch.scattered);assert.equal(launch.saved.books.length,1119);assert.deepEqual(launch.errors,[]);assert.equal(launch.processTerminations,0);
+          assert(read('relaunch.json').restored);const state=read('restored-state.json');assert.deepEqual(state.actual,state.expected);assert(read('performance-save.json').preserved);
+          const perf=read('performance-report.json');assert(perf.copyVerified);assert.equal(perf.report.status,'complete');assert.equal(perf.report.stages.length,6);assert.equal(perf.report.environment.graphics.backend,'webgl');assert.equal(perf.report.environment.graphics.contextLost,false);
+          for(const device of ['iphone','ipad'])for(const view of ['details','summary','opening','ending']){const ui=read(device+'-'+view+'.json');assert(ui.width>0&&ui.height>0);assert(fs.statSync(root+device+'-'+view+'.png').size>1000);}
+          for(const shot of manifest.screenshots){assert(shot.probe.ready&&shot.probe.demoHidden);assert.equal(shot.probe.books,1119);assert.deepEqual(shot.placement,{shelf:5,cart:4,floor:1110});assert.deepEqual(shot.probe.settingsChecks,{settingsOpen:true,aboutOpen:true,returnsToSettings:true,icon:true,noPerformance:true,settingsLinks:0,aboutLinks:2});assert(fs.statSync(root+'store/'+shot.file).size>1000);}
+          fs.mkdirSync('artifacts/testflight',{recursive:true});fs.writeFileSync('artifacts/testflight/native-evidence.json',JSON.stringify({candidate:manifest.commit,qaRun:manifest.run,completeNativeEvidence:true,sourceRunTimedOutAfterCapture:true},null,2));console.log('All native evidence verified against the immutable candidate.');
+          NODE
+      - run: npm test
+      - name: Sign validate and upload the verified candidate
+        run: GITHUB_SHA="$CANDIDATE_COMMIT" node scripts/build-testflight.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QuietStacks-1.0.1-build1-TestFlight
+          path: web-demo/artifacts/testflight/
+          if-no-files-found: ignore
+          retention-days: 7
