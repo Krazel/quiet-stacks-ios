@@ -1,0 +1,699 @@
+{
+  "commit": "94fab7999c67b3a8589b3a1e68cd6649b8d610b2",
+  "device": "iPhone 16 Pro",
+  "runtime": "com.apple.CoreSimulator.SimRuntime.iOS-18-5",
+  "physicalDevice": false,
+  "physicalVolumeButtons": false,
+  "results": [
+    {
+      "label": "high",
+      "cold": {
+        "label": "high",
+        "initial": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 3.7546666666666666,
+          "background": false,
+          "musicGain": 0.800000011920929,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 3.2239644940000343,
+          "musicReady": true
+        },
+        "restore": false,
+        "settings": {
+          "muted": false,
+          "volume": 0.8,
+          "effects": 0.7
+        },
+        "phase": "cold",
+        "type": "audio-probe",
+        "snapshot": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 4.096,
+          "background": false,
+          "musicGain": 0.800000011920929,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 3.5674208276666954,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "musicPeak": 0.04175467789173126,
+        "appVersion": "1.0.1",
+        "effectsPeak": 0.03865030035376549,
+        "counters": {
+          "plays": 1,
+          "contexts": 1,
+          "voices": 1
+        },
+        "build": "1"
+      },
+      "resumed": {
+        "backgroundSnapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 6.709333333333333,
+          "background": true,
+          "musicGain": 0.800000011920929,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 6.175550827999956,
+          "musicReady": true
+        },
+        "phase": "resumed",
+        "counters": {
+          "plays": 2,
+          "contexts": 1,
+          "voices": 1
+        },
+        "appVersion": "1.0.1",
+        "build": "1",
+        "snapshot": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 7.8933333333333335,
+          "background": false,
+          "musicGain": 0.4735912084579468,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 6.971270071666675,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "label": "high",
+        "type": "audio-probe",
+        "first": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 7.498666666666667,
+          "background": false,
+          "musicGain": 0.31572458148002625,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 6.575517202333308,
+          "musicReady": true
+        },
+        "backgroundSeen": true
+      }
+    },
+    {
+      "label": "low",
+      "cold": {
+        "label": "low",
+        "initial": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.03,
+            "effects": 0.02
+          },
+          "unlocked": true,
+          "contextTime": 3.7653333333333334,
+          "background": false,
+          "musicGain": 0.029999999329447746,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 3.3259340006666958,
+          "musicReady": true
+        },
+        "restore": false,
+        "settings": {
+          "muted": false,
+          "volume": 0.03,
+          "effects": 0.02
+        },
+        "phase": "cold",
+        "type": "audio-probe",
+        "snapshot": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.03,
+            "effects": 0.02
+          },
+          "unlocked": true,
+          "contextTime": 4.1066666666666665,
+          "background": false,
+          "musicGain": 0.029999999329447746,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 3.6742017509999925,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "musicPeak": 0.001566046616062522,
+        "appVersion": "1.0.1",
+        "effectsPeak": 0.0012385665904730558,
+        "counters": {
+          "plays": 1,
+          "contexts": 1,
+          "voices": 1
+        },
+        "build": "1"
+      },
+      "resumed": {
+        "backgroundSnapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.03,
+            "effects": 0.02
+          },
+          "unlocked": true,
+          "contextTime": 6.133333333333334,
+          "background": true,
+          "musicGain": 0.029999999329447746,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 5.694692586000011,
+          "musicReady": true
+        },
+        "phase": "resumed",
+        "counters": {
+          "plays": 2,
+          "contexts": 1,
+          "voices": 1
+        },
+        "appVersion": "1.0.1",
+        "build": "1",
+        "snapshot": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.03,
+            "effects": 0.02
+          },
+          "unlocked": true,
+          "contextTime": 7.317333333333333,
+          "background": false,
+          "musicGain": 0.01775968074798584,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 6.402431064999981,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "label": "low",
+        "type": "audio-probe",
+        "first": {
+          "paused": false,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0.03,
+            "effects": 0.02
+          },
+          "unlocked": true,
+          "contextTime": 6.922666666666666,
+          "background": false,
+          "musicGain": 0.011839683167636395,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 6.016244377666636,
+          "musicReady": true
+        },
+        "backgroundSeen": true
+      }
+    },
+    {
+      "label": "muted",
+      "cold": {
+        "label": "muted",
+        "initial": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": true,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 3.744,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "restore": false,
+        "settings": {
+          "muted": true,
+          "volume": 0.8,
+          "effects": 0.7
+        },
+        "phase": "cold",
+        "type": "audio-probe",
+        "snapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": true,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 4.096,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "musicPeak": 0,
+        "appVersion": "1.0.1",
+        "effectsPeak": 0.02607131376862526,
+        "counters": {
+          "plays": 0,
+          "contexts": 1,
+          "voices": 1
+        },
+        "build": "1"
+      },
+      "resumed": {
+        "backgroundSnapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": true,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 8.554666666666666,
+          "background": true,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "phase": "resumed",
+        "counters": {
+          "plays": 0,
+          "contexts": 1,
+          "voices": 1
+        },
+        "appVersion": "1.0.1",
+        "build": "1",
+        "snapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": true,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 9.728,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "label": "muted",
+        "type": "audio-probe",
+        "first": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": true,
+            "volume": 0.8,
+            "effects": 0.7
+          },
+          "unlocked": true,
+          "contextTime": 9.322666666666667,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "backgroundSeen": true
+      }
+    },
+    {
+      "label": "zero",
+      "cold": {
+        "label": "zero",
+        "initial": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 3.744,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "restore": false,
+        "settings": {
+          "muted": false,
+          "volume": 0,
+          "effects": 0
+        },
+        "phase": "cold",
+        "type": "audio-probe",
+        "snapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 4.085333333333334,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "musicPeak": 0,
+        "appVersion": "1.0.1",
+        "effectsPeak": 0,
+        "counters": {
+          "plays": 0,
+          "contexts": 1,
+          "voices": 0
+        },
+        "build": "1"
+      },
+      "resumed": {
+        "backgroundSnapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 7.317333333333333,
+          "background": true,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "phase": "resumed",
+        "counters": {
+          "plays": 0,
+          "contexts": 1,
+          "voices": 0
+        },
+        "appVersion": "1.0.1",
+        "build": "1",
+        "snapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 8.501333333333333,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "label": "zero",
+        "type": "audio-probe",
+        "first": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 8.096,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "backgroundSeen": true
+      }
+    },
+    {
+      "label": "restore",
+      "cold": {
+        "label": "restore",
+        "initial": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 3.7866666666666666,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "restore": true,
+        "settings": {
+          "muted": false,
+          "volume": 0.8,
+          "effects": 0.7
+        },
+        "phase": "cold",
+        "type": "audio-probe",
+        "snapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 4.128,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "musicPeak": 0,
+        "appVersion": "1.0.1",
+        "effectsPeak": 0,
+        "counters": {
+          "plays": 0,
+          "contexts": 1,
+          "voices": 0
+        },
+        "build": "1"
+      },
+      "resumed": {
+        "backgroundSnapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 6.272,
+          "background": true,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "phase": "resumed",
+        "counters": {
+          "plays": 0,
+          "contexts": 1,
+          "voices": 0
+        },
+        "appVersion": "1.0.1",
+        "build": "1",
+        "snapshot": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 7.456,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "iOS": "18.5",
+        "label": "restore",
+        "type": "audio-probe",
+        "first": {
+          "paused": true,
+          "queued": 0,
+          "native": true,
+          "pendingPlay": false,
+          "context": "running",
+          "settings": {
+            "muted": false,
+            "volume": 0,
+            "effects": 0
+          },
+          "unlocked": true,
+          "contextTime": 7.050666666666666,
+          "background": false,
+          "musicGain": 0,
+          "voices": 0,
+          "buffers": 9,
+          "musicTime": 0,
+          "musicReady": true
+        },
+        "backgroundSeen": true
+      }
+    }
+  ]
+}

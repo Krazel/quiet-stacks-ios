@@ -1,0 +1,142 @@
+{
+  "browser": "Chromium with real audio decoding and touch emulation",
+  "physicalVolumeButtons": false,
+  "results": [
+    {
+      "name": "high",
+      "touch": true,
+      "initial": {
+        "native": false,
+        "unlocked": true,
+        "background": false,
+        "context": "running",
+        "contextTime": 3,
+        "musicReady": true,
+        "paused": false,
+        "musicTime": 3.001179,
+        "pendingPlay": false,
+        "buffers": 9,
+        "voices": 0,
+        "queued": 0,
+        "settings": {
+          "muted": false,
+          "volume": 0.8,
+          "effects": 0.7
+        },
+        "musicGain": 0.800000011920929
+      },
+      "effects": {
+        "starts": 1,
+        "peak": 0.05153331160545349
+      },
+      "background": true,
+      "foreground": true,
+      "reopen": true,
+      "internalSlider": true,
+      "errors": []
+    },
+    {
+      "name": "low",
+      "touch": true,
+      "initial": {
+        "native": false,
+        "unlocked": true,
+        "background": false,
+        "context": "running",
+        "contextTime": 3,
+        "musicReady": true,
+        "paused": false,
+        "musicTime": 3.001179,
+        "pendingPlay": false,
+        "buffers": 9,
+        "voices": 0,
+        "queued": 0,
+        "settings": {
+          "muted": false,
+          "volume": 0.03,
+          "effects": 0.02
+        },
+        "musicGain": 0.029999999329447746
+      },
+      "effects": {
+        "starts": 1,
+        "peak": 0.0015693590976297855
+      },
+      "background": true,
+      "foreground": true,
+      "reopen": true,
+      "internalSlider": true,
+      "errors": []
+    },
+    {
+      "name": "muted",
+      "touch": false,
+      "initial": {
+        "native": false,
+        "unlocked": true,
+        "background": false,
+        "context": "running",
+        "contextTime": 0,
+        "musicReady": true,
+        "paused": true,
+        "musicTime": 0,
+        "pendingPlay": false,
+        "buffers": 9,
+        "voices": 0,
+        "queued": 0,
+        "settings": {
+          "muted": true,
+          "volume": 0.8,
+          "effects": 0.7
+        },
+        "musicGain": 0
+      },
+      "effects": {
+        "starts": 1,
+        "peak": 0.026073608547449112
+      },
+      "background": true,
+      "foreground": true,
+      "reopen": true,
+      "internalSlider": true,
+      "errors": []
+    },
+    {
+      "name": "zero",
+      "touch": false,
+      "initial": {
+        "native": false,
+        "unlocked": true,
+        "background": false,
+        "context": "running",
+        "contextTime": 0,
+        "musicReady": true,
+        "paused": true,
+        "musicTime": 0,
+        "pendingPlay": false,
+        "buffers": 9,
+        "voices": 0,
+        "queued": 0,
+        "settings": {
+          "muted": false,
+          "volume": 0,
+          "effects": 0
+        },
+        "musicGain": 0
+      },
+      "effects": {
+        "starts": 0,
+        "peak": 0
+      },
+      "background": true,
+      "foreground": true,
+      "reopen": true,
+      "internalSlider": true,
+      "errors": []
+    },
+    {
+      "name": "interrupted-pending-media",
+      "restoredWithoutAnotherGesture": true
+    }
+  ]
+}
