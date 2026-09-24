@@ -125,7 +125,7 @@
     if(perfMeasuring){const end=performance.now();profiler.frame({total:end-perfStart,room:perfRoomEnd-perfStart,books:end-perfRoomEnd,count:perfBookCount});}perfMeasuring=false;
     window.__galleryRenderedFrames=(window.__galleryRenderedFrames||0)+1;
     if(motionActive)requestDraw();
-    if(window.__galleryRenderedFrames===1){if(window.GalleryDiagnostics)GalleryDiagnostics.ready();else window.webkit?.messageHandlers?.galleryStatus?.postMessage('ready');}
+    if(window.__galleryRenderedFrames===1){window.GalleryAudio?.ready?.();if(window.GalleryDiagnostics)GalleryDiagnostics.ready();else window.webkit?.messageHandlers?.galleryStatus?.postMessage('ready');}
   }
   const imageLoaded=()=>{loadedImages++;if(loadedImages<expectedImages)return;visualCache.clear();room=GalleryRoom.compose(background);if(gpu&&packed)gpu.warm([...(roomTiles?roomTiles.map(t=>t.image):[room,nameplateImage]),...packedImages]);ready=true;$('loading').hidden=true;resize();if(!restored&&width<600)camera().zoom=Math.max(1.12,(height*.7)/(H*base));constrain();update();story?.boot();};
   const imageError=(error)=>{window.GalleryDiagnostics?.report('asset-error',{message:error?.message||error?.name||'Image did not load',asset:error?.target?.assetFile||error?.target?.src});console.error("Gallery asset error",error?.name||"ImageError",error?.message||error?.target?.src||"Unknown image error");$('loading').querySelector('h2').textContent='The gallery could not load.';$('loading').querySelector('p').textContent='Please try loading the room again.';$('retry').hidden=false;};
@@ -215,3 +215,4 @@
   $('retry').onclick=loadAssets;loadAssets();
   if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);window.addEventListener('pageshow',requestDraw);window.addEventListener('resize',resize);window.addEventListener('pagehide',()=>{try{localStorage.setItem(KEY,JSON.stringify(model.state));}catch{}});resize();update();requestDraw();
 })();
+

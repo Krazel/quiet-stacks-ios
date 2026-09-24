@@ -49,6 +49,8 @@
     self.view.backgroundColor = [UIColor colorWithRed:23/255.0 green:18/255.0 blue:14/255.0 alpha:1];
     WKWebViewConfiguration *configuration = [WKWebViewConfiguration new];
     configuration.ignoresViewportScaleLimits = NO;
+    // Bundled audio follows saved controls when the gallery is ready; web builds require a gesture.
+    configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
     GalleryAssets *assets=[GalleryAssets new];
     __weak GalleryController *weakController=self;
     assets.failureReporter=^(NSDictionary *details){[weakController failWithKind:@"bundled-resource-error" details:details];};
@@ -59,6 +61,16 @@
     if(!failureBridge)failureBridge=@"window.webkit.messageHandlers.galleryStatus.postMessage({type:'diagnostic',kind:'resource-error',asset:'js/gallery-diagnostics.js',message:'Diagnostic bridge missing from app bundle'});";
     [configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:failureBridge injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
 #if TARGET_OS_SIMULATOR
+    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-audio-smoke"]){
+        NSArray *arguments=NSProcessInfo.processInfo.arguments;NSString *label=@"high",*settings=@"{muted:false,volume:0.8,effects:0.7}";
+        if([arguments containsObject:@"--audio-low"]){label=@"low";settings=@"{muted:false,volume:0.03,effects:0.02}";}
+        if([arguments containsObject:@"--audio-muted"]){label=@"muted";settings=@"{muted:true,volume:0.8,effects:0.7}";}
+        if([arguments containsObject:@"--audio-zero"]){label=@"zero";settings=@"{muted:false,volume:0,effects:0}";}
+        BOOL restore=[arguments containsObject:@"--audio-restore"];if(restore)label=@"restore";
+        NSString *probe=[NSString stringWithContentsOfFile:[NSBundle.mainBundle.resourcePath stringByAppendingPathComponent:@"web/audio-native-probe.js"] encoding:NSUTF8StringEncoding error:nil];
+        probe=[[[probe stringByReplacingOccurrencesOfString:@"__AUDIO_CASE__" withString:label] stringByReplacingOccurrencesOfString:@"__AUDIO_SETTINGS__" withString:settings] stringByReplacingOccurrencesOfString:@"__AUDIO_RESTORE__" withString:restore?@"true":@"false"];
+        if(probe)[configuration.userContentController addUserScript:[[WKUserScript alloc] initWithSource:probe injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES]];
+    }
     if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-store-shot"]){
         NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
         NSData *seed=[NSData dataWithContentsOfFile:[documents stringByAppendingPathComponent:@"gallery-store-seed.json"]];
@@ -152,6 +164,11 @@
 - (void)userContentController:(WKUserContentController *)controller didReceiveScriptMessage:(WKScriptMessage *)message {
     if(!message.frameInfo.isMainFrame)return;
 #if TARGET_OS_SIMULATOR
+    if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-audio-smoke"]&&[message.body isKindOfClass:NSDictionary.class]&&[message.body[@"type"] isEqual:@"audio-probe"]){
+        NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+        NSMutableDictionary *probe=[message.body mutableCopy];probe[@"appVersion"]=[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];probe[@"build"]=[NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];probe[@"iOS"]=UIDevice.currentDevice.systemVersion;
+        [[NSJSONSerialization dataWithJSONObject:probe options:NSJSONWritingPrettyPrinted error:nil] writeToFile:[documents stringByAppendingPathComponent:[NSString stringWithFormat:@"audio-%@-%@.json",message.body[@"label"],message.body[@"phase"]]] atomically:YES];return;
+    }
     if([NSProcessInfo.processInfo.arguments containsObject:@"--gallery-ui-smoke"]&&[message.body isKindOfClass:NSDictionary.class]&&[message.body[@"type"] isEqual:@"ui-probe"]){
         NSString *documents=NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
         NSMutableDictionary *probe=[message.body mutableCopy];

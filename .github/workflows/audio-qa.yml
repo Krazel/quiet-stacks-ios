@@ -1,0 +1,26 @@
+name: Quiet Stacks audio startup QA
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audio:
+    runs-on: macos-15
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web-demo
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node --test tests/audio-startup.test.cjs
+      - run: node scripts/simulator-audio-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QuietStacks-audio-native-QA
+          path: web-demo/artifacts/audio-native-qa/
+          retention-days: 7
