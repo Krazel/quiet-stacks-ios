@@ -6,7 +6,7 @@
   let settings={muted:false,volume:.28,effects:.65};
   try{const s=JSON.parse(localStorage.getItem(KEY));if(s){settings.muted=s.muted===true;for(const k of ['volume','effects'])if(Number.isFinite(s[k]))settings[k]=Math.max(0,Math.min(1,s[k]));}}catch{}
   const audio=new Audio();audio.preload='auto';audio.loop=false;
-  let context,gain,master,source,unlocked=false,background=false,pendingPlay=false,musicReady=false;
+  let context,gain,master,source,unlocked=false,background=false,pendingPlay=false,musicReady=false,playAttempt=0;
   const groups={pickup:['handleSmallLeather','handleSmallLeather2'],place:['bookPlace1','bookPlace2','bookPlace3'],floor:['bookCloseSoftL'],inspect:['bookFlip3','bookFlip2'],correct:['confirmation_001']};
   const buffers=new Map(),requests=new Map(),decoding=new Set(),last={},voices=[],queued=[];
   const status=$('music-status'),panel=$('music-panel');
@@ -29,14 +29,14 @@
   function display(){$('music-mute').textContent=settings.muted?'Unmute':'Mute';$('music-mute').setAttribute('aria-pressed',String(settings.muted));$('music-volume').value=String(Math.round(settings.volume*100));$('effects-volume').value=String(Math.round(settings.effects*100));}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(settings));}catch{}display();}
   function level(fade){if(!gain)return;const now=context.currentTime;gain.gain.cancelScheduledValues(now);gain.gain.setValueAtTime(fade?0:gain.gain.value,now);gain.gain.linearRampToValueAtTime(settings.volume,now+(fade?2:.12));}
-  function pause(){audio.pause();}
+  function pause(){playAttempt++;pendingPlay=false;audio.pause();}
   function stopEffects(){queued.length=0;while(voices.length)voices.shift().stop();}
   function suspend(){pause();stopEffects();if(context&&context.state!=='closed')context.suspend().catch(()=>{});}
   function play(){
     if(!allowed()||!musicReady||pendingPlay||!audio.paused||!context)return;
     // Never await loading/resume here: browsers require play() inside the gesture.
-    level(true);pendingPlay=true;
-    try{Promise.resolve(audio.play()).then(()=>{if(!allowed())pause();else status.textContent='Playing quietly in the library.';}).catch(()=>{status.textContent='Tap the library to enable sound.';}).finally(()=>{pendingPlay=false;});}catch{pendingPlay=false;status.textContent='Tap the library to enable sound.';}
+    level(true);pendingPlay=true;const attempt=++playAttempt;
+    try{Promise.resolve(audio.play()).then(()=>{if(attempt!==playAttempt)return;if(!allowed())pause();else status.textContent='Playing quietly in the library.';}).catch(()=>{if(attempt===playAttempt)status.textContent='Tap the library to enable sound.';}).finally(()=>{if(attempt===playAttempt)pendingPlay=false;});}catch{if(attempt===playAttempt){pendingPlay=false;status.textContent='Tap the library to enable sound.';}}
   }
   function interact(){
     unlocked=true;if(!visible())return;
