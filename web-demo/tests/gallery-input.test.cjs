@@ -1,11 +1,11 @@
 const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs'),path=require('node:path');
-function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacked=false){
+function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacked=false,safeBottom=0){
   const elements=new Map(),events=new Map(),timers=new Map(),data=new Map(initial),registered=new Map();let frame,live,clock=0;const signDraws=[],draws=[],rotations=[],texts=[],strokes=[];
   const ctx=new Proxy({strokeRect(...args){strokes.push(args);},fillText(text){texts.push(String(text));},rotate(angle){rotations.push(angle);},drawImage(...args){(args[0]?._src?.includes('nameplates')?signDraws:draws).push(args); }},{get:(o,k)=>o[k]??((...args)=>{for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n),'Non-finite canvas '+k);})});
   class Element{constructor(){this.listeners={};this.children=[];this.value='';this.textContent='';this.style={};this.classList={add(){},remove(){}};this.dataset={};this.tagName='CANVAS';this.clientWidth=width;this.clientHeight=height;this.sub=new Map();}getBoundingClientRect(){return {left:0,top:0,width,height};}getContext(){return ctx;}setPointerCapture(){}addEventListener(k,f){this.listeners[k]=f;}setAttribute(k,v){this[k]=v;}replaceChildren(){this.children=[];this.value='';}append(x){this.children.push(x);if(!this.value)this.value=x.value;}querySelector(k){if(!this.sub.has(k))this.sub.set(k,new Element());return this.sub.get(k);}click(){this.onclick?.();}showModal(){this.open=true;}close(){this.open=false;}}
   const get=id=>{if(!elements.has(id))elements.set(id,new Element());return elements.get(id);};
   const soundCalls=[];const sandbox={GalleryAudio:{effect:kind=>soundCalls.push(kind)},console,innerWidth:width,innerHeight:height,devicePixelRatio:2,Image:class{set src(v){this._src=v;this.onload?.();}},matchMedia:()=>({matches:false}),setTimeout:f=>{const id=timers.size+1;timers.set(id,f);return id;},clearTimeout:id=>timers.delete(id),requestAnimationFrame:f=>{frame=f;},localStorage:{getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},document:{getElementById:get,createElement:()=>new Element(),querySelectorAll:()=>[],querySelector:()=>null},navigator:{modelContext:{registerTool:t=>registered.set(t.name,t)}},addEventListener:(k,f)=>events.set(k,f)};
-  sandbox.GalleryShelfFit=require('../web/js/gallery-shelf-fit.js');
+  sandbox.getComputedStyle=()=>({paddingBottom:String(safeBottom)});sandbox.GalleryShelfFit=require('../web/js/gallery-shelf-fit.js');
   sandbox.GalleryExpanded=require('../web/js/gallery-expanded.js');sandbox.GalleryVolumes=require('../web/js/gallery-volumes.js');sandbox.GalleryRoom={volumeMarks:()=>({_src:'volume-marks',width:1024,height:48}),compose:image=>image,drawNameplates:require('../web/js/gallery-room.js').drawNameplates};sandbox.GalleryTextures={importAtlas};if(usePacked)sandbox.GalleryPacked=require('../web/js/gallery-packed.js');sandbox.window=sandbox;sandbox.GalleryLayout=require("../web/js/gallery-layout.js");vm.createContext(sandbox);vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery-model.js'),'utf8'),sandbox);
   const Base=sandbox.GalleryModel.Gallery;sandbox.GalleryModel.Gallery=class extends Base{constructor(){super();live=this;}};
   get('demo-actions').hidden=true;vm.runInContext(fs.readFileSync(path.join(__dirname,'../web/js/gallery.js'),'utf8'),sandbox);
@@ -14,9 +14,52 @@ function harness(width=1440,height=810,initial,importAtlas=image=>image,usePacke
   const tap=p=>{pointer('pointerdown',p);pointer('pointerup',p);};
   const tick=()=>{clock+=16.67;const next=frame;frame=null;next?.(clock);};
   // Legacy model-only mutations request a resize; input tests can use tick directly.
-  return {soundCalls,state,screen,pointer,tap,get,live,data,events,registered,signDraws,draws,rotations,texts,strokes,tick,slots:sandbox.GalleryModel.SLOTS,advance:()=>{events.get('resize')();for(let t=0;t<18;t++)tick();}};
+  return {interaction:()=>sandbox.__galleryInteraction,soundCalls,state,screen,pointer,tap,get,live,data,events,registered,signDraws,draws,rotations,texts,strokes,tick,slots:sandbox.GalleryModel.SLOTS,advance:()=>{events.get('resize')();for(let t=0;t<18;t++)tick();}};
 }
 
+
+test('preview is limited to shelves and cart; free-surface placement stays unchanged',()=>{
+ const {cartPoint,SERIES}=require('../web/js/gallery-model.js');
+ for(const size of [[1440,810],[812,375]])for(const mode of ['floor','desk','shelf','full','cart','edge']){
+  const t=harness(...size,undefined,undefined,true);t.live.demoArrange('sort');
+  t.live.move(524,'floor',-1,{x:870,y:250});
+  if(mode==='shelf')t.live.move(0,'floor',-1,{x:850,y:350});
+  if(mode==='cart')for(let id=0;id<12;id++)t.live.move(id,'cart');
+  const dest={floor:[870,350],desk:[830,646],shelf:[t.slots[0].x,t.slots[0].y-12],full:[t.slots[1].x,t.slots[1].y-12],cart:[cartPoint(5).x,cartPoint(5).y-5],edge:[2,2]}[mode];
+  t.advance();const before=t.state().books,end=mode==='edge'?[5,5]:t.screen(dest);
+  t.pointer('pointerdown',t.screen([870,240]));t.pointer('pointermove',end);t.tick();
+  const preview=t.interaction().dropPreview;if(!preview){assert.ok(['floor','desk','full','edge'].includes(mode));assert.deepEqual(t.state().books,before);t.pointer('pointerup',end);t.tick();assert.equal(t.live.book(524).place,'floor');continue;}assert.ok(['shelf','cart','full','edge'].includes(mode));assert.equal(preview.id,524);assert.deepEqual(t.state().books,before);
+  assert.ok(t.draws.some(d=>d.length===9&&d.slice(5).every((v,i)=>Math.abs(v-[preview.rect.x,preview.rect.y,preview.rect.w,preview.rect.h][i])<1e-8)),'ghost drawn');
+  t.pointer('pointerup',end);t.draws.length=0;t.tick();const b=t.live.book(524);
+  assert.equal(b.place,preview.place);if(b.place==='shelf')assert.equal(b.slot,preview.slot);else if(b.place==='cart')assert.equal(b.cartSlot,preview.slot);else{assert.equal(b.x,preview.point.x);assert.equal(b.y,preview.point.y);}
+  assert.equal(t.interaction().dropPreview,null);
+  assert.ok(t.draws.some(d=>d.length===9&&d.slice(5).every((v,i)=>Math.abs(v-[preview.rect.x,preview.rect.y,preview.rect.w,preview.rect.h][i])<1e-8)),'released sprite matches preview dimensions');
+  if(mode==='cart')assert.equal(t.live.book(5).place,'floor');
+  if(mode==='shelf'){assert.notEqual(b.series,t.slots[b.slot].series);assert.equal(preview.rect.w,SERIES[t.slots[b.slot].series].bookWidth);}
+ }
+});
+
+test('preview follows zoom and clears on leaving canvas, escape, cancellation, pinch and background',()=>{
+ for(const end of ['pointercancel','lostpointercapture','Escape','pinch','gallery-background','pagehide']){
+  const t=harness(812,375);t.live.demoArrange('sort');t.live.move(524,'floor',-1,{x:870,y:250});Object.assign(t.live.state.camera,{x:900,y:250,zoom:3});t.advance();const before=t.state().books;
+  t.pointer('pointerdown',t.screen([870,240]));t.pointer('pointermove',t.screen([t.slots[524].x,t.slots[524].y-12]));t.tick();assert.ok(t.interaction().dropPreview);
+  t.pointer('pointermove',[-5,100]);t.tick();assert.equal(t.interaction().dropPreview,null);
+  t.pointer('pointermove',t.screen([t.slots[524].x,t.slots[524].y-12]));t.tick();assert.ok(t.interaction().dropPreview);
+  if(end==='Escape')t.events.get('keydown')({key:'Escape',target:{tagName:'CANVAS'},preventDefault(){}});
+  else if(end==='pinch')t.pointer('pointerdown',[500,200],2);
+  else if(end.startsWith('pointer')||end==='lostpointercapture')t.pointer(end,t.screen([t.slots[524].x,t.slots[524].y-12]));
+  else t.events.get(end)();
+  t.advance();assert.equal(t.interaction().dropPreview,null);assert.deepEqual(t.state().books,before);
+ }
+});
+
+test('preview and release share bottom-inset filtering, and an unavailable destination draws no ghost',()=>{
+ const t=harness(844,390,undefined,undefined,true,21);t.live.demoArrange('sort');t.live.move(524,'floor',-1,{x:870,y:250});Object.assign(t.live.state.camera,{x:900,y:250,zoom:3});t.advance();
+ const from=t.screen([870,240]),to=[430,365];t.pointer('pointerdown',from);t.pointer('pointermove',to);t.tick();assert.equal(t.interaction().dropPreview,null);
+ t.pointer('pointerup',to);t.tick();const b=t.live.book(524);assert.equal(b.place,'floor');assert.ok(t.screen([b.x,b.y])[1]<=390-21-6+.001);
+ t.live.move(524,'floor',-1,{x:870,y:250});t.advance();const before=t.state().books;t.live.nearestDrop=()=>null;
+ t.pointer('pointerdown',from);t.pointer('pointermove',[430,230]);t.tick();assert.equal(t.interaction().dropPreview,null);t.pointer('pointerup',[430,230]);assert.deepEqual(t.state().books,before);
+});
 
 test('manual gallery loads the full catalogue and paints visible books at desktop and touch dimensions',()=>{for(const [w,h] of [[1440,810],[390,844]]){const t=harness(w,h);t.advance();assert.equal(t.get('loading').hidden,true);assert.equal(t.state().books.length,1119);const count=t.draws.filter(d=>d.length===9&&d[0]._src!=='volume-marks').length;assert.ok(count>0&&count<=1119);assert.equal(t.get('selection').hidden,true);}});
 

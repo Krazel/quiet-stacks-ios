@@ -7,7 +7,7 @@
   try{const s=JSON.parse(localStorage.getItem(KEY));if(s){settings.muted=s.muted===true;for(const k of ['volume','effects'])if(Number.isFinite(s[k]))settings[k]=Math.max(0,Math.min(1,s[k]));}}catch{}
   const audio=new Audio();audio.preload='auto';audio.loop=false;
   let context,gain,master,source,unlocked=false,background=false,pendingPlay=false,musicReady=false,playAttempt=0;
-  const groups={pickup:['handleSmallLeather','handleSmallLeather2'],place:['bookPlace1','bookPlace2','bookPlace3'],floor:['bookCloseSoftL'],inspect:['bookFlip3','bookFlip2'],correct:['confirmation_001']};
+  const groups={pickup:['handleSmallLeather','handleSmallLeather2'],place:['bookPlace1-tail-v2','bookPlace2-tail-v2','bookPlace3-tail-v2'],floor:['bookCloseSoftL-tail-v2'],inspect:['bookFlip3','bookFlip2'],correct:['confirmation_001']};
   const buffers=new Map(),requests=new Map(),decoding=new Set(),last={},voices=[],queued=[];
   const status=$('music-status'),panel=$('music-panel');
   const visible=()=>!document.hidden&&!background;
@@ -21,8 +21,16 @@
     const available=groups[kind].filter(n=>buffers.has(n)),choices=available.length>1?available.filter(n=>n!==last[kind]):available;if(!choices.length)return false;
     const name=choices[Math.floor(Math.random()*choices.length)];last[kind]=name;
     while(voices.length>=2)voices.shift().stop();
-    const voice=context.createBufferSource(),volume=context.createGain();voice.buffer=buffers.get(name);voice.playbackRate.value=kind==='floor'?2**((Math.random()*3-1.5)/12):kind==='pickup'||kind==='correct'?2**((Math.random()*2-1)/12):1;volume.gain.value=settings.effects;
-    voice.connect(volume);volume.connect(master);voices.push(voice);voice.onended=()=>{const i=voices.indexOf(voice);if(i>=0)voices.splice(i,1);voice.disconnect();volume.disconnect();};voice.start();return true;
+    const voice=context.createBufferSource(),volume=context.createGain(),placing=kind==='floor'||kind==='place';voice.buffer=buffers.get(name);
+    voice.playbackRate.value=placing?2**((Math.random()*1.3-.65)/12):kind==='pickup'||kind==='correct'?2**((Math.random()*2-1)/12):1;
+    let duration;
+    if(placing){
+      // Extend the leather/paper release in the recording, not with echo voices.
+      // Tail length varies independently of pitch; the envelope reaches silence at the cutoff.
+      duration=voice.buffer.duration*(.88+Math.random()*.12);const now=context.currentTime,end=duration/voice.playbackRate.value,tail=.10+Math.random()*.06,level=settings.effects*.88;
+      volume.gain.setValueAtTime(level,now);volume.gain.setValueAtTime(level,now+Math.max(.04,end-tail));volume.gain.linearRampToValueAtTime(0,now+end);
+    }else volume.gain.value=settings.effects;
+    voice.connect(volume);volume.connect(master);voices.push(voice);voice.onended=()=>{const i=voices.indexOf(voice);if(i>=0)voices.splice(i,1);voice.disconnect();volume.disconnect();};if(placing)voice.start(0,0,duration);else voice.start();return true;
   }
   function flushEffects(){for(let i=0;i<queued.length;){const q=queued[i];if(!visible()||!settings.effects||performance.now()-q.at>250){queued.splice(i,1);continue;}if(sound(q.kind))queued.splice(i,1);else i++;}}
   function effect(kind){if(!groups[kind]||!visible()||!settings.effects)return;if(context?.state!=='running')interact();if(!sound(kind)){queued.push({kind,at:performance.now()});if(queued.length>2)queued.shift();}}

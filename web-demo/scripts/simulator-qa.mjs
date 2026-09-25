@@ -111,4 +111,4 @@ await checkBookUI(phone,'iphone');run('xcrun',['simctl','shutdown',phone.udid]);
 const tablet=available[runtime].find(d=>d.name.includes('iPad mini'))||available[runtime].find(d=>d.name.includes('iPad'));assert.ok(tablet,'iPad simulator unavailable');await checkBookUI(tablet,'ipad',true);
 console.log(JSON.stringify({ready:true,sustainedSeconds:45,sorted,scattered,restored,diagnosticCopied:true,frames:previousFrames,mobileUI:true}));
 run('xcrun',['simctl','shutdown',tablet.udid]);
-const {captureStore}=await import('./store-screenshots.mjs');await captureStore({run,available,runtime,derived,out});
+if(process.env.GALLERY_STORE_CAPTURES!=='0'){const {captureStore}=await import('./store-screenshots.mjs');await captureStore({run,available,runtime,derived,out});}

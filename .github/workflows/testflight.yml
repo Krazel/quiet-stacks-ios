@@ -11,6 +11,8 @@ jobs:
     if: github.actor == github.repository_owner && github.ref == 'refs/heads/main'
     runs-on: macos-15
     timeout-minutes: 25
+    env:
+      GALLERY_STORE_CAPTURES: '0'
     defaults:
       run:
         working-directory: web-demo
@@ -25,11 +27,31 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: QuietStacks-1.0.1-native-QA
+          name: QuietStacks-1.1-native-QA
           path: web-demo/artifacts/native-qa/
           retention-days: 7
+  audio:
+    if: github.actor == github.repository_owner && github.ref == 'refs/heads/main'
+    runs-on: macos-15
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: web-demo
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node scripts/simulator-audio-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: QuietStacks-1.1-audio-QA
+          path: web-demo/artifacts/audio-native-qa/
+          retention-days: 7
   testflight:
-    needs: verify
+    needs: [verify, audio]
     runs-on: macos-26
     environment: app-store-production
     timeout-minutes: 25
@@ -55,7 +77,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: QuietStacks-1.0.1-build1-TestFlight
+          name: QuietStacks-1.1-build1-TestFlight
           path: web-demo/artifacts/testflight/
           if-no-files-found: ignore
           retention-days: 7

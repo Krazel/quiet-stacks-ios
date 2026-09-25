@@ -3,7 +3,7 @@ const {default:packed}=await import('./web/js/gallery-packed.js').then(()=>({def
 files=files.filter(f=>!f.startsWith('assets/')||['assets/nameplates-v14.png'].includes(f));
 files.push('assets/gallery-walls-v174.png','js/gallery-story.js','js/gallery-feedback.js','js/gallery-expanded.js','js/gallery-ambience.js','js/gallery-gpu.js','js/gallery-performance.js','js/gallery-layout.js','js/gallery-diagnostics.js','js/gallery-packed.js',...packed.pages.map(p=>p.file));
 files.push('js/gallery-music.js','assets/meditation-impromptu-01.mp3','js/gallery-book-motion.js');
-files.push(...['handleSmallLeather','handleSmallLeather2','bookPlace1','bookPlace2','bookPlace3','bookFlip3','bookFlip2','confirmation_001','bookCloseSoftL'].map(n=>'assets/sfx-'+n+'.wav'));
+files.push(...['handleSmallLeather','handleSmallLeather2','bookPlace1-tail-v2','bookPlace2-tail-v2','bookPlace3-tail-v2','bookFlip3','bookFlip2','confirmation_001','bookCloseSoftL-tail-v2'].map(n=>'assets/sfx-'+n+'.wav'));
 const roomArtwork=await import('./web/js/gallery-room-artwork.js').then(()=>globalThis.GalleryRoomArtwork);
 files=files.filter(f=>!['assets/gallery-walls-v174.png','assets/nameplates-v14.png'].includes(f));
 files.push('js/gallery-room-artwork.js','js/gallery-shelf-fit.js',...roomArtwork.tiles.map(t=>t.file));
