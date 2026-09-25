@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-09-25T16:58:25.345Z",
+  "version": "1.1",
+  "buildNumber": 1,
+  "buildId": "7d2da7de-bf10-4eb7-b39a-3c32ed6b6142",
+  "processing": "VALID",
+  "groupId": "2de05410-3476-48a4-b3b9-b8d3a56d6cfb",
+  "internalMembershipVerified": true,
+  "betaDetail": {
+    "autoNotifyEnabled": true,
+    "internalBuildState": "IN_BETA_TESTING",
+    "externalBuildState": "READY_FOR_BETA_SUBMISSION"
+  },
+  "whatsNew": "Destination previews now appear only for shelves and trolley bays, never on the floor. Placement sounds are softer, with subtle randomized pitch and release duration. Improved audio startup and recovery after backgrounding. Updated book bindings and volume numerals, repaired spine transparency, and adjusted Settings position. Temporary Demo sorting controls remain available. Existing saved libraries are preserved.",
+  "appStoreVersionUnchanged": true
+}

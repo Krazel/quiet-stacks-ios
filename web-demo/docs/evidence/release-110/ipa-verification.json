@@ -1,0 +1,21 @@
+{
+  "version": "1.1",
+  "build": 1,
+  "commit": "1deeb55de08c1426df7578609234565425460ef0",
+  "run": "36162137792",
+  "sha256": "3641146a7877390d62f6b84385af3136dd6fd68a72d256d22a16f0b5f02872fd",
+  "deviceIPA": true,
+  "offlineFilesVerified": 44,
+  "windowsLineEndingDifferences": [
+    "index.html",
+    "gallery.css",
+    "js/gallery-textures.js",
+    "js/gallery.js",
+    "js/gallery-gpu.js",
+    "js/gallery-performance.js",
+    "js/gallery-diagnostics.js"
+  ],
+  "simulatorCodeExcluded": true,
+  "floorPreviewAbsent": true,
+  "softenedAudioBundled": true
+}
